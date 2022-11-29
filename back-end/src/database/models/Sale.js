@@ -19,10 +19,11 @@ module.exports = (sequelize, DataTypes) => {
   );
   
   Sales.associate = (models) => {
-    blogPostSchema.belongsTo(models.User, {
-      as: 'user', 
-      foreignKey: 'userId' 
+    Sales.belongsTo(models.user, {
+      as: 'user',
+      foreignKey: 'userId'
     })
   }
+  
   return Sales;
 };
