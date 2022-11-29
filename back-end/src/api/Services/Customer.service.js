@@ -1,5 +1,5 @@
-const { user } = require('../../database/models')
 const md5 = require('md5');
+const { user } = require('../../database/models');
 
 const register = async (body) => {
   const hashPassword = md5(body.password);
@@ -9,8 +9,8 @@ const register = async (body) => {
     password: hashPassword,
   });
   return newUser;
-}
+};
 
 module.exports = {
   register,
-}
+};
