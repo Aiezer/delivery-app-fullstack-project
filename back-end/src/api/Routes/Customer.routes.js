@@ -1,5 +1,8 @@
-import express from "express";
+const customerController = require('../Controllers/Customer.controller');
+const express = require('express');
 
 const router = express.Router();
 
-router.post('', () => {})
+router.post('/register', customerController.register);
+
+module.exports = router;
