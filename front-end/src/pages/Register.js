@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const emailRegex = /\S+@\S+\.\S+/;
@@ -18,9 +19,20 @@ function Register() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const { password, email, name } = form;
     e.preventDefault();
-    setError(!error);
+    const data = await axios({
+      method: 'post',
+      url: 'https://localhost:3001/customer/register',
+      data: {
+        password,
+        email,
+        name,
+      },
+    });
+    console.log(data);
+    if (!data) setError(!error);
   };
 
   const verifyButton = () => {
