@@ -13,7 +13,7 @@ const login = async (req, res) => {
 const register = async (req, res, next) => {
   try {
     const newUser = await userService.register(req.body);
-    if(!newUser) return res.status(409).json({ message: 'Email already registered'});
+    if (!newUser) return res.status(409).json({ message: 'Email already registered' });
     return res.status(201).json(newUser);
   } catch (error) {
     next(error);
