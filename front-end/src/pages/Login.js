@@ -62,15 +62,15 @@ export default function Login() {
   async function handleClick() {
     const data = await loginRequest(user);
     localStorage.setItem('user', JSON.stringify(user));
-    if (data.role === 'seller') navigate.push(`/${data.role}/orders`);
-    if (data.role === 'costumer') navigate.push(`/${data.role}/products`);
-    if (data.role === 'admin') navigate.push(`/${data.role}/manage`);
+    if (data.role === 'seller') navigate(`/${data.role}/orders`);
+    if (data.role === 'costumer') navigate(`/${data.role}/products`);
+    if (data.role === 'admin') navigate(`/${data.role}/manage`);
   }
 
   return (
     <section>
       <div>
-        <img alt="" src="" />
+        <img src="" alt="generics delivery" />
         <h1>GENERICS DELIVERY</h1>
       </div>
       <div>
