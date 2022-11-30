@@ -60,7 +60,7 @@ function Register() {
             id="name"
             value={ form.name }
             onChange={ handleChange }
-            data-testid="common_register_input-name"
+            data-testid="common_register__input-name"
           />
         </label>
         <label htmlFor="email">
@@ -71,7 +71,7 @@ function Register() {
             id="email"
             value={ form.email }
             onChange={ handleChange }
-            data-testid="common_register_input-name"
+            data-testid="common_register__input-email"
           />
         </label>
         <label htmlFor="password">
@@ -82,20 +82,22 @@ function Register() {
             id="password"
             value={ form.password }
             onChange={ handleChange }
-            data-testid="common_register_input-name"
+            data-testid="common_register__input-password"
           />
         </label>
         <div>
           <button
             type="submit"
-            data-testid="common_register_input-name"
+            data-testid="common_register__button-register"
             disabled={ isDisabled }
           >
             CADASTRAR
           </button>
         </div>
       </form>
-      {error ? <span data-testid="common_register_input-name">Error</span> : null }
+      {error ? (
+        <span data-testid="common_register__element-invalid_register">Error</span>
+      ) : null }
     </div>
   );
 }
