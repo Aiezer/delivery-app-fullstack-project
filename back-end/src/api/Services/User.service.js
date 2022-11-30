@@ -12,6 +12,9 @@ const login = async (email, password) => {
 const register = async (body) => {
   const hashPassword = md5(body.password);
 
+  const exist = await user.findOne({ where: { email: body.email }});
+  if (exist) return false;
+
   const newUser = await user.create({
     ...body,
     password: hashPassword,
