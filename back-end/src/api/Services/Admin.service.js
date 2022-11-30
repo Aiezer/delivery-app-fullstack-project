@@ -1,11 +1,10 @@
 const md5 = require('md5');
-const { user } = require('../../database/models/User');
+const { user }  = require('../../database/models');
 const { validateRegistre } = require('../utils/ValidateSchemas');
 
 const loginAdmin = async (email, password) => {
-    const findAdmin = await user.findAll({ where: email });
+    const findAdmin = await user.findAll({ where: { email } });
     if (!findAdmin[0]) return false;
-    console.log('RETORNO DO BANCO', findAdmin);
     const passwordHash = md5(password);
     if (passwordHash === findAdmin[0].password) return findAdmin;
     return false;

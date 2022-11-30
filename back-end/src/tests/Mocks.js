@@ -1,4 +1,4 @@
-const tokenMock = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InplYmlyaXRhQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiJCN6ZWJpcml0YSMkIiwiaWF0IjoxNjY5NzYzOTk0LCJleHAiOjE2Njk4NTAzOTR9.a6JVdS7-NlidNGoQkCKJVR8im_aho9O7zYaE3f1hJnU';
+const tokenMock = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InplYmlyaXRhQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiJCN6ZWJpcml0YSMkIiwiaWF0IjoxNjY5ODM2ODEwLCJleHAiOjE2Njk5MjMyMTB9.g3B-sFX8QeBNny7dLUsYbw8Pu4V4VKB0NZXtY3SUMMw";
 
 const loginMock = [{
     id: 3,
@@ -8,7 +8,15 @@ const loginMock = [{
     role: 'customer'
 }];
 
+const loginReturnMock = {
+  "name": "Cliente Zé Birita",
+  "email": "zebirita@email.com",
+  "role": "customer",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InplYmlyaXRhQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiJCN6ZWJpcml0YSMkIiwiaWF0IjoxNjY5ODM2ODEwLCJleHAiOjE2Njk5MjMyMTB9.g3B-sFX8QeBNny7dLUsYbw8Pu4V4VKB0NZXtY3SUMMw"
+}
+
 module.exports = {
     tokenMock,
     loginMock,
+    loginReturnMock,
 };

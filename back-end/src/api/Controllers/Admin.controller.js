@@ -13,11 +13,9 @@ const loginAdmin = async (req, res) => {
   return res.status(200).json({ token });
 };
 
-const registreAdmin = (req, res, next) => {
-    console.log('BODY DE ENTRADA', req.body);
+const registreAdmin = async (req, res, next) => {
   try {
-    const newAdmin = adminService.registerAdmin(req.body);
-    console.log('VOLTA DO SERVICE',newAdmin);
+    const newAdmin = await adminService.registerAdmin(req.body);
     if (!newAdmin) return res.status(409).json({ message: 'Email already registered' });
     return res.status(201).json(newAdmin);
   } catch (error) {
@@ -29,10 +27,3 @@ module.exports = {
   loginAdmin,
   registreAdmin,
 };
-
-// {
-//     "name": "laland",
-//     "email": "laland@email.com",
-//     "password":"$#laland#$",
-//     "role": "customer"
-//     }

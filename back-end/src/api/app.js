@@ -1,7 +1,7 @@
 const express = require('express');
 const errorHandler = require('./Middlewares/error.middleware');
-const UserRouter = require('./Routes/User.routes');
-const AdminRouter = require('./Routes/Admin.routes');
+const { UserRouter } = require('./Routes');
+const { AdminRouter } = require('./Routes');
 
 const app = express();
 
