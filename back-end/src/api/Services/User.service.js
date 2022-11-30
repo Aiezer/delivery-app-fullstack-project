@@ -4,11 +4,11 @@ const { validateRegistre } = require('../utils/ValidateSchemas');
 
 const login = async (email, password) => {
   const findUser = await user.findAll({ where: { email } });
-  if (!findUser[0]) return { bool: false, message: "Não existe esse usuário!" };
+  if (!findUser[0]) return { bool: false, message: 'Não existe esse usuário!' };
   const passwordHash = md5(password);
-  if(passwordHash === findUser[0].password) return { bool: true, message: findUser[0] };
-  return { bool: false, message: "A senha está incorreta!" };
-}
+  if (passwordHash === findUser[0].password) return { bool: true, message: findUser[0] };
+  return { bool: false, message: 'A senha está incorreta!' };
+};
 
 const register = async (body) => {
   const findError = validateRegistre(body);
