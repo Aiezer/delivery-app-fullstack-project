@@ -39,7 +39,7 @@ export default function Login() {
   return (
     <section>
       <div>
-        <img src="" />
+        <img src="" alt="generics delivery" />
         <h1>GENERICS DELIVERY</h1>
       </div>
       <div>
