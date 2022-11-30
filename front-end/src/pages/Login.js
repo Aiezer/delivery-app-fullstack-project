@@ -3,7 +3,7 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
 import verify from '../utils/redirect';
 
-const six = 6;
+const minLength = 6;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -53,13 +53,12 @@ export default function Login() {
 
     const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (user.password.length > six
-      && (VALIDATE_EMAIL.test(user.email))
-    ) return setIsDisabled(false);
+    if (user.password.length > minLength
+      && VALIDATE_EMAIL.test(user.email)) { return setIsDisabled(false); }
 
-    if (user.password.length < six
-      || !(VALIDATE_EMAIL.test(user.email))
-    ) return setIsDisabled(true);
+    if (user.password.length < minLength || !VALIDATE_EMAIL.test(user.email)) {
+      return setIsDisabled(true);
+    }
   };
 
   const verifyNavigateRoute = (role) => {

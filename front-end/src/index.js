@@ -7,9 +7,13 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
+<<<<<<< HEAD
     <BrowserRouter>
       <App />
     </BrowserRouter>
+=======
+      <App />
+>>>>>>> 580ce73 (fix: ajustando redirecionamentos e validação do token)
   </React.StrictMode>,
   document.getElementById('root'),
 );
