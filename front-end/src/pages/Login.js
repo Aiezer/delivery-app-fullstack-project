@@ -1,13 +1,44 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
+import verify from '../utils/redirect';
 
 const six = 6;
 
 export default function Login() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
+
+  async function start() {
+    const path = await verify();
+    switch (path) {
+    case 'admin':
+      navigate('/admin/manage');
+      break;
+    case 'seller':
+      navigate('/seller/orders');
+      break;
+    case 'customer':
+      navigate('/customer/products');
+      break;
+    default:
+      navigate(path);
+    }
+    // if (path.role === 'admin') {
+    //   navigate(`/${path.role}/manage`);
+    // }
+    // if (path.role === 'seller') {
+    //   navigate(`/${path.role}/orders`);
+    // }
+    // if (path.role === 'customer') {
+    //   navigate(`/${path.role}/products`);
+    // }
+  }
+
+  useEffect(() => {
+    start();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,9 +62,9 @@ export default function Login() {
   async function handleClick() {
     const data = await loginRequest(user);
     localStorage.setItem('user', JSON.stringify(user));
-    if (data.role === 'seller') history.push(`/${data.role}/orders`);
-    if (data.role === 'costumer') history.push(`/${data.role}/products`);
-    if (data.role === 'admin') history.push(`/${data.role}/manage`);
+    if (data.role === 'seller') navigate(`/${data.role}/orders`);
+    if (data.role === 'costumer') navigate(`/${data.role}/products`);
+    if (data.role === 'admin') navigate(`/${data.role}/manage`);
   }
 
   return (
@@ -67,27 +98,36 @@ export default function Login() {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="login">
+        <button
+          datatestid="common_login__button-login"
+          id="login"
+          name="enter"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ handleClick }
+        >
           LOGIN
-          <button
-            datatestid="common_login__button-login"
-            id="login"
-            name="enter"
-            type="button"
-            disabled={ isDisabled }
-            onClick={ handleClick }
-          />
-        </label>
-        <label htmlFor="register">
+        </button>
+        <button
+          datatestid="common_login__button-login"
+          id="register"
+          name="register"
+          type="button"
+          onClick={ () => navigate.push('/register') }
+        >
           Ainda não tenho conta
-          <button
-            datatestid="common_login__button-login"
-            id="register"
-            name="register"
-            type="button"
-            onClick={ () => history.push('/register') }
-          />
-        </label>
+          Login
+        </button>
+
+        <button
+          datatestid="common_login__button-register"
+          id="register"
+          name="register"
+          type="button"
+          onClick={ () => history.push('/register') }
+        >
+          Registrar
+        </button>
       </div>
     </section>
   );
