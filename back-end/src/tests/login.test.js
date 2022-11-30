@@ -1,4 +1,5 @@
 const { expect } = require('chai')
+const chai = require('chai')
 const sinon = require('sinon')
 const app = require('../api/app')
 const chaiHttp = require('chai-http')
@@ -12,7 +13,7 @@ chai.use(chaiHttp)
 describe('testa a rota /login', function () {
   it('testa se é possível realizar um login como consumidor com sucesso', async function() {
     before(async () => {
-      sinon.stub(Model, 'findOne').resolves(loginMock);
+      sinon.stub(Model, 'findAll').resolves(loginMock);
       sinon.stub(JsonWebToken, 'sign').resolves(tokenMock)
 
     })
@@ -28,7 +29,7 @@ describe('testa a rota /login', function () {
 
   it('testa que não é possível fazer login com dados inexistentes no banco', async function () {
     before(async () => {
-        sinon.stub(Model, 'findOne').resolves()
+        sinon.stub(Model, 'findAll').resolves([])
     })
     const response = await chai.request(app).post('/login').send({
         email: 'inexistente@email.com',
@@ -36,8 +37,7 @@ describe('testa a rota /login', function () {
        })
    
        expect(response.status).to.be.equal(404)
-       expect(response.body).to.be.deep.equal({message: 'Not found' })
+       expect(response.body).to.be.deep.equal({ message: 'Nome de usuário ou senha incorreta(o)(s)' })
     })
-
   afterEach(sinon.restore);
 })
