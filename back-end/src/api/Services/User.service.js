@@ -1,5 +1,8 @@
 const md5 = require('md5');
+const jwt = require('jsonwebtoken');
 const { user } = require('../../database/models');
+
+const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 const login = async (email, password) => {
   const findUser = await user.findAll({ where: { email } });
@@ -23,7 +26,21 @@ const register = async (body) => {
   return newUser;
 };
 
+const validateToken = async (body) => {
+  const { token } = body;
+  try {
+      const decoded = jwt.verify(token, secret);
+      const passwordHash = md5(decoded.password);
+      const findUser = await user.findAll({ where: { email: decoded.email } });
+      if (passwordHash === findUser[0].password) return true;
+      return false
+    } catch (e) {
+      return false;
+    }
+};
+
 module.exports = {
   register,
   login,
+  validateToken
 };

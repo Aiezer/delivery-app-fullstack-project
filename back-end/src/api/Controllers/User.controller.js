@@ -21,7 +21,14 @@ const register = async (req, res, next) => {
   }
 };
 
+const validateToken = async (req, res, next) => {
+      const service = await userService.validateToken(req.body)
+      if (service === false) return res.status(401).send(false);
+      if (service === true) return res.status(200).send(true);
+};
+
 module.exports = {
   register,
   login,
+  validateToken
 };
