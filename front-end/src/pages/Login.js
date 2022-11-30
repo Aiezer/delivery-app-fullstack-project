@@ -67,27 +67,26 @@ export default function Login() {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="login">
-          LOGIN
-          <button
-            datatestid="common_login__button-login"
-            id="login"
-            name="enter"
-            type="button"
-            disabled={ isDisabled }
-            onClick={ handleClick }
-          />
-        </label>
-        <label htmlFor="register">
-          Ainda não tenho conta
-          <button
-            datatestid="common_login__button-login"
-            id="register"
-            name="register"
-            type="button"
-            onClick={ () => history.push('/register') }
-          />
-        </label>
+        <button
+          datatestid="common_login__button-login"
+          id="login"
+          name="enter"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ handleClick }
+        >
+          Login
+        </button>
+
+        <button
+          datatestid="common_login__button-register"
+          id="register"
+          name="register"
+          type="button"
+          onClick={ () => history.push('/register') }
+        >
+          Registrar
+        </button>
       </div>
     </section>
   );
