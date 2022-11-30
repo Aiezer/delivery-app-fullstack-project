@@ -29,6 +29,10 @@ function Admin() {
     validateForm();
   };
 
+  async function handleClick() {
+    console.log('continua fazendo o registro com o back');
+  }
+
   return (
     <div>
       <header>
@@ -108,7 +112,7 @@ function Admin() {
           id="register"
           name="register"
           type="button"
-          onClick={ () => {} }
+          onClick={ handleClick }
           disabled={ isDisabled }
         >
           {' '}
