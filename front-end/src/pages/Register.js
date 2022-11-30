@@ -1,16 +1,35 @@
 import React, { useState } from 'react';
 
+const emailRegex = /\S+@\S+\.\S+/;
+const SIX = 6;
+
 function Register() {
   const [error, setError] = useState(false);
-  const [form, setForm] = useState({ nome: '', email: '', senha: '' });
+  const [isDisabled, setIsDisaisDisabled] = useState(true);
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
+
+  const validateEmail = (email) => emailRegex.test(email);
+
+  const validateForm = () => {
+    const { password, email, name } = form;
+    if ()
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    validateEmail(form.email);
     setError(!error);
+  };
+
+  const verifyButton = () => {
+    if (validateForm()) {
+      setIsDisaisDisabled(false);
+    }
   };
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.id]: [target.value] });
+    verifyButton();
   };
 
   return (
@@ -39,13 +58,13 @@ function Register() {
             data-testid="common_register_input-name"
           />
         </label>
-        <label htmlFor="senha">
+        <label htmlFor="password">
           <h3>Senha</h3>
           <input
             type="password"
             placeholder="*******"
-            id="senha"
-            value={ form.senha }
+            id="password"
+            value={form.password }
             onChange={ handleChange }
             data-testid="common_register_input-name"
           />
@@ -54,6 +73,7 @@ function Register() {
           <button
             type="submit"
             data-testid="common_register_input-name"
+            disabled={ isDisabled }
           >
             CADASTRAR
           </button>
