@@ -9,4 +9,4 @@ export default async function loginRequest({ email, password }) {
   },
   });
   return data;
-  } 
+} 

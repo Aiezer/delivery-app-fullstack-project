@@ -32,8 +32,7 @@ export default function Login() {
   function handleClick() {
     const data = loginRequest(user);
     localStorage.setItem('user', JSON.stringify(user));
-    // localStorage.setItem('userId', JSON.stringify({ userId: id }));
-    
+    history.push(`/${data.role}/products`)
   }
 
   return (
@@ -60,8 +59,8 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
-            value={ user.email }
-            placeholder="Email"
+            value={ user.password }
+            placeholder="Password"
             onChange={ handleChange }
           />
         </label>
