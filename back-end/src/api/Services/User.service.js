@@ -33,7 +33,7 @@ const validateToken = async (body) => {
       const passwordHash = md5(decoded.password);
       const findUser = await user.findAll({ where: { email: decoded.email } });
       if (passwordHash === findUser[0].password) return true;
-      return false
+      return false;
     } catch (e) {
       return false;
     }
@@ -42,5 +42,5 @@ const validateToken = async (body) => {
 module.exports = {
   register,
   login,
-  validateToken
+  validateToken,
 };

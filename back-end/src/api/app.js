@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use('/customer', UserRouter);
 app.use('/login', UserRouter);
-app.use('/validate', ValidateRouter)
+app.use('/validate', ValidateRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(errorHandler);
