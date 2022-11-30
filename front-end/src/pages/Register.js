@@ -24,7 +24,7 @@ function Register() {
     e.preventDefault();
     const data = await axios({
       method: 'post',
-      url: 'https://localhost:3001/customer/register',
+      url: 'http://localhost:3001/customer/register',
       data: {
         password,
         email,
