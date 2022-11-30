@@ -10,7 +10,7 @@ const { tokenMock, loginMock, loginReturnMock } = require('./Mocks')
 
 chai.use(chaiHttp)
 
-describe('testa a rota /login', function () {
+describe('testa a rota /customer', function () {
   it('testa se é possível realizar um login como consumidor com sucesso', async function() {
     before(() => {
       sinon.stub(Model, 'findAll').resolves(loginMock);
@@ -43,7 +43,7 @@ describe('testa a rota /login', function () {
     before(async () => {
       sinon.stub(Model, 'findAll').resolves(loginMock)
     });
-    const response = await chai.request(app).post('/login').send({
+    const response = await chai.request(app).post('/customer').send({
       email: 'zebirita@email.com',
       password: 'inexistente',
     });
