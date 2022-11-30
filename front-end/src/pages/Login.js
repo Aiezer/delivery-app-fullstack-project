@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
 import verify from '../utils/redirect';
 
@@ -9,6 +9,9 @@ export default function Login() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
+  const [errorRequest, setErrorRequest] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
+  const [navigateRoute, setNavigateRoute] = useState('');
 
   async function start() {
     const path = await verify();
@@ -59,13 +62,34 @@ export default function Login() {
     ) return setIsDisabled(true);
   };
 
-  async function handleClick() {
-    const data = await loginRequest(user);
-    localStorage.setItem('user', JSON.stringify(user));
-    if (data.role === 'seller') navigate(`/${data.role}/orders`);
-    if (data.role === 'costumer') navigate(`/${data.role}/products`);
-    if (data.role === 'admin') navigate(`/${data.role}/manage`);
-  }
+  const verifyNavigateRoute = (role) => {
+    if (role === 'customer') {
+      setNavigateRoute(`/${role}/products`);
+    }
+    if (role === 'seller') {
+      setNavigateRoute(`/${role}/orders`);
+    }
+    if (role === 'administrator') {
+      setNavigateRoute(`/${role}/manage`);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const { id, role, token, name } = await loginRequest(email, password);
+      const saveUser = { name, email, role, token };
+      setErrorRequest('');
+      localStorage.setItem('user', JSON.stringify({ user: saveUser }));
+      localStorage.setItem('userId', JSON.stringify({ userId: id }));
+      setIsLogged(true);
+      verifyNavigateRoute(role);
+    } catch (e) {
+      setErrorRequest('Email ou senha inválidos');
+      console.log(e);
+    }
+  };
+
+  if (isLogged) return <Navigate to={ navigateRoute } />;
 
   return (
     <section>
@@ -104,7 +128,7 @@ export default function Login() {
           name="enter"
           type="button"
           disabled={ isDisabled }
-          onClick={ handleClick }
+          onClick={ handleLogin }
         >
           LOGIN
         </button>
@@ -113,21 +137,15 @@ export default function Login() {
           id="register"
           name="register"
           type="button"
-          onClick={ () => navigate.push('/register') }
+          onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
-          Login
         </button>
-
-        <button
-          datatestid="common_login__button-register"
-          id="register"
-          name="register"
-          type="button"
-          onClick={ () => history.push('/register') }
-        >
-          Registrar
-        </button>
+        {errorRequest && (
+          <div data-testid="common_login__element-invalid-email">
+            { errorRequest }
+          </div>
+        )}
       </div>
     </section>
   );
