@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
+import { Redirect } from '../utils/redirect';
 
 const six = 6;
 
 export default function Login() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
+
+  async function verify() {
+    const path = await Redirect();
+    navigate(path);
+  }
+
+  useEffect(() => {
+    verify();
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,19 +41,19 @@ export default function Login() {
   async function handleClick() {
     const data = await loginRequest(user);
     localStorage.setItem('user', JSON.stringify(user));
-    if (data.role === "seller") history.push(`/${data.role}/orders`)
-    if (data.role === "costumer") history.push(`/${data.role}/products`)
-    if (data.role === "admin") history.push(`/${data.role}/manage`)
+    if (data.role === 'seller') navigate.push(`/${data.role}/orders`);
+    if (data.role === 'costumer') navigate.push(`/${data.role}/products`);
+    if (data.role === 'admin') navigate.push(`/${data.role}/manage`);
   }
 
   return (
     <section>
       <div>
-        <img src='' />
+        <img alt="" src="" />
         <h1>GENERICS DELIVERY</h1>
       </div>
       <div>
-        <label htmlFor='email'>
+        <label htmlFor="email">
           Login
           <input
             datatestid="common_login__input-email"
@@ -55,7 +65,7 @@ export default function Login() {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor='password' >
+        <label htmlFor="password">
           Senha
           <input
             datatestid="common_login__input-password"
@@ -67,28 +77,26 @@ export default function Login() {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor='login'>
+        <button
+          datatestid="common_login__button-login"
+          id="login"
+          name="enter"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ handleClick }
+        >
           LOGIN
-          <button
-            datatestid="common_login__button-login"
-            id='login'
-            name='enter'
-            type='button'
-            disabled={ isDisabled }
-            onClick={ handleClick }
-          />
-        </label>
-        <label htmlFor='register'>
+        </button>
+        <button
+          datatestid="common_login__button-login"
+          id="register"
+          name="register"
+          type="button"
+          onClick={ () => navigate.push('/register') }
+        >
           Ainda não tenho conta
-          <button
-            datatestid="common_login__button-login"
-            id='register'
-            name='register'
-            type='button'
-            onClick={ () => history.push("/register") }
-          />
-        </label>
+        </button>
       </div>
     </section>
-  )
+  );
 }

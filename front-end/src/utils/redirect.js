@@ -1,28 +1,23 @@
-import { useHistory } from "react-router-dom";
-
-const history = useHistory();
-
-export default async function Redirect() {
-  const user = localStorage.getItem(user).JSON();
-  if (!user) {
-    history.push("/login");
-  }
-  const result = await verify(user);
-  if (!result) {
-    history.push("/login");
-  }
-  history.push(`/${user.role}/products`);
-}
-
-export default async function verify(user) {
+export async function verify(user) {
   const { token } = user;
   const { data } = await axios({
-  method: 'POST',
-  url: 'http://localhost:3001/login',
-  headers,
-  data: {
-  token,
-  },
+    method: 'POST',
+    url: 'http://localhost:3001/validate',
+    headers,
+    data: {
+      token,
+    },
   });
   return data;
-} 
+}
+
+export async function Redirect() {
+  // const data = localStorage.getItem(user).JSON();
+
+  // const result = await verify(data);
+  // if (!result) {
+  //   return ('/login');
+  // }
+  // return (`/${data.role}/products`);
+  return '/login';
+}
