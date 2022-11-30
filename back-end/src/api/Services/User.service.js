@@ -1,6 +1,7 @@
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const { user } = require('../../database/models');
+const { validateRegistre } = require('../utils/ValidateSchemas');
 
 const secret = process.env.JWT_SECRET || 'jwt_secret';
 
@@ -13,6 +14,10 @@ const login = async (email, password) => {
 };
 
 const register = async (body) => {
+  const findError = validateRegistre(body);
+
+  if (findError) throw new Error(findError);
+
   const hashPassword = md5(body.password);
 
   const exist = await user.findOne({ where: { email: body.email } });
