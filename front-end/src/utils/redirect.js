@@ -1,6 +1,7 @@
-export async function verify(user) {
-  const { token } = user;
-  const { data } = await axios({
+export default async function verify() {
+  const data = localStorage.getItem(user).JSON();
+  const { token } = data;
+  const tokenResp = await axios({
     method: 'POST',
     url: 'http://localhost:3001/validate',
     headers,
@@ -8,16 +9,8 @@ export async function verify(user) {
       token,
     },
   });
-  return data;
-}
-
-export async function Redirect() {
-  // const data = localStorage.getItem(user).JSON();
-
-  // const result = await verify(data);
-  // if (!result) {
-  //   return ('/login');
-  // }
-  // return (`/${data.role}/products`);
+  if (tokenResp) {
+    return data.role;
+  }
   return '/login';
 }

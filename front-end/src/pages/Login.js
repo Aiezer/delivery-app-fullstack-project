@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
-import { Redirect } from '../utils/redirect';
+import verify from '../utils/redirect';
 
 const six = 6;
 
@@ -10,14 +10,35 @@ export default function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
 
-  async function verify() {
-    const path = await Redirect();
-    navigate(path);
+  async function start() {
+    const path = await verify();
+    switch (path) {
+    case 'admin':
+      navigate('/admin/manage');
+      break;
+    case 'seller':
+      navigate('/seller/orders');
+      break;
+    case 'customer':
+      navigate('/customer/products');
+      break;
+    default:
+      navigate('/login');
+    }
+    // if (path.role === 'admin') {
+    //   navigate(`/${path.role}/manage`);
+    // }
+    // if (path.role === 'seller') {
+    //   navigate(`/${path.role}/orders`);
+    // }
+    // if (path.role === 'customer') {
+    //   navigate(`/${path.role}/products`);
+    // }
   }
 
   useEffect(() => {
-    verify();
-  });
+    start();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
