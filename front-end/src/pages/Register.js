@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const emailRegex = /\S+@\S+\.\S+/;
@@ -13,20 +14,33 @@ function Register() {
 
   const validateForm = () => {
     const { password, email, name } = form;
-    if (password.length >= SIX && name.length >= TWELVE && validateEmail(email)) {
+    if (password.length >= SIX && name.length <= TWELVE && validateEmail(email)) {
       return true;
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const { password, email, name } = form;
     e.preventDefault();
-    setError(!error);
+    await axios({
+      method: 'post',
+      url: 'http://localhost:3001/customer/register',
+      data: {
+        password,
+        email,
+        name,
+      },
+    }).then((response) => console.log(response))
+      .catch((err) => {
+        if (err) setError(true);
+      });
   };
 
   const verifyButton = () => {
     if (validateForm()) {
-      setIsDisabled(false);
+      return setIsDisabled(false);
     }
+    return setIsDisabled(true);
   };
 
   const handleChange = ({ target }) => {
@@ -46,7 +60,7 @@ function Register() {
             id="name"
             value={ form.name }
             onChange={ handleChange }
-            data-testid="common_register_input-name"
+            data-testid="common_register__input-name"
           />
         </label>
         <label htmlFor="email">
@@ -57,7 +71,7 @@ function Register() {
             id="email"
             value={ form.email }
             onChange={ handleChange }
-            data-testid="common_register_input-name"
+            data-testid="common_register__input-email"
           />
         </label>
         <label htmlFor="password">
@@ -68,20 +82,22 @@ function Register() {
             id="password"
             value={ form.password }
             onChange={ handleChange }
-            data-testid="common_register_input-name"
+            data-testid="common_register__input-password"
           />
         </label>
         <div>
           <button
             type="submit"
-            data-testid="common_register_input-name"
+            data-testid="common_register__button-register"
             disabled={ isDisabled }
           >
             CADASTRAR
           </button>
         </div>
       </form>
-      {error ? <span data-testid="common_register_input-name">Error</span> : null }
+      {error ? (
+        <span data-testid="common_register__element-invalid_register">Error</span>
+      ) : null }
     </div>
   );
 }

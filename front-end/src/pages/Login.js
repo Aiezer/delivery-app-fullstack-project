@@ -116,6 +116,17 @@ export default function Login() {
           onClick={ () => navigate.push('/register') }
         >
           Ainda não tenho conta
+          Login
+        </button>
+
+        <button
+          datatestid="common_login__button-register"
+          id="register"
+          name="register"
+          type="button"
+          onClick={ () => history.push('/register') }
+        >
+          Registrar
         </button>
       </div>
     </section>

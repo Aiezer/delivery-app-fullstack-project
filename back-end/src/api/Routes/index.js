@@ -5,5 +5,5 @@ const AdminRouter = require('./Admin.routes');
 module.exports = {
   UserRouter,
   AdminRouter,
-  ValidateRouter
+  ValidateRouter,
 };
