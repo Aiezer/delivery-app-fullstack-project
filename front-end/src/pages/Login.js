@@ -77,7 +77,7 @@ export default function Login() {
         <label htmlFor="email">
           Login
           <input
-            datatestid="common_login__input-email"
+            data-testid="common_login__input-email"
             id="email"
             type="text"
             name="email"
@@ -89,7 +89,7 @@ export default function Login() {
         <label htmlFor="password">
           Senha
           <input
-            datatestid="common_login__input-password"
+            data-testid="common_login__input-password"
             id="password"
             type="password"
             name="password"
@@ -99,7 +99,7 @@ export default function Login() {
           />
         </label>
         <button
-          datatestid="common_login__button-login"
+          data-testid="common_login__button-login"
           id="login"
           name="enter"
           type="button"
@@ -109,22 +109,11 @@ export default function Login() {
           LOGIN
         </button>
         <button
-          datatestid="common_login__button-login"
+          data-testid="common_login__button-register"
           id="register"
           name="register"
           type="button"
-          onClick={ () => navigate.push('/register') }
-        >
-          Ainda não tenho conta
-          Login
-        </button>
-
-        <button
-          datatestid="common_login__button-register"
-          id="register"
-          name="register"
-          type="button"
-          onClick={ () => history.push('/register') }
+          onClick={ () => navigate('/register') }
         >
           Registrar
         </button>
