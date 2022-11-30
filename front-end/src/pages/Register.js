@@ -2,39 +2,51 @@ import React, { useState } from 'react';
 
 function Register() {
   const [error, setError] = useState(false);
+  const [form, setForm] = useState({ nome: '', email: '', senha: '' });
 
-  const handleSubmit = () => {
-    setError(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError(!error);
+  };
+
+  const handleChange = ({ target }) => {
+    setForm({ ...form, [target.id]: [target.value] });
   };
 
   return (
     <div>
       <form onSubmit={ handleSubmit }>
         <h2>Cadastro</h2>
-        <label htmlFor="input-name">
+        <label htmlFor="name">
           <h3>Nome</h3>
           <input
             type="text"
             placeholder="Seu nome"
-            id="input-name"
+            id="nome"
+            value={ form.nome }
+            onChange={ handleChange }
             data-testid="common_register_input-name"
           />
         </label>
-        <label htmlFor="input-email">
+        <label htmlFor="email">
           <h3>Email</h3>
           <input
             type="email"
             placeholder="seu-email@site.com.br"
-            id="input-email"
+            id="email"
+            value={ form.email }
+            onChange={ handleChange }
             data-testid="common_register_input-name"
           />
         </label>
-        <label htmlFor="input-senha">
+        <label htmlFor="senha">
           <h3>Senha</h3>
           <input
             type="password"
             placeholder="*******"
-            id="input-senha"
+            id="senha"
+            value={ form.senha }
+            onChange={ handleChange }
             data-testid="common_register_input-name"
           />
         </label>
