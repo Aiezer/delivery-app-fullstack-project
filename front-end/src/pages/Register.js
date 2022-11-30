@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 
 const emailRegex = /\S+@\S+\.\S+/;
+const TWELVE = 12;
 const SIX = 6;
 
 function Register() {
   const [error, setError] = useState(false);
-  const [isDisabled, setIsDisaisDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
 
   const validateEmail = (email) => emailRegex.test(email);
 
   const validateForm = () => {
     const { password, email, name } = form;
-    if ()
+    if (password.length >= SIX && name.length >= TWELVE && validateEmail(email)) {
+      return true;
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateEmail(form.email);
     setError(!error);
   };
 
   const verifyButton = () => {
     if (validateForm()) {
-      setIsDisaisDisabled(false);
+      setIsDisabled(false);
     }
   };
 
   const handleChange = ({ target }) => {
-    setForm({ ...form, [target.id]: [target.value] });
+    setForm({ ...form, [target.id]: target.value });
     verifyButton();
   };
 
@@ -41,8 +43,8 @@ function Register() {
           <input
             type="text"
             placeholder="Seu nome"
-            id="nome"
-            value={ form.nome }
+            id="name"
+            value={ form.name }
             onChange={ handleChange }
             data-testid="common_register_input-name"
           />
@@ -64,7 +66,7 @@ function Register() {
             type="password"
             placeholder="*******"
             id="password"
-            value={form.password }
+            value={ form.password }
             onChange={ handleChange }
             data-testid="common_register_input-name"
           />
