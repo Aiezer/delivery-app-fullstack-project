@@ -11,17 +11,24 @@ const login = async (req, res) => {
   return res.status(200).json({ name, email, role, token });
 };
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
   try {
     const newUser = await userService.register(req.body);
     if (!newUser) return res.status(409).json({ message: 'Email already registered' });
     return res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
+  } catch (e) {
+    return res.status(400).json({ message: e.error });
   }
+};
+
+const validateToken = async (req, res) => {
+      const service = await userService.validateToken(req.body);
+      if (service === false) return res.status(401).send(false);
+      if (service === true) return res.status(200).send(true);
 };
 
 module.exports = {
   register,
   login,
+  validateToken,
 };
