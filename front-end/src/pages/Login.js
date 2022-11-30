@@ -23,7 +23,7 @@ export default function Login() {
       navigate('/customer/products');
       break;
     default:
-      navigate('/login');
+      navigate(path);
     }
     // if (path.role === 'admin') {
     //   navigate(`/${path.role}/manage`);
