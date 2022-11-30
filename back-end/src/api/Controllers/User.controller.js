@@ -2,12 +2,13 @@ const userService = require('../Services/User.service');
 const { tokenGenerate } = require('../utils/loginFuncs');
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  const service = await userService.login(email, password);
-  if (!service) return res.status(404).json({ message: 'Email ou senha incorreta(o)(s)' });
+  const { password } = req.body;
+  const service = await userService.login(req.body.email, password);
+  const { name, email, role } = service.message;
+  if (service.bool === false) return res.status(404).json({ message: service.message });
   const token = tokenGenerate(req.body);
   req.headers.authorization = token;
-  return res.status(200).json({ token });
+  return res.status(200).json({ name, email, role, token });
 };
 
 const register = async (req, res, next) => {
