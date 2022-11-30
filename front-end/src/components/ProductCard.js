@@ -8,21 +8,23 @@ function ProductCart(index, price, name, urlImage) {
         data-testid={ `customer_products__img-card-bg-image-${index}` }
       />
       <p data-testid={ `customer_products__element-card-title-${index}` }>{name}</p>
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${index}` }
-        type="button"
-      >
-        -
-      </button>
-      <input
-        data-testid={ `customer_products__input-card-quantity${index}` }
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${index}` }
-        type="button"
-      >
-        +
-      </button>
+      <div>
+        <button
+          data-testid={ `customer_products__button-card-rm-item-${index}` }
+          type="button"
+        >
+          -
+        </button>
+        <input
+          data-testid={ `customer_products__input-card-quantity${index}` }
+        />
+        <button
+          data-testid={ `customer_products__button-card-add-item-${index}` }
+          type="button"
+        >
+          +
+        </button>
+      </div>
 
     </div>
   );

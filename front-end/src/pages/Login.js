@@ -124,7 +124,7 @@ export default function Login() {
           id="register"
           name="register"
           type="button"
-          onClick={ () => history.push('/register') }
+          onClick={ () => navigate.push('/register') }
         >
           Registrar
         </button>
