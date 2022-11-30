@@ -14,7 +14,7 @@ function Register() {
 
   const validateForm = () => {
     const { password, email, name } = form;
-    if (password.length >= SIX && name.length >= TWELVE && validateEmail(email)) {
+    if (password.length >= SIX && name.length <= TWELVE && validateEmail(email)) {
       return true;
     }
   };
@@ -22,7 +22,7 @@ function Register() {
   const handleSubmit = async (e) => {
     const { password, email, name } = form;
     e.preventDefault();
-    const data = await axios({
+    await axios({
       method: 'post',
       url: 'http://localhost:3001/customer/register',
       data: {
@@ -30,15 +30,17 @@ function Register() {
         email,
         name,
       },
-    });
-    console.log(data);
-    if (!data) setError(!error);
+    }).then((response) => console.log(response))
+      .catch((err) => {
+        if (err) setError(true);
+      });
   };
 
   const verifyButton = () => {
     if (validateForm()) {
-      setIsDisabled(false);
+      return setIsDisabled(false);
     }
+    return setIsDisabled(true);
   };
 
   const handleChange = ({ target }) => {
