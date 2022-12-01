@@ -55,6 +55,6 @@
     }
   },
   "dependencies": {
-    "react-router-dom": "6.4"
+    "react-router-dom": "v6.4"
   }
 }
