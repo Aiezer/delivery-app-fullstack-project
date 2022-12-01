@@ -1,32 +1,50 @@
-export default function ProductCard(index, price, name, urlImage) {
-  return (
-    <div>
-      <p data-testid={ `customer_products__element-card-price-${index}` }>{price}</p>
-      <img
-        alt={ `foto de ${name}` }
-        src={ urlImage }
-        data-testid={ `customer_products__img-card-bg-image-${index}` }
-      />
-      <p data-testid={ `customer_products__element-card-title-${index}` }>{name}</p>
-      <div>
-        <button
-          data-testid={ `customer_products__button-card-rm-item-${index}` }
-          type="button"
-        >
-          -
-        </button>
-        <input
-          data-testid={ `customer_products__input-card-quantity${index}` }
-        />
-        <button
-          data-testid={ `customer_products__button-card-add-item-${index}` }
-          type="button"
-        >
-          +
-        </button>
-      </div>
+import React from 'react';
+import { getProducts } from '../utils/request';
 
-    </div>
+export default function ProductCard() {
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const allProducts = await getProducts();
+      setProducts(allProducts);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      {products.map((p, index) => (
+        <div key={ index }>
+          <p data-testid={ `customer_products__element-card-price-${p.id}` }>
+            {p.price}
+          </p>
+          <img
+            alt={ `foto de ${p.name}` }
+            src={ p.urlImage }
+            data-testid={ `customer_products__img-card-bg-image-${p.id}` }
+          />
+          <p data-testid={ `customer_products__element-card-title-${p.id}` }>{p.name}</p>
+          <div>
+            <button
+              data-testid={ `customer_products__button-card-rm-item-${p.id}` }
+              type="button"
+            >
+              -
+            </button>
+            <input
+              data-testid={ `customer_products__input-card-quantity-${p.id}` }
+            />
+            <button
+              data-testid={ `customer_products__button-card-add-item-${p.id}` }
+              type="button"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      ))}
+    </>
   );
 }
 
