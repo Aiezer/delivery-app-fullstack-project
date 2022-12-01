@@ -106,7 +106,9 @@ export default function Login() {
           disabled={ isDisabled }
           onClick={ handleClick }
         >
+          {' '}
           LOGIN
+          {' '}
         </button>
         <button
           data-testid="common_login__button-register"
@@ -115,7 +117,9 @@ export default function Login() {
           type="button"
           onClick={ () => navigate('/register') }
         >
+          {' '}
           Registrar
+          {' '}
         </button>
       </div>
     </section>
