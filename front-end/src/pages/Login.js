@@ -3,45 +3,16 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
 // import verify from '../utils/redirect';
 
-const minLength = 6;
+const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const six = 6;
 
 export default function Login() {
   const navigate = useNavigate();
-  const [message, setMessage] = useState('');
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorRequest, setErrorRequest] = useState('');
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
-
-  // async function start() {
-  //   const path = await verify();
-  //   switch (path) {
-  //   case 'admin':
-  //     navigate('/admin/manage');
-  //     break;
-  //   case 'seller':
-  //     navigate('/seller/orders');
-  //     break;
-  //   case 'customer':
-  //     navigate('/customer/products');
-  //     break;
-  //   default:
-  //     navigate(path);
-  //   }
-  //   // if (path.role === 'admin') {
-  //   //   navigate(`/${path.role}/manage`);
-  //   // }
-  //   // if (path.role === 'seller') {
-  //   //   navigate(`/${path.role}/orders`);
-  //   // }
-  //   // if (path.role === 'customer') {
-  //   //   navigate(`/${path.role}/products`);
-  //   // }
-  // }
-  // useEffect(() => {
-  //   start();
-  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,12 +22,10 @@ export default function Login() {
       [name]: value,
     });
 
-    const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (user.password.length > minLength
+    if (user.password.length > six
       && VALIDATE_EMAIL.test(user.email)) { return setIsDisabled(false); }
 
-    if (user.password.length < minLength || !VALIDATE_EMAIL.test(user.email)) {
+    if (user.password.length < six || !VALIDATE_EMAIL.test(user.email)) {
       return setIsDisabled(true);
     }
   };
@@ -69,7 +38,7 @@ export default function Login() {
       setNavigateRoute(`/${role}/orders`);
     }
     if (role === 'administrator') {
-      setNavigateRoute(`/${role}/manage`);
+      setNavigateRoute('/admin/manage');
     }
   };
 
