@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default async function loginRequest({ email, password }) {
   const { data } = await axios({
     method: 'POST',

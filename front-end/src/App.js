@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
@@ -10,6 +11,7 @@ function App() {
       <Route exact path="/" element={ <Login /> } />
       <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/register" element={ <Register /> } />
+      <Route exact path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
 export default async function verify() {
-  const data = localStorage.getItem(user).JSON();
+  const data = localStorage.getItem('user').JSON();
   const { token } = data;
   const tokenResp = await axios({
     method: 'POST',
