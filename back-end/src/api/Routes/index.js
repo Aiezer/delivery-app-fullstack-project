@@ -7,5 +7,5 @@ module.exports = {
   UserRouter,
   AdminRouter,
   ValidateRouter,
-  ProductRouter
+  ProductRouter,
 };
