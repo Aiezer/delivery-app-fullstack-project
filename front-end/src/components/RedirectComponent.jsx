@@ -7,14 +7,13 @@ export default function RedirectComponent() {
 
   useEffect(() => {
     const storage = localStorage.getItem('user');
-    if (storage) {
+    if (storage && address === '') {
       const validateToken = async () => {
         try {
           const data = await Redirect();
           setAddress(data);
         } catch (e) {
           localStorage.removeItem('user');
-          localStorage.removeItem('userId');
           setAddress('/login');
         }
       };

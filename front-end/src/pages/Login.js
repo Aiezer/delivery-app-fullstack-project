@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
+import RedirectComponent from '../components/RedirectComponent';
 import loginRequest from '../utils/request';
 // import verify from '../utils/redirect';
 
@@ -22,6 +23,8 @@ export default function Login() {
       [name]: value,
     });
   };
+
+  const storage = localStorage.getItem('user');
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
@@ -48,7 +51,7 @@ export default function Login() {
     try {
       const request = await loginRequest(user.email, user.password);
       console.log(request);
-      localStorage.setItem('user', JSON.stringify({ user: request }));
+      localStorage.setItem('user', JSON.stringify(request));
       verifyNavigateRoute(request.role);
       setIsLogged(true);
     } catch (e) {
@@ -61,6 +64,7 @@ export default function Login() {
 
   return (
     <section>
+      { storage.token !== undefined && <RedirectComponent /> }
       <div>
         <img src="" alt="generics delivery" />
         <h1>GENERICS DELIVERY</h1>

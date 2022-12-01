@@ -15,13 +15,14 @@ function App() {
         exact
         path="/"
         element={
-          user
+          !user
             ? <Navigate to="/login" />
             : <RedirectComponent />
         }
       />
       <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/register" element={ <Register /> } />
+      <Route exact path="/customer/products" element={ <div>customer</div> } />
       <Route exact path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
