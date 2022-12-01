@@ -1,13 +1,17 @@
+const axios = require('axios');
 
-import axios from 'axios';
+export default async function verify() {
+  const data = JSON.parse(localStorage.getItem('user'));
 
-const headers = { 'Content-Type': 'application/json' };
-
-export async function verify(token) {
-  const { data } = await axios({
-    method: 'POST',
+  if (!data) {
+    localStorage.setItem('user', JSON.stringify({ token: 'token' }));
+    return '/login';
+  }
+  const { token } = data;
+  if (!token) return '/login';
+  const tokenResp = await axios({
+    method: 'post',
     url: 'http://localhost:3001/validate',
-    headers,
     data: {
       token,
     },
@@ -28,6 +32,5 @@ export async function Redirect() {
     }
     return `/${role}/products`;
   }
-  localStorage.removeItem('user');
   return '/login';
 }

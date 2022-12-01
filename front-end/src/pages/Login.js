@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
-// import verify from '../utils/redirect';
 
-const minLength = 6;
+const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const six = 6;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,34 +14,27 @@ export default function Login() {
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
 
-  // async function start() {
-  //   const path = await verify();
-  //   switch (path) {
-  //   case 'admin':
-  //     navigate('/admin/manage');
-  //     break;
-  //   case 'seller':
-  //     navigate('/seller/orders');
-  //     break;
-  //   case 'customer':
-  //     navigate('/customer/products');
-  //     break;
-  //   default:
-  //     navigate(path);
-  //   }
-  //   // if (path.role === 'admin') {
-  //   //   navigate(`/${path.role}/manage`);
-  //   // }
-  //   // if (path.role === 'seller') {
-  //   //   navigate(`/${path.role}/orders`);
-  //   // }
-  //   // if (path.role === 'customer') {
-  //   //   navigate(`/${path.role}/products`);
-  //   // }
-  // }
-  // useEffect(() => {
-  //   start();
-  // }, []);
+  async function start() {
+    const path = await verify();
+    switch (path) {
+    case 'admin':
+      navigate('/admin/manage');
+      break;
+    case 'seller':
+      navigate('/seller/orders');
+      break;
+    case 'customer':
+      navigate('/customer/products');
+      break;
+    default:
+      navigate(path);
+    }
+  }
+
+  useEffect(() => {
+    console.log('useeffect do start');
+    start();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,15 +44,10 @@ export default function Login() {
       [name]: value,
     });
 
-    const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (user.password.length > minLength
-      && VALIDATE_EMAIL.test(user.email)) { return setIsDisabled(false); }
-
-    if (user.password.length < minLength || !VALIDATE_EMAIL.test(user.email)) {
-      return setIsDisabled(true);
-    }
-  };
+    if (user.password.length >= six
+      && (VALIDATE_EMAIL.test(user.email))
+    ) return setIsDisabled(false);
+    return setIsDisabled(true);
 
   const verifyNavigateRoute = (role) => {
     if (role === 'customer') {
@@ -71,6 +59,7 @@ export default function Login() {
     if (role === 'administrator') {
       setNavigateRoute(`/${role}/manage`);
     }
+
   };
 
   const handleLogin = async () => {
