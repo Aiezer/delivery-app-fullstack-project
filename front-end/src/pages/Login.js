@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
-import verify from '../utils/redirect';
+// import verify from '../utils/redirect';
 
 const minLength = 6;
 
@@ -13,35 +13,35 @@ export default function Login() {
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
 
-  async function start() {
-    const path = await verify();
-    switch (path) {
-    case 'admin':
-      navigate('/admin/manage');
-      break;
-    case 'seller':
-      navigate('/seller/orders');
-      break;
-    case 'customer':
-      navigate('/customer/products');
-      break;
-    default:
-      navigate(path);
-    }
-    // if (path.role === 'admin') {
-    //   navigate(`/${path.role}/manage`);
-    // }
-    // if (path.role === 'seller') {
-    //   navigate(`/${path.role}/orders`);
-    // }
-    // if (path.role === 'customer') {
-    //   navigate(`/${path.role}/products`);
-    // }
-  }
+  // async function start() {
+  //   const path = await verify();
+  //   switch (path) {
+  //   case 'admin':
+  //     navigate('/admin/manage');
+  //     break;
+  //   case 'seller':
+  //     navigate('/seller/orders');
+  //     break;
+  //   case 'customer':
+  //     navigate('/customer/products');
+  //     break;
+  //   default:
+  //     navigate(path);
+  //   }
+  //   // if (path.role === 'admin') {
+  //   //   navigate(`/${path.role}/manage`);
+  //   // }
+  //   // if (path.role === 'seller') {
+  //   //   navigate(`/${path.role}/orders`);
+  //   // }
+  //   // if (path.role === 'customer') {
+  //   //   navigate(`/${path.role}/products`);
+  //   // }
+  // }
 
-  useEffect(() => {
-    start();
-  }, []);
+  // useEffect(() => {
+  //   start();
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
