@@ -1,4 +1,4 @@
-function ProductCart(index, price, name, urlImage) {
+export default function ProductCard(index, price, name, urlImage) {
   return (
     <div>
       <p data-testid={ `customer_products__element-card-price-${index}` }>{price}</p>
@@ -29,8 +29,6 @@ function ProductCart(index, price, name, urlImage) {
     </div>
   );
 }
-
-module.exports = { ProductCart };
 
 // Elemento genérico do nome/título do produto;
 // Elemento genérico do preço do produto;

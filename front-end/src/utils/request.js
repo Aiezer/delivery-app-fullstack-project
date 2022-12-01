@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function loginRequest({ email, password }) {
   const { data } = await axios({
     method: 'POST',
@@ -12,5 +14,9 @@ export async function loginRequest({ email, password }) {
 }
 
 export async function getProducts() {
-
+  const { data } = await axios({
+    method: 'GET',
+    url: 'http://localhost:3001/products',
+  });
+  return data;
 }

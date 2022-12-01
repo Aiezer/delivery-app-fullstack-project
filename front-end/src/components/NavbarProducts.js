@@ -1,4 +1,4 @@
-function NavbarProducts() {
+export default function NavbarProducts() {
   return (
     <div>
       <div>
@@ -29,5 +29,3 @@ function NavbarProducts() {
     </div>
   );
 }
-
-module.exports = NavbarProducts;

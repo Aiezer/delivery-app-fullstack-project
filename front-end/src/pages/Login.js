@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginRequest from '../utils/request';
+import { loginRequest } from '../utils/request';
 import verify from '../utils/redirect';
 
 const six = 6;
@@ -77,7 +77,7 @@ export default function Login() {
         <label htmlFor="email">
           Login
           <input
-            datatestid="common_login__input-email"
+            data-testid="common_login__input-email"
             id="email"
             type="text"
             name="email"
@@ -89,7 +89,7 @@ export default function Login() {
         <label htmlFor="password">
           Senha
           <input
-            datatestid="common_login__input-password"
+            data-testid="common_login__input-password"
             id="password"
             type="password"
             name="password"
@@ -99,17 +99,19 @@ export default function Login() {
           />
         </label>
         <button
-          datatestid="common_login__button-login"
+          data-testid="common_login__button-login"
           id="login"
           name="enter"
           type="button"
           disabled={ isDisabled }
           onClick={ handleClick }
         >
+          {' '}
           LOGIN
+          {' '}
         </button>
         <button
-          datatestid="common_login__button-login"
+          data-testid="common_login__button-register"
           id="register"
           name="register"
           type="button"
@@ -126,7 +128,9 @@ export default function Login() {
           type="button"
           onClick={ () => navigate.push('/register') }
         >
+          {' '}
           Registrar
+          {' '}
         </button>
       </div>
     </section>
