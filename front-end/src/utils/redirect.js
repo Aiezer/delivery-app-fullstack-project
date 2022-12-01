@@ -1,4 +1,5 @@
 import axios from 'axios';
+import handleUrl from './handleUrl';
 
 const headers = { 'Content-Type': 'application/json' };
 
@@ -23,7 +24,7 @@ export async function Redirect() {
       localStorage.removeItem('user');
       return '/login';
     }
-    return `/${role}/products`;
+    return handleUrl(role);
   }
   localStorage.removeItem('user');
   return '/login';
