@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 import { Redirect } from '../utils/redirect';
 
 export default function RedirectComponent() {
-  // const navigate = useNavigate();
   const [address, setAddress] = useState('');
 
   useEffect(() => {

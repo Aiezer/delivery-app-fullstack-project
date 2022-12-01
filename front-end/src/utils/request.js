@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const headers = { 'Content-Type': 'application/json' };
 
-export default async function loginRequest({ email, password }) {
+export default async function loginRequest(email, password) {
   const { data } = await axios({
     method: 'POST',
     url: 'http://localhost:3001/login',
