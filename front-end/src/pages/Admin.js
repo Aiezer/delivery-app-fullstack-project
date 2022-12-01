@@ -14,35 +14,29 @@ function Admin() {
 
   const validateEmail = (email) => emailRegex.test(email);
 
-  const validateForm = () => {
+  useEffect(() => {
     const { password, email, name } = form;
-    if (password.length >= SIX && name.length <= TWELVE && validateEmail(email)) {
+    if (password.length >= SIX && name.length >= TWELVE && validateEmail(email)) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
-  };
+  }, [form]);
 
   const handleSubmit = async (e) => {
-    const { name, email, password, role } = form;
     e.preventDefault();
-    await axios({
-      method: 'POST',
-      url: 'http://localhost:3001/admin/register',
-      data: {
-        name,
-        email,
-        password,
-        role,
-      },
-    }).then((response) => console.log(response)).catch((err) => {
-      if (err) setError(true);
-    });
+    await axios.post('http://localhost:3001/register', { ...form })
+      .then(() => setError(false))
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+          setError(true);
+        }
+      });
   };
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.id]: target.value });
-    validateForm();
   };
 
   return (
