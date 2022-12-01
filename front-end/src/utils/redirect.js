@@ -12,6 +12,6 @@ export default async function verify() {
   if (tokenResp) {
     return data.role;
   }
-  localStorage.setItem('user', '');
+  localStorage.removeItem('user');
   return '/login';
 }

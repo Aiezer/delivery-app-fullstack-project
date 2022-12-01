@@ -7,6 +7,7 @@ const six = 6;
 
 export default function Login() {
   const navigate = useNavigate();
+  const [message, setMessage] = useState('');
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -51,11 +52,16 @@ export default function Login() {
   };
 
   async function handleClick() {
-    const data = await loginRequest(user);
-    localStorage.setItem('user', JSON.stringify(user));
-    if (data.role === 'seller') navigate(`/${data.role}/orders`);
-    if (data.role === 'costumer') navigate(`/${data.role}/products`);
-    if (data.role === 'admin') navigate(`/${data.role}/manage`);
+    try {
+      setMessage('');
+      const data = await loginRequest(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      if (data.role === 'seller') navigate(`/${data.role}/orders`);
+      if (data.role === 'costumer') navigate(`/${data.role}/products`);
+      if (data.role === 'admin') navigate(`/${data.role}/manage`);
+    } catch (err) {
+      setMessage('Invalid email or password');
+    }
   }
 
   return (
@@ -112,6 +118,11 @@ export default function Login() {
           Registrar
           {' '}
         </button>
+        { message && (
+          <p data-testid="common_login__element-invalid-email">
+            { message }
+          </p>
+        )}
       </div>
     </section>
   );
