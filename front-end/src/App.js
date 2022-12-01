@@ -2,8 +2,9 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import RedirectComponent from './components/RedirectComponent';
+import Admin from './pages/Admin';
 import Login from './pages/Login';
-// import Register from './pages/Register';
+import Register from './pages/Register';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -20,7 +21,8 @@ function App() {
         }
       />
       <Route exact path="/login" element={ <Login /> } />
-      {/* <Route exact path="/register" component={ Register } /> */}
+      <Route exact path="/register" element={ <Register /> } />
+      <Route exact path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
 }

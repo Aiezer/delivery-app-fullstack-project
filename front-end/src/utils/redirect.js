@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 
 const headers = { 'Content-Type': 'application/json' };
@@ -22,9 +23,11 @@ export async function Redirect() {
     console.log('entrou');
     const result = await verify(token);
     if (!result) {
+      localStorage.removeItem('user');
       return '/login';
     }
     return `/${role}/products`;
   }
+  localStorage.removeItem('user');
   return '/login';
 }

@@ -7,6 +7,7 @@ const minLength = 6;
 
 export default function Login() {
   const navigate = useNavigate();
+  const [message, setMessage] = useState('');
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorRequest, setErrorRequest] = useState('');
@@ -38,7 +39,6 @@ export default function Login() {
   //   //   navigate(`/${path.role}/products`);
   //   // }
   // }
-
   // useEffect(() => {
   //   start();
   // }, []);
@@ -100,7 +100,7 @@ export default function Login() {
         <label htmlFor="email">
           Login
           <input
-            datatestid="common_login__input-email"
+            data-testid="common_login__input-email"
             id="email"
             type="text"
             name="email"
@@ -112,7 +112,7 @@ export default function Login() {
         <label htmlFor="password">
           Senha
           <input
-            datatestid="common_login__input-password"
+            data-testid="common_login__input-password"
             id="password"
             type="password"
             name="password"
@@ -122,17 +122,19 @@ export default function Login() {
           />
         </label>
         <button
-          datatestid="common_login__button-login"
+          data-testid="common_login__button-login"
           id="login"
           name="enter"
           type="button"
           disabled={ isDisabled }
           onClick={ handleLogin }
         >
+          {' '}
           LOGIN
+          {' '}
         </button>
         <button
-          datatestid="common_login__button-login"
+          data-testid="common_login__button-register"
           id="register"
           name="register"
           type="button"
