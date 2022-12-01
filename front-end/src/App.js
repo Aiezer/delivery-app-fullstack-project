@@ -11,7 +11,6 @@ function App() {
       <Route exact path="/" element={ <Login /> } />
       <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
-      {/* <Route exact path="/register" component={ Register } /> */}
       <Route exact path="/register" element={ <Register /> } />
     </Routes>
   );

@@ -111,22 +111,11 @@ export default function Login() {
           {' '}
         </button>
         <button
-          data-testid="common_login__button-register"
-          id="register"
-          name="register"
-          type="button"
-          onClick={ () => navigate.push('/register') }
-        >
-          Ainda não tenho conta
-          Login
-        </button>
-
-        <button
           datatestid="common_login__button-register"
           id="register"
           name="register"
           type="button"
-          onClick={ () => navigate.push('/register') }
+          onClick={ () => navigate('/register') }
         >
           {' '}
           Registrar
