@@ -8,8 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/customer', UserRouter);
-app.use('/login', UserRouter);
+app.use('/', UserRouter);
 app.use('/admin', AdminRouter);
 app.use('/validate', ValidateRouter);
 app.use('/products', ProductRouter);

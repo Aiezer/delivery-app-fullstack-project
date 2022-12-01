@@ -1,40 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
 
-const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const VALIDATE_EMAIL = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 const six = 6;
 
 export default function Login() {
   const navigate = useNavigate();
-  const [message, setMessage] = useState('');
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
-  const [errorRequest, setErrorRequest] = useState('');
+  const [errorRequest, setErrorRequest] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
-
-  async function start() {
-    const path = await verify();
-    switch (path) {
-    case 'admin':
-      navigate('/admin/manage');
-      break;
-    case 'seller':
-      navigate('/seller/orders');
-      break;
-    case 'customer':
-      navigate('/customer/products');
-      break;
-    default:
-      navigate(path);
-    }
-  }
-
-  useEffect(() => {
-    console.log('useeffect do start');
-    start();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,11 +20,16 @@ export default function Login() {
       ...user,
       [name]: value,
     });
+  };
 
-    if (user.password.length >= six
-      && (VALIDATE_EMAIL.test(user.email))
-    ) return setIsDisabled(false);
+  useEffect(() => {
+    const regex = VALIDATE_EMAIL.test(user.email);
+
+    if (user.password.length >= six && regex) {
+      return setIsDisabled(false);
+    }
     return setIsDisabled(true);
+  }, [user]);
 
   const verifyNavigateRoute = (role) => {
     if (role === 'customer') {
@@ -59,21 +41,18 @@ export default function Login() {
     if (role === 'administrator') {
       setNavigateRoute(`/${role}/manage`);
     }
-
   };
 
   const handleLogin = async () => {
     try {
-      const { id, role, token, name } = await loginRequest(email, password);
-      const saveUser = { name, email, role, token };
-      setErrorRequest('');
-      localStorage.setItem('user', JSON.stringify({ user: saveUser }));
-      localStorage.setItem('userId', JSON.stringify({ userId: id }));
+      const request = await loginRequest(user.email, user.password);
+      console.log(request);
+      localStorage.setItem('user', JSON.stringify({ user: request }));
+      verifyNavigateRoute(request.role);
       setIsLogged(true);
-      verifyNavigateRoute(role);
     } catch (e) {
-      setErrorRequest('Email ou senha inválidos');
-      console.log(e);
+      console.log('erro');
+      setErrorRequest(true);
     }
   };
 
@@ -132,9 +111,9 @@ export default function Login() {
           Ainda não tenho conta
         </button>
         {errorRequest && (
-          <div data-testid="common_login__element-invalid-email">
-            { errorRequest }
-          </div>
+          <p data-testid="common_login__element-invalid-email">
+            Email ou senha inválidos
+          </p>
         )}
       </div>
     </section>
