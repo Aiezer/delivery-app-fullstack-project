@@ -1,10 +1,17 @@
+const axios = require('axios');
+
 export default async function verify() {
-  const data = localStorage.getItem(user).JSON();
+  const data = JSON.parse(localStorage.getItem('user'));
+
+  if (!data) {
+    localStorage.setItem('user', JSON.stringify({ token: 'token' }));
+    return '/login';
+  }
   const { token } = data;
+  if (!token) return '/login';
   const tokenResp = await axios({
-    method: 'POST',
+    method: 'post',
     url: 'http://localhost:3001/validate',
-    headers,
     data: {
       token,
     },
@@ -12,6 +19,5 @@ export default async function verify() {
   if (tokenResp) {
     return data.role;
   }
-  localStorage.setItem('user', '');
   return '/login';
 }

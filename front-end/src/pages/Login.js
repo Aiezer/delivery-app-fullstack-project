@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
 import verify from '../utils/redirect';
 
+const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const six = 6;
 
 export default function Login() {
@@ -37,6 +38,7 @@ export default function Login() {
   }
 
   useEffect(() => {
+    console.log('useeffect do start');
     start();
   }, []);
 
@@ -48,15 +50,10 @@ export default function Login() {
       [name]: value,
     });
 
-    const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (user.password.length > six
+    if (user.password.length >= six
       && (VALIDATE_EMAIL.test(user.email))
     ) return setIsDisabled(false);
-
-    if (user.password.length < six
-      || !(VALIDATE_EMAIL.test(user.email))
-    ) return setIsDisabled(true);
+    return setIsDisabled(true);
   };
 
   async function handleClick() {
