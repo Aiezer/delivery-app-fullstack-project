@@ -1,36 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginRequest } from '../utils/request';
-import verify from '../utils/redirect';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
+import loginRequest from '../utils/request';
 
+const VALIDATE_EMAIL = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 const six = 6;
 
 export default function Login() {
   const navigate = useNavigate();
-  const [message, setMessage] = useState('');
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
-
-  async function start() {
-    const path = await verify();
-    switch (path) {
-    case 'admin':
-      navigate('/admin/manage');
-      break;
-    case 'seller':
-      navigate('/seller/orders');
-      break;
-    case 'customer':
-      navigate('/customer/products');
-      break;
-    default:
-      navigate(path);
-    }
-  }
-
-  useEffect(() => {
-    start();
-  }, []);
+  const [errorRequest, setErrorRequest] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [navigateRoute, setNavigateRoute] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,30 +20,43 @@ export default function Login() {
       ...user,
       [name]: value,
     });
-
-    const VALIDATE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (user.password.length > six
-      && (VALIDATE_EMAIL.test(user.email))
-    ) return setIsDisabled(false);
-
-    if (user.password.length < six
-      || !(VALIDATE_EMAIL.test(user.email))
-    ) return setIsDisabled(true);
   };
 
-  async function handleClick() {
-    try {
-      setMessage('');
-      const data = await loginRequest(user);
-      localStorage.setItem('user', JSON.stringify(user));
-      if (data.role === 'seller') navigate(`/${data.role}/orders`);
-      if (data.role === 'costumer') navigate(`/${data.role}/products`);
-      if (data.role === 'admin') navigate(`/${data.role}/manage`);
-    } catch (err) {
-      setMessage('Invalid email or password');
+  useEffect(() => {
+    const regex = VALIDATE_EMAIL.test(user.email);
+
+    if (user.password.length >= six && regex) {
+      return setIsDisabled(false);
     }
-  }
+    return setIsDisabled(true);
+  }, [user]);
+
+  const verifyNavigateRoute = (role) => {
+    if (role === 'customer') {
+      setNavigateRoute(`/${role}/products`);
+    }
+    if (role === 'seller') {
+      setNavigateRoute(`/${role}/orders`);
+    }
+    if (role === 'administrator') {
+      setNavigateRoute(`/${role}/manage`);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const request = await loginRequest(user.email, user.password);
+      console.log(request);
+      localStorage.setItem('user', JSON.stringify({ user: request }));
+      verifyNavigateRoute(request.role);
+      setIsLogged(true);
+    } catch (e) {
+      console.log('erro');
+      setErrorRequest(true);
+    }
+  };
+
+  if (isLogged) return <Navigate to={ navigateRoute } />;
 
   return (
     <section>
@@ -101,7 +95,7 @@ export default function Login() {
           name="enter"
           type="button"
           disabled={ isDisabled }
-          onClick={ handleClick }
+          onClick={ handleLogin }
         >
           {' '}
           LOGIN
@@ -114,13 +108,11 @@ export default function Login() {
           type="button"
           onClick={ () => navigate('/register') }
         >
-          {' '}
-          Registrar
-          {' '}
+          Ainda não tenho conta
         </button>
-        { message && (
+        {errorRequest && (
           <p data-testid="common_login__element-invalid-email">
-            { message }
+            Email ou senha inválidos
           </p>
         )}
       </div>

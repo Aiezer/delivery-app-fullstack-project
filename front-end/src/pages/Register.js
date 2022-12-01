@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const emailRegex = /\S+@\S+\.\S+/;
 const TWELVE = 12;
@@ -10,42 +10,28 @@ function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
 
-  const validateEmail = (email) => emailRegex.test(email);
-
-  const validateForm = () => {
+  useEffect(() => {
     const { password, email, name } = form;
-    if (password.length >= SIX && name.length <= TWELVE && validateEmail(email)) {
-      return true;
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    const { password, email, name } = form;
-    e.preventDefault();
-    await axios({
-      method: 'post',
-      url: 'http://localhost:3001/customer/register',
-      data: {
-        password,
-        email,
-        name,
-      },
-    }).then((response) => console.log(response))
-      .catch((err) => {
-        if (err) setError(true);
-      });
-  };
-
-  const verifyButton = () => {
-    if (validateForm()) {
+    if (password.length >= SIX && name.length >= TWELVE && emailRegex.test(email)) {
       return setIsDisabled(false);
     }
     return setIsDisabled(true);
+  }, [form]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios.post('http://localhost:3001/register', { ...form })
+      .then(() => setError(false))
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+          setError(true);
+        }
+      });
   };
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.id]: target.value });
-    verifyButton();
   };
 
   return (
