@@ -14,7 +14,7 @@ function Register() {
 
   const validateForm = () => {
     const { password, email, name } = form;
-    if (password.length >= SIX && name.length <= TWELVE && validateEmail(email)) {
+    if (password.length >= SIX && name.length >= TWELVE && validateEmail(email)) {
       return true;
     }
   };
@@ -30,7 +30,7 @@ function Register() {
         email,
         name,
       },
-    }).then((response) => console.log(response))
+    }).then(() => setError(false))
       .catch((err) => {
         if (err) setError(true);
       });
