@@ -25,15 +25,6 @@ export default function Login() {
     default:
       navigate(path);
     }
-    // if (path.role === 'admin') {
-    //   navigate(`/${path.role}/manage`);
-    // }
-    // if (path.role === 'seller') {
-    //   navigate(`/${path.role}/orders`);
-    // }
-    // if (path.role === 'customer') {
-    //   navigate(`/${path.role}/products`);
-    // }
   }
 
   useEffect(() => {
