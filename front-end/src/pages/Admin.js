@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const emailRegex = /\S+@\S+\.\S+/;
@@ -25,6 +25,9 @@ function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  };
+
+  const handleClick = async () => {
     await axios.post('http://localhost:3001/register', { ...form })
       .then(() => setError(false))
       .catch((err) => {
@@ -66,7 +69,7 @@ function Admin() {
         <label htmlFor="name">
           Nome
           <input
-            datatestid="admin_manage__input-name"
+            data-testid="admin_manage__input-name"
             id="name"
             type="text"
             name="name"
@@ -78,7 +81,7 @@ function Admin() {
         <label htmlFor="email">
           Email
           <input
-            datatestid="admin_manage__input-email"
+            data-testid="admin_manage__input-email"
             id="email"
             type="text"
             name="email"
@@ -90,7 +93,7 @@ function Admin() {
         <label htmlFor="password">
           Senha
           <input
-            datatestid="admin_manage__input-password"
+            data-testid="admin_manage__input-password"
             id="password"
             type="password"
             name="password"
@@ -114,11 +117,12 @@ function Admin() {
           </select>
         </label>
         <button
-          datatestid="admin_manage__button-register"
+          data-testid="admin_manage__button-register"
           id="register"
           name="register"
           type="button"
           disabled={ isDisabled }
+          onClick={ handleClick }
         >
           {' '}
           Cadastrar
@@ -126,7 +130,7 @@ function Admin() {
         </button>
       </form>
       { error
-        ? <p datatestid="admin_manage__element-invalid-register"> Error </p> : null }
+        ? <p data-testid="admin_manage__element-invalid-register"> Error </p> : null }
     </div>
   );
 }
