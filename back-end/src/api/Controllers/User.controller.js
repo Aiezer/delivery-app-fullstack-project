@@ -17,7 +17,7 @@ const register = async (req, res) => {
     if (!newUser) return res.status(409).json({ message: 'Email already registered' });
     return res.status(201).json(newUser);
   } catch (e) {
-    return res.status(400).json({ message: e.error });
+    return res.status(500).json({ message: e.error });
   }
 };
 
