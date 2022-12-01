@@ -48,6 +48,7 @@ export default function Login() {
       && (VALIDATE_EMAIL.test(user.email))
     ) return setIsDisabled(false);
     return setIsDisabled(true);
+  }
 
   const verifyNavigateRoute = (role) => {
     if (role === 'customer') {
