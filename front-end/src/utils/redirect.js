@@ -16,8 +16,21 @@ export default async function verify() {
       token,
     },
   });
-  if (tokenResp) {
-    return data.role;
+  console.log(data);
+  return data;
+}
+export async function Redirect() {
+  const user = localStorage.getItem('user');
+  console.log(user);
+  if (user !== undefined) {
+    const { token, role } = JSON.parse(user);
+    console.log('entrou');
+    const result = await verify(token);
+    if (!result) {
+      localStorage.removeItem('user');
+      return '/login';
+    }
+    return `/${role}/products`;
   }
   return '/login';
 }
