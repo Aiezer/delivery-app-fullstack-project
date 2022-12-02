@@ -13,17 +13,17 @@ const loginAdmin = async (req, res) => {
   return res.status(200).json({ token });
 };
 
-const registreAdmin = async (req, res, next) => {
+const registerAdmin = async (req, res) => {
   try {
     const newAdmin = await adminService.registerAdmin(req.body);
     if (!newAdmin) return res.status(409).json({ message: 'Email already registered' });
-    return res.status(201).json(newAdmin);
+    return res.status(201).json({ message: 'novo cadastro realizado' });
   } catch (error) {
-    next(error);
+    return res.status(500).json({ message: e.error });
   }
 };
 
 module.exports = {
   loginAdmin,
-  registreAdmin,
+  registerAdmin,
 };

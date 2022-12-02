@@ -4,7 +4,6 @@ export async function verify(token) {
   const { data } = await axios({
     method: 'POST',
     url: 'http://localhost:3001/validate',
-    headers,
     data: {
       token,
     },

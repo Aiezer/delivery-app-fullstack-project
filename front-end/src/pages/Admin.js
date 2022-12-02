@@ -26,16 +26,31 @@ function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   };
+  const verify = async (token) => {
+    const { data } = await axios({
+      method: 'POST',
+      url: 'http://localhost:3001/validate',
+      data: {
+        token,
+      },
+    });
+    return data;
+  };
 
   const handleClick = async () => {
-    await axios.post('http://localhost:3001/register', { ...form })
-      .then(() => setError(false))
-      .catch((err) => {
-        if (err) {
-          console.log(err);
-          setError(true);
-        }
-      });
+    const AmdinUser = JSON.parse(localStorage.getItem('user'));
+    const validToken = await verify(AmdinUser.token);
+
+    if (validToken.role === 'administrator') {
+      await axios.post('http://localhost:3001/admin/register', { ...form })
+        .then(() => setError(false))
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+            setError(true);
+          }
+        });
+    }
   };
 
   const handleChange = ({ target }) => {
