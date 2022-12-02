@@ -102,7 +102,7 @@ export default function Login() {
           {' '}
         </button>
         <button
-          datatestid="common_login__button-register"
+          data-testid="common_login__button-register"
           id="register"
           name="register"
           type="button"
