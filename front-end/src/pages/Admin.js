@@ -26,10 +26,12 @@ function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   };
+
   const verify = async (token) => {
     const { data } = await axios({
       method: 'POST',
       url: 'http://localhost:3001/validate',
+      headers: { token },
       data: {
         token,
       },
@@ -38,10 +40,10 @@ function Admin() {
   };
 
   const handleClick = async () => {
-    const AmdinUser = JSON.parse(localStorage.getItem('user'));
-    const validToken = await verify(AmdinUser.token);
+    const { user } = JSON.parse(localStorage.getItem('user'));
+    const validToken = await verify(user.token);
 
-    if (validToken.role === 'administrator') {
+    if (validToken) {
       await axios.post('http://localhost:3001/admin/register', { ...form })
         .then(() => setError(false))
         .catch((err) => {

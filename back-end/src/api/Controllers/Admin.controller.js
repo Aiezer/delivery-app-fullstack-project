@@ -19,7 +19,7 @@ const registerAdmin = async (req, res) => {
     if (!newAdmin) return res.status(409).json({ message: 'Email already registered' });
     return res.status(201).json({ message: 'novo cadastro realizado' });
   } catch (error) {
-    return res.status(500).json({ message: e.error });
+    return res.status(500).json({ message: error.error });
   }
 };
 
