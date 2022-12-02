@@ -8,6 +8,7 @@ export default function RedirectComponent() {
   useEffect(() => {
     const storage = localStorage.getItem('user');
     if (storage && address === '') {
+      console.log(storage);
       const validateToken = async () => {
         try {
           const data = await Redirect();

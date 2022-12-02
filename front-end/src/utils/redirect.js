@@ -19,7 +19,6 @@ export async function Redirect() {
   const user = JSON.parse(localStorage.getItem('user'));
   if (user !== undefined) {
     const { token, role } = user;
-    console.log('redirect');
     const result = await verify(token);
     if (!result) {
       localStorage.removeItem('user');

@@ -14,6 +14,7 @@ export default function Login() {
   const [errorRequest, setErrorRequest] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +27,13 @@ export default function Login() {
 
   const storage = localStorage.getItem('user');
 
+  useEffect(() => {
+    if (storage && isLogged === false) {
+      setRedirect(true);
+    }
+  }, [isLogged, storage]);
+
+  // console.log(typeof storage, storage);
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
 
@@ -50,7 +58,6 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const request = await loginRequest(user.email, user.password);
-      console.log(request);
       localStorage.setItem('user', JSON.stringify(request));
       verifyNavigateRoute(request.role);
       setIsLogged(true);
@@ -64,7 +71,7 @@ export default function Login() {
 
   return (
     <section>
-      { storage.token !== undefined && <RedirectComponent /> }
+      { redirect && <RedirectComponent /> }
       <div>
         <img src="" alt="generics delivery" />
         <h1>GENERICS DELIVERY</h1>
