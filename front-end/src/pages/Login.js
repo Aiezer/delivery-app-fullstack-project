@@ -14,6 +14,8 @@ export default function Login() {
   const [errorRequest, setErrorRequest] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
+  // const [redirect, setRedirect] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
