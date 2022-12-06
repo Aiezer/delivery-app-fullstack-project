@@ -1,4 +1,13 @@
+import React from 'react';
+
 export default function NavbarProducts() {
+  const [storage, setStorage] = React.useState();
+
+  React.useEffect(() => {
+    const getItem = localStorage.getItem('user');
+    setStorage(JSON.parse(getItem));
+  }, []);
+
   return (
     <div>
       <div>
@@ -17,7 +26,7 @@ export default function NavbarProducts() {
       </div>
       <div>
         <p data-testid="customer_products__element-navbar-user-full-name">
-          Nome
+          {storage.user.name}
         </p>
         <button
           data-testid="customer_products__element-navbar-link-logout"
