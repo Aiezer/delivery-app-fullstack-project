@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res) => {
-  console.log(err.name);
+  if (err._parsedOriginalUrl.pathname ===! '/favicon.ico') {
   switch (err.name) {
     case 'SequelizeUniqueConstraintError':
       res.status(409).json({ message: 'Conflict Error' });
@@ -8,6 +8,7 @@ const errorHandler = (err, req, res) => {
       res.status(500).json({ message: err.message });
       break;
   }
+}
 };
 
 module.exports = errorHandler;

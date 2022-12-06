@@ -17,7 +17,7 @@ export default function ProductCard() {
       {products.map((p, index) => (
         <div key={ index }>
           <p data-testid={ `customer_products__element-card-price-${p.id}` }>
-            {p.price}
+            {`${p.price.replace('.', ',')}`}
           </p>
           <img
             alt={ `foto de ${p.name}` }
@@ -34,6 +34,8 @@ export default function ProductCard() {
             </button>
             <input
               data-testid={ `customer_products__input-card-quantity-${p.id}` }
+              type="number"
+              value={ 0 }
             />
             <button
               data-testid={ `customer_products__button-card-add-item-${p.id}` }
