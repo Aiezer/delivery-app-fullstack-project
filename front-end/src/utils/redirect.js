@@ -1,7 +1,4 @@
-import axios from 'axios';
-import handleUrl from './handleUrl';
-
-const headers = { 'Content-Type': 'application/json' };
+const axios = require('axios');
 
 export async function verify(token) {
   const { data } = await axios({
@@ -24,7 +21,7 @@ export async function Redirect() {
       localStorage.removeItem('user');
       return '/login';
     }
-    return handleUrl(role);
+    return `/${role}/products`;
   }
   return '/login';
 }
