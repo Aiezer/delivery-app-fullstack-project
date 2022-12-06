@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import MyContext from '../Context';
 
 export default function NavbarProducts() {
-  const [storage, setStorage] = React.useState();
+  const navigate = useNavigate();
+  const { storage } = useContext(MyContext);
 
-  React.useEffect(() => {
-    const getItem = localStorage.getItem('user');
-    const parse = JSON.parse(getItem);
-    setStorage(parse.user);
-    console.log(storage);
-  }, []);
+  const logout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
 
   return (
     <div>
@@ -28,11 +29,12 @@ export default function NavbarProducts() {
       </div>
       <div>
         <p data-testid="customer_products__element-navbar-user-full-name">
-          Name
+          {storage.name}
         </p>
         <button
           data-testid="customer_products__element-navbar-link-logout"
           type="button"
+          onClick={ logout }
         >
           Sair
         </button>

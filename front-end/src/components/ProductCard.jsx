@@ -3,14 +3,11 @@ import { getProducts } from '../utils/request';
 
 export default function ProductCard() {
   const [products, setProducts] = React.useState([]);
-  // const [storage, setStorage] = React.useState();
 
   React.useEffect(() => {
     async function fetchData() {
       const allProducts = await getProducts();
       setProducts(allProducts);
-      // const getItem = localStorage.getItem('user');
-      // setStorage(getItem);
     }
     fetchData();
   }, []);
