@@ -1,9 +1,9 @@
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
-const { user } = require('../../database/models');
-
 const secret = require('fs')
 .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' }); 
+const { user } = require('../../database/models');
+
 
 const login = async (email, password) => {
   const findUser = await user.findAll({ where: { email } });
