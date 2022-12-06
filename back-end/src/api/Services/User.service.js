@@ -18,10 +18,12 @@ const register = async (body) => {
   const exist = await user.findOne({ where: { email: body.email } });
   if (exist) return false;
 
-  await user.create({
+  const newUser = await user.create({
     ...body,
     password: hashPassword,
   });
+
+  return newUser;
 };
 
 const validateToken = async (body) => {
