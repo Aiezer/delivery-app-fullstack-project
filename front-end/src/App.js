@@ -4,6 +4,7 @@ import './App.css';
 import RedirectComponent from './components/RedirectComponent';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
+import Products from './pages/Products';
 import Register from './pages/Register';
 import MyContext from './Context';
 
@@ -33,6 +34,7 @@ function App() {
         />
         <Route exact path="/login" element={ <Login /> } />
         <Route exact path="/register" element={ <Register /> } />
+        <Route exact path="/customer/products" element={ <Products /> } />
         <Route exact path="/admin/manage" element={ <Admin /> } />
       </Routes>
     </MyContext.Provider>
