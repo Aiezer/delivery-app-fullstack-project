@@ -25,7 +25,6 @@ export default function Login() {
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
-
     if (user.password.length >= six && regex) {
       return setIsDisabled(false);
     }
