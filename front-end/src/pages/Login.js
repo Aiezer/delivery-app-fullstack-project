@@ -10,14 +10,13 @@ const six = 6;
 export default function Login() {
   const navigate = useNavigate();
   const { setStorage } = useContext(MyContext);
-  
+
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
   const [redirect, setRedirect] = useState(false);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +27,6 @@ export default function Login() {
     });
   };
 
-
   const storage = localStorage.getItem('user');
 
   useEffect(() => {
@@ -37,11 +35,9 @@ export default function Login() {
     }
   }, [isLogged, storage]);
 
-
-
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
-    
+
     if (user.password.length >= six && regex) {
       return setIsDisabled(false);
     }
