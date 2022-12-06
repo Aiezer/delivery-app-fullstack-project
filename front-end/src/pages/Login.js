@@ -17,7 +17,6 @@ export default function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setUser({
       ...user,
       [name]: value,
