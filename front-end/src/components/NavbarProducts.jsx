@@ -29,7 +29,7 @@ export default function NavbarProducts() {
       </div>
       <div>
         <p data-testid="customer_products__element-navbar-user-full-name">
-          {storage.name}
+          {storage.user.name}
         </p>
         <button
           data-testid="customer_products__element-navbar-link-logout"
