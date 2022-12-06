@@ -13,7 +13,6 @@ const parse = JSON.parse(user);
 
 function App() {
   const [storage, setStorage] = useState(parse);
-
   const value = useMemo(() => ({
     storage, setStorage,
   }), [storage]);
@@ -27,7 +26,7 @@ function App() {
           exact
           path="/"
           element={
-            user
+            !user
               ? <Navigate to="/login" />
               : <RedirectComponent />
           }

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
 
+
 const emailRegex = /\S+@\S+\.\S+/;
 const TWELVE = 12;
 const SIX = 6;
@@ -31,6 +32,7 @@ function Register() {
       })
       .catch((err) => {
         if (err) {
+
           setError(true);
         }
       });
