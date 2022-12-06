@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import loginRequest from '../utils/request';
 
 const emailRegex = /\S+@\S+\.\S+/;
 const TWELVE = 12;
@@ -23,8 +24,10 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post('http://localhost:3001/register', { ...form })
-      .then(() => {
+      .then(async () => {
         setError(false);
+        const userLoginData = await loginRequest(form.email, form.password);
+        localStorage.setItem('user', JSON.stringify(userLoginData));
         navigate('/customer/products');
       })
       .catch((err) => {

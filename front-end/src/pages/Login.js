@@ -48,7 +48,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const request = await loginRequest(user.email, user.password);
-      localStorage.setItem('user', JSON.stringify({ user: request }));
+      localStorage.setItem('user', JSON.stringify(request));
       setStorage(request);
       verifyNavigateRoute(request.role);
       setIsLogged(true);
