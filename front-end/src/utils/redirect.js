@@ -24,7 +24,7 @@ export async function Redirect() {
       localStorage.removeItem('user');
       return '/login';
     }
-    return handleUrl(role);
+    return `/${role}/products`;
   }
   return '/login';
 }
