@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, _req, res, _next) => {
   console.log(err.name);
   switch (err.name) {
     case 'SequelizeUniqueConstraintError':

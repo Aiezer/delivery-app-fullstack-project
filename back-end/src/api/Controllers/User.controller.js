@@ -22,9 +22,19 @@ const register = async (req, res) => {
 };
 
 const validateToken = async (req, res) => {
-      const service = await userService.validateToken(req.body);
-      if (service === false) return res.status(401).send(false);
-      if (service === true) return res.status(200).send(true);
+   const autho = req.headers.authorization
+   const { token } = req.body
+   console.log('dentro do controller', autho);
+
+   if (autho) {
+    const service = await userService.validateToken(autho);
+    if (service === false) return res.status(401).send(false);
+    if (service === true) return res.status(201).send(true);
+   } else {
+    const service = await userService.validateToken(token);
+    if (service === false) return res.status(401).send(false);
+    if (service === true) return res.status(200).send(true);
+   }
 };
 
 module.exports = {

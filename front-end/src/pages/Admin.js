@@ -28,24 +28,35 @@ function Admin() {
   };
 
   const verify = async (token) => {
-    const { data } = await axios({
-      method: 'POST',
-      url: 'http://localhost:3001/validate',
-      headers: { token },
-      data: {
-        token,
-      },
+    // const header = { 'Autorization': `${token}` };
+    const validation = await axios.post('http://localhost:3001/validate', {
+      token,
+    }, {
+      headers: { Authorization: token },
+    }).then((result) => {
+      console.log('debtro do then ', result);
+      return result.data;
+    }).catch((err) => {
+      if (err) {
+        setError(true);
+      }
     });
-    return data;
+    console.log('dentro do validate', validation);
+    return validation;
   };
 
   const handleClick = async () => {
     const { user } = JSON.parse(localStorage.getItem('user'));
+
     const validToken = await verify(user.token);
+    console.log('valid token', validToken);
 
     if (validToken) {
       await axios.post('http://localhost:3001/admin/register', { ...form })
-        .then(() => setError(false))
+        .then((response) => {
+          console.log('debtro do then 2 ', response);
+          setError(false);
+        })
         .catch((err) => {
           if (err) {
             console.log(err);
