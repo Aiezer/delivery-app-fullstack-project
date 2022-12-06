@@ -25,8 +25,8 @@ function Register() {
     await axios.post('http://localhost:3001/register', { ...form })
       .then(async () => {
         setError(false);
-        const userLoginData = await loginRequest(form.email, form.password);
-        localStorage.setItem('user', JSON.stringify(userLoginData));
+        const loginData = await loginRequest(form.email, form.password);
+        localStorage.setItem('user', JSON.stringify(loginData));
         navigate('/customer/products');
       })
       .catch((err) => {
