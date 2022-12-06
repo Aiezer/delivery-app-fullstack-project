@@ -8,9 +8,10 @@ import Register from './pages/Register';
 import MyContext from './Context';
 
 const user = localStorage.getItem('user');
+const parse = JSON.parse(user);
 
 function App() {
-  const [storage, setStorage] = useState(JSON.parse(user));
+  const [storage, setStorage] = useState(parse.user);
 
   const value = useMemo(() => ({
     storage, setStorage,
