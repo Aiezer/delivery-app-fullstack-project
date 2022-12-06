@@ -16,9 +16,9 @@ export async function verify(token) {
 }
 
 export async function Redirect() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = localStorage.getItem('user');
   if (user !== undefined) {
-    const { token, role } = user;
+    const { token, role } = JSON.parse(user);
     const result = await verify(token);
     if (!result) {
       localStorage.removeItem('user');
@@ -26,6 +26,5 @@ export async function Redirect() {
     }
     return handleUrl(role);
   }
-  localStorage.removeItem('user');
   return '/login';
 }
