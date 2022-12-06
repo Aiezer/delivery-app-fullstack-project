@@ -4,7 +4,6 @@ const secret = require('fs')
 .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' }); 
 const { user } = require('../../database/models');
 
-
 const login = async (email, password) => {
   const findUser = await user.findAll({ where: { email } });
   if (!findUser[0]) return { bool: false, message: 'Não existe esse usuário!' };
