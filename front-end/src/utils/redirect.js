@@ -1,5 +1,5 @@
 import axios from 'axios';
-import handleUrl from './handleUrl';
+// import handleUrl from './handleUrl';
 
 // const headers = { 'Content-Type': 'application/json' };
 
