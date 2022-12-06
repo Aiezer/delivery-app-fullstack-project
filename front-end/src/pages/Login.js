@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import MyContext from '../Context';
-import RedirectComponent from '../components/RedirectComponent';
 import loginRequest from '../utils/request';
 
 const VALIDATE_EMAIL = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -10,13 +9,11 @@ const six = 6;
 export default function Login() {
   const navigate = useNavigate();
   const { setStorage } = useContext(MyContext);
-
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
-  const [redirect, setRedirect] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,14 +23,6 @@ export default function Login() {
       [name]: value,
     });
   };
-
-  const storage = localStorage.getItem('user');
-
-  useEffect(() => {
-    if (storage && isLogged === false) {
-      setRedirect(true);
-    }
-  }, [isLogged, storage]);
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
@@ -52,14 +41,14 @@ export default function Login() {
       setNavigateRoute(`/${role}/orders`);
     }
     if (role === 'administrator') {
-      setNavigateRoute('/admin/manage');
+      setNavigateRoute(`/${role}/manage`);
     }
   };
 
   const handleLogin = async () => {
     try {
       const request = await loginRequest(user.email, user.password);
-      localStorage.setItem('user', JSON.stringify(request));
+      localStorage.setItem('user', JSON.stringify({ user: request }));
       setStorage(request);
       verifyNavigateRoute(request.role);
       setIsLogged(true);
@@ -73,7 +62,6 @@ export default function Login() {
 
   return (
     <section>
-      { redirect && <RedirectComponent /> }
       <div>
         <img src="" alt="generics delivery" />
         <h1>GENERICS DELIVERY</h1>
