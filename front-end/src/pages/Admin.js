@@ -30,7 +30,6 @@ function Admin() {
   const verify = async (token) => {
     // const header = { 'Autorization': `${token}` };
     const validation = await axios.post('http://localhost:3001/validate', {
-      token,
     }, {
       headers: { Authorization: token },
     }).then((result) => {
@@ -46,7 +45,8 @@ function Admin() {
   };
 
   const handleClick = async () => {
-    const { user } = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('user do local', user);
 
     const validToken = await verify(user.token);
     console.log('valid token', validToken);
