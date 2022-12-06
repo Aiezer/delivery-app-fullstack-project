@@ -11,7 +11,7 @@ const user = localStorage.getItem('user');
 const parse = JSON.parse(user);
 
 function App() {
-  const [storage, setStorage] = useState(parse.user);
+  const [storage, setStorage] = useState(parse);
 
   const value = useMemo(() => ({
     storage, setStorage,
