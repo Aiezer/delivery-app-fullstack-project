@@ -22,7 +22,6 @@ function Register() {
   }, [form]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     await axios.post('http://localhost:3001/register', { ...form })
       .then(async () => {
         setError(false);
@@ -35,6 +34,7 @@ function Register() {
           setError(true);
         }
       });
+    e.preventDefault();
   };
 
   const handleChange = ({ target }) => {
