@@ -18,7 +18,6 @@ export default function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setUser({
       ...user,
       [name]: value,
@@ -35,7 +34,6 @@ export default function Login() {
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
-
     if (user.password.length >= six && regex) {
       return setIsDisabled(false);
     }
@@ -57,7 +55,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const request = await loginRequest(user.email, user.password);
-      localStorage.setItem('user', JSON.stringify({ user: request }));
+      localStorage.setItem('user', JSON.stringify(request));
       setStorage(request);
       verifyNavigateRoute(request.role);
       setIsLogged(true);
