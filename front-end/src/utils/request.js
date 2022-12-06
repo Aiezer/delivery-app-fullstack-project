@@ -14,3 +14,11 @@ export default async function loginRequest(email, password) {
   });
   return data;
 }
+
+export async function getProducts() {
+  const { data } = await axios({
+    method: 'GET',
+    url: 'http://localhost:3001/products',
+  });
+  return data;
+}
