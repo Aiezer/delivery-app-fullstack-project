@@ -1,49 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CardSeller from '../components/CardSeller';
+import OrderDetails from '../components/OrderDetails';
 
 export default function Seller() {
-  const [seller, setSeller] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
-    setSeller(JSON.parse(localStorage.getItem('user')));
-  }, []);
 
-  function handleClick({ target }) {
-    switch (target.name) {
-    case 'orders':
-      navigate('/seller/orders');
-      break;
-    case 'checkout':
-      navigate('/seller/checkout');
-      break;
-    default:
-    }
-  }
+  const { storage } = useContext(MyContext);
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
 
   return (
     <section>
       <div>
         <header>
-          <button
-            type="button"
-            onClick={ handleClick }
-            name="orders"
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            Pedidos
-          </button>
           <h1
             type="text"
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            { seller.name }
+            { storage.name }
           </h1>
           <button
             type="button"
             name="checkout"
-            onClick={ handleClick }
+            onClick={ logout }
             data-testid="customer_products__element-navbar-link-logout"
           >
             Sair
@@ -51,7 +35,10 @@ export default function Seller() {
         </header>
       </div>
       <div>
-        { location.pathname === '/seller/orders' && <CardSeller /> }
+        { location.pathname === '/seller/orders'
+        && <CardSeller /> }
+        { location.pathname === '/seller/orders/:id'
+        && <OrderDetails /> }
       </div>
     </section>
   );

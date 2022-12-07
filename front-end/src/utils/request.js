@@ -38,18 +38,18 @@ export async function checkoutRequest(checkoutInfo) {
   return data.id;
 }
 
-export async function getSellers() {
-  const { data } = await axios({
-    method: 'GET',
-    url: 'http://localhost:3001/sale',
-  });
-  return data;
-}
-
 export async function getSaleById(id) {
   const { data } = await axios({
     method: 'GET',
     url: `http://localhost:3001/sales/${id}`,
+  });
+  return data;
+}
+
+export async function getOrderById(id) {
+  const { data } = await axios({
+    method: 'GET',
+    url: `localhost:3000/seller/orders/${id}`,
   });
   return data;
 }
