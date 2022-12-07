@@ -1,10 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-=======
 import { useNavigate } from 'react-router-dom';
 import loginRequest from '../utils/request';
->>>>>>> fe9ac140db32d4f9a54876ed28bf2fe08a2a9d22
 
 const emailRegex = /\S+@\S+\.\S+/;
 const TWELVE = 12;
@@ -27,12 +24,6 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post('http://localhost:3001/register', { ...form })
-<<<<<<< HEAD
-      .then(() => setError(false))
-      .catch((err) => {
-        if (err) {
-          console.log(err);
-=======
       .then(async () => {
         setError(false);
         const loginData = await loginRequest(form.email, form.password);
@@ -41,7 +32,6 @@ function Register() {
       })
       .catch((err) => {
         if (err) {
->>>>>>> fe9ac140db32d4f9a54876ed28bf2fe08a2a9d22
           setError(true);
         }
       });

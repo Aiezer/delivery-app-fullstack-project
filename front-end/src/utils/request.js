@@ -22,3 +22,19 @@ export async function getProducts() {
   });
   return data;
 }
+
+export async function getOrders() {
+  const { data } = await axios({
+    method: 'GET',
+    url: 'localhost:3000/seller/orders',
+  });
+  return data;
+}
+
+export async function getOrderById(id) {
+  const { data } = await axios({
+    method: 'GET',
+    url: `localhost:3000/seller/orders/${id}`,
+  });
+  return data;
+}
