@@ -15,7 +15,8 @@ function App() {
   const [storage, setStorage] = useState(parse);
 
   const value = useMemo(() => ({
-    storage, setStorage,
+    storage,
+    setStorage,
   }), [storage]);
 
   return (

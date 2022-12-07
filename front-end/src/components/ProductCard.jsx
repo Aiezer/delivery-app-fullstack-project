@@ -3,14 +3,28 @@ import { getProducts } from '../utils/request';
 
 export default function ProductCard() {
   const [products, setProducts] = React.useState([]);
+  const [chart, setChart] = React.useState(0);
+  const [change, setChange] = React.useState(0);
 
   React.useEffect(() => {
     async function fetchData() {
       const allProducts = await getProducts();
-      setProducts(allProducts);
+      const productsWithQty = allProducts.map((p) => ({ ...p, qty: 0 }));
+      setProducts(productsWithQty);
     }
     fetchData();
   }, []);
+
+  React.useEffect(() => {
+    const mapQty = products.map((p) => {
+      const qty = document
+        .getElementById(`customer_products__input-card-quantity-${p.id}`);
+      p.qty = qty.value;
+      return p;
+    });
+    const value = mapQty.reduce((acc, p) => acc + (p.qty * p.price), 0);
+    setChart(value);
+  }, [change]);
 
   const subtractQuantity = (id) => {
     const input = document
@@ -20,6 +34,7 @@ export default function ProductCard() {
       const value = Number(input.value);
       input.value = value - 1;
     }
+    setChange(change + 1);
   };
 
   const sumQuantity = (id) => {
@@ -27,6 +42,7 @@ export default function ProductCard() {
       .getElementById(`customer_products__input-card-quantity-${id}`);
     const value = Number(input.value);
     input.value = value + 1;
+    setChange(change + 1);
   };
 
   return (
