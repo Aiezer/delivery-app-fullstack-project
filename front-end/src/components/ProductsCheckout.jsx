@@ -3,11 +3,13 @@ import GenericRowCheckout from './GenericRowCheckout';
 
 function ProductsCheckout() {
   const [cart, setCart] = useState();
+  const [totalState, setTotal] = useState();
 
   useEffect(() => {
     const carrinho = JSON.parse(localStorage.getItem('carrinho'));
     if (carrinho) {
-      const { cartItems } = carrinho;
+      const { cartItems, total } = carrinho;
+      setTotal(total);
       return setCart(cartItems);
     }
   }, []);
@@ -37,7 +39,7 @@ function ProductsCheckout() {
           )}
         </table>
         <div data-testid="customer_checkout__element-order-total-price">
-          {`Total: ${JSON.parse(localStorage.getItem('carrinho')).total}`}
+          {`${Number(totalState).toFixed(2).replace('.', ',')}`}
         </div>
       </div>
     </section>
