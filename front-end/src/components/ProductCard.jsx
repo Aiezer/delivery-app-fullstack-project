@@ -3,7 +3,6 @@ import { getProducts } from '../utils/request';
 
 export default function ProductCard() {
   const [products, setProducts] = React.useState([]);
-  const [chart, setChart] = React.useState(0);
   const [change, setChange] = React.useState(0);
 
   React.useEffect(() => {
@@ -23,7 +22,12 @@ export default function ProductCard() {
       return p;
     });
     const value = mapQty.reduce((acc, p) => acc + (p.qty * p.price), 0);
-    setChart(value);
+    const carrinho = mapQty.filter((p) => p.qty > 0);
+    if (value > 0) {
+      localStorage.setItem('carrinho', JSON.stringify({ carrinho, total: value }));
+    } else {
+      localStorage.removeItem('carrinho');
+    }
   }, [change]);
 
   const subtractQuantity = (id) => {
