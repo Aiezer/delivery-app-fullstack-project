@@ -24,7 +24,7 @@ function AdressCheckout() {
             name="sellers"
             data-testid="customer_checkout__select-seller"
             onChange={ handleChange }
-            value={ sellers }
+            value={ form.sellers }
           >
             <option value="Fernando">Fernando</option>
             <option value="Marcos">Marcos</option>
@@ -38,7 +38,7 @@ function AdressCheckout() {
             id="address"
             name="address"
             onChange={ handleChange }
-            value={ address }
+            value={ form.address }
             data-testid="customer_checkout__input-address"
           />
         </label>
@@ -50,12 +50,17 @@ function AdressCheckout() {
             name="addressNumber"
             id="addressNumber"
             onChange={ handleChange }
-            value={ addressNumber }
+            value={ form.addressNumber }
             data-testid="customer_checkout__input-address-number"
           />
         </label>
-        <div data-testid="customer_checkout__button-submit-order">
-          <button type="submit" placeholder="000" id="address-number">
+        <div>
+          <button
+            type="submit"
+            placeholder="000"
+            id="address-number"
+            data-testid="customer_checkout__button-submit-order"
+          >
             Finalizar Pedido
           </button>
         </div>

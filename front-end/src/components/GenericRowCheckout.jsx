@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function GenericRowCheckout({ products, index }) {
-  const { name, quantity, price } = products;
-  const total = quantity * price;
+  console.log(index, products);
+  const { name, quantity, price, subTotal } = products;
 
   const handleClick = () => {
     console.log('remover item');
   };
 
   return (
-    <tr data-testid={ `element-order-table-item-number-${index}` }>
+    <tr data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
       <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
-        1
+        {index + 1}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
         {name}
@@ -20,11 +20,11 @@ function GenericRowCheckout({ products, index }) {
       <td data-testid={ `customer_checkout__element-order-table-quantity-${index}` }>
         {quantity}
       </td>
-      <td data-testid={ `customer_checkout__element-order-table-unity-price-${index}` }>
-        {price}
+      <td data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }>
+        {Number(price).toFixed(2).replace('.', ',')}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }>
-        {total}
+        {subTotal.toFixed(2).replace('.', ',')}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-remove-${index}` }>
         <button type="button" onClick={ handleClick }>Remover</button>

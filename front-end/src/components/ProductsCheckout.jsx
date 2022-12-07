@@ -6,10 +6,8 @@ function ProductsCheckout() {
 
   useEffect(() => {
     const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-    console.log(carrinho);
     if (carrinho) {
       const { cartItems } = carrinho;
-      console.log(cartItems);
       return setCart(cartItems);
     }
   }, []);
@@ -38,17 +36,12 @@ function ProductsCheckout() {
             <caption>Carrinho Vazio!</caption>
           )}
         </table>
-        <div data-testid="customer_checkout__elemente-order-total-price">
-          {`Total: ${cart}`}
+        <div data-testid="customer_checkout__element-order-total-price">
+          {`Total: ${JSON.parse(localStorage.getItem('carrinho')).total}`}
         </div>
       </div>
     </section>
   );
 }
-
-// id
-// name
-// price
-// quantity
 
 export default ProductsCheckout;
