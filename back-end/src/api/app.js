@@ -1,6 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const { UserRouter, ValidateRouter, AdminRouter, ProductRouter, SaleRouter, OrderRouter } = require('./Routes');
+const {
+  UserRouter,
+  ValidateRouter,
+  AdminRouter,
+  ProductRouter,
+  SaleRouter,
+  OrderRouter,
+} = require('./Routes');
 
 const app = express();
 
