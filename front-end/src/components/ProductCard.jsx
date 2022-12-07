@@ -23,9 +23,9 @@ export default function ProductCard() {
       p.subTotal = p.quantity * p.price;
       return p;
     });
-    const valueTotal = mapQty.reduce((acc, p) => acc + p.quantity * p.price, 0);
+    const valueTotal = mapQty.reduce((acc, p) => acc + p.subTotal, 0);
     console.log(valueTotal);
-    const carrinho = mapQty.filter((p) => p.qty > 0);
+    const carrinho = mapQty.filter((p) => p.quantity > 0);
     setTotal(`${valueTotal.toFixed(2)}`);
     if (valueTotal > 0) {
       localStorage.setItem('carrinho', JSON.stringify({
@@ -81,6 +81,7 @@ export default function ProductCard() {
               data-testid={ `customer_products__input-card-quantity-${p.id}` }
               id={ `customer_products__input-card-quantity-${p.id}` }
               type="number"
+              onChange={ () => setChange(change + 1) }
               defaultValue={ 0 }
             />
             <button
