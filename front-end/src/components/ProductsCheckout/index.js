@@ -8,7 +8,8 @@ function ProductsCheckout() {
   useEffect(() => {
     const carrinho = localStorage.getItem('carrinho');
     if (carrinho) {
-      return setCart(carrinho);
+      const { cartItems } = carrinho;
+      return setCart(cartItems);
     }
   }, []);
 
