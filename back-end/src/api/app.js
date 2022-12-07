@@ -4,6 +4,7 @@ const { UserRouter, ValidateRouter, AdminRouter, ProductRouter } = require('./Ro
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
