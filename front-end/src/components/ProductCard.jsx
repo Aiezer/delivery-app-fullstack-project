@@ -33,7 +33,7 @@ export default function ProductCard() {
     if (valueTotal > 0) {
       setIsDisable(false);
       localStorage.setItem('carrinho', JSON.stringify({
-        carrinho,
+        cartItems: carrinho,
         total: valueTotal.toFixed(2),
       }));
     } else {

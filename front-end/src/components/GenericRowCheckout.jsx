@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function GenericRowCheckout(product, index) {
-  const { name, quantity, price } = product;
+function GenericRowCheckout({ products, index }) {
+  const { name, quantity, price } = products;
   const total = quantity * price;
 
   const handleClick = () => {
@@ -11,7 +12,7 @@ function GenericRowCheckout(product, index) {
   return (
     <tr data-testid={ `element-order-table-item-number-${index}` }>
       <td data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
-        {index}
+        1
       </td>
       <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
         {name}
@@ -31,5 +32,9 @@ function GenericRowCheckout(product, index) {
     </tr>
   );
 }
+
+GenericRowCheckout.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
 export default GenericRowCheckout;

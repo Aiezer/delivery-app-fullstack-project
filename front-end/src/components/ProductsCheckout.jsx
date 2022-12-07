@@ -5,9 +5,11 @@ function ProductsCheckout() {
   const [cart, setCart] = useState();
 
   useEffect(() => {
-    const carrinho = localStorage.getItem('carrinho');
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    console.log(carrinho);
     if (carrinho) {
       const { cartItems } = carrinho;
+      console.log(cartItems);
       return setCart(cartItems);
     }
   }, []);
