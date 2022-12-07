@@ -7,7 +7,9 @@ export default function Orders() {
 
   React.useEffect(() => {
     async function fetchData() {
-      const allOrders = await getOrders();
+      const object = JSON.parse(localStorage.getItem('user'));
+      const { token } = object;
+      const allOrders = await getOrders(token);
       setOrders(allOrders);
     }
     fetchData();

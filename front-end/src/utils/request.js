@@ -23,10 +23,13 @@ export async function getProducts() {
   return data;
 }
 
-export async function getOrders() {
+export async function getOrders(token) {
   const { data } = await axios({
     method: 'GET',
     url: 'http://localhost:3001/orders',
+    headers: {
+      Authorization: token,
+    },
   });
   return data;
 }
