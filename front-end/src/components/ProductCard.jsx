@@ -1,10 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getProducts } from '../utils/request';
 
 export default function ProductCard() {
+  const navigate = useNavigate();
   const [products, setProducts] = React.useState([]);
   const [change, setChange] = React.useState(0);
   const [total, setTotal] = React.useState('0');
+  const [isDisable, setIsDisable] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -28,11 +31,13 @@ export default function ProductCard() {
     const carrinho = mapQty.filter((p) => p.quantity > 0);
     setTotal(`${valueTotal.toFixed(2)}`);
     if (valueTotal > 0) {
+      setIsDisable(false);
       localStorage.setItem('carrinho', JSON.stringify({
         carrinho,
         total: valueTotal.toFixed(2),
       }));
     } else {
+      setIsDisable(true);
       localStorage.removeItem('carrinho');
     }
   }, [change, products]);
@@ -94,7 +99,12 @@ export default function ProductCard() {
           </div>
         </div>
       ))}
-      <button type="button" data-testid="customer_products__button-cart">
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        onClick={ () => navigate('/customer/checkout') }
+        disabled={ isDisable }
+      >
         Ver carrinho:
         <p data-testid="customer_products__checkout-bottom-value">
           {`${total.replace('.', ',')}`}
