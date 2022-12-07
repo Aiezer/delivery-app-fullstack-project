@@ -15,7 +15,11 @@ const register = async (req, res) => {
   try {
     const newUser = await userService.register(req.body);
     if (!newUser) return res.status(409).json({ message: 'Email already registered' });
+<<<<<<< HEAD
     return res.status(201).json({ message: 'O usuario foi criado' });
+=======
+    return res.status(201).json({ message: 'O usuario foi criado', newUser });
+>>>>>>> fe9ac140db32d4f9a54876ed28bf2fe08a2a9d22
   } catch (e) {
     return res.status(500).json({ message: e.error });
   }

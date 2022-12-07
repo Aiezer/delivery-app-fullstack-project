@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
+import MyContext from '../Context';
 import loginRequest from '../utils/request';
 
 const VALIDATE_EMAIL = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -7,6 +8,7 @@ const six = 6;
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setStorage } = useContext(MyContext);
   const [user, setUser] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
@@ -15,7 +17,6 @@ export default function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setUser({
       ...user,
       [name]: value,
@@ -24,12 +25,12 @@ export default function Login() {
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
-
     if (user.password.length >= six && regex) {
       return setIsDisabled(false);
     }
     return setIsDisabled(true);
   }, [user]);
+
   const verifyNavigateRoute = (role) => {
     if (role === 'customer') {
       setNavigateRoute(`/${role}/products`);
@@ -45,7 +46,8 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const request = await loginRequest(user.email, user.password);
-      localStorage.setItem('user', JSON.stringify({ user: request }));
+      localStorage.setItem('user', JSON.stringify(request));
+      setStorage(request);
       verifyNavigateRoute(request.role);
       setIsLogged(true);
     } catch (e) {
