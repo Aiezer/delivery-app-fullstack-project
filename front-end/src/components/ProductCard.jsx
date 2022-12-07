@@ -4,12 +4,12 @@ import { getProducts } from '../utils/request';
 export default function ProductCard() {
   const [products, setProducts] = React.useState([]);
   const [change, setChange] = React.useState(0);
+  const [total, setTotal] = React.useState('0');
 
   React.useEffect(() => {
     async function fetchData() {
       const allProducts = await getProducts();
-      const productsWithQty = allProducts.map((p) => ({ ...p, qty: 0 }));
-      setProducts(productsWithQty);
+      setProducts(allProducts);
     }
     fetchData();
   }, []);
@@ -18,17 +18,24 @@ export default function ProductCard() {
     const mapQty = products.map((p) => {
       const qty = document
         .getElementById(`customer_products__input-card-quantity-${p.id}`);
-      p.qty = qty.value;
+      p.quantity = Number(qty.value);
+      p.price = Number(p.price).toFixed(2);
+      p.subTotal = p.quantity * p.price;
       return p;
     });
-    const value = mapQty.reduce((acc, p) => acc + (p.qty * p.price), 0);
+    const valueTotal = mapQty.reduce((acc, p) => acc + p.quantity * p.price, 0);
+    console.log(valueTotal);
     const carrinho = mapQty.filter((p) => p.qty > 0);
-    if (value > 0) {
-      localStorage.setItem('carrinho', JSON.stringify({ carrinho, total: value }));
+    setTotal(`${valueTotal.toFixed(2)}`);
+    if (valueTotal > 0) {
+      localStorage.setItem('carrinho', JSON.stringify({
+        carrinho,
+        total: valueTotal.toFixed(2),
+      }));
     } else {
       localStorage.removeItem('carrinho');
     }
-  }, [change]);
+  }, [change, products]);
 
   const subtractQuantity = (id) => {
     const input = document
@@ -54,7 +61,7 @@ export default function ProductCard() {
       {products.map((p, index) => (
         <div key={ index }>
           <p data-testid={ `customer_products__element-card-price-${p.id}` }>
-            {`${p.price.replace('.', ',')}`}
+            {`${((p.price).toString()).replace('.', ',')}`}
           </p>
           <img
             alt={ `foto de ${p.name}` }
@@ -86,6 +93,12 @@ export default function ProductCard() {
           </div>
         </div>
       ))}
+      <button type="button" data-testid="customer_products__button-cart">
+        Ver carrinho:
+        <p data-testid="customer_products__checkout-bottom-value">
+          {`${total.replace('.', ',')}`}
+        </p>
+      </button>
     </>
   );
 }
