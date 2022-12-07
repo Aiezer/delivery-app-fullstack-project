@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function AdressCheckout() {
+  const [form, setForm] = useState({ sellers: '', address: '', addressNumber: '' });
+
+  const handleChange = ({ target: { name, value } }) => {
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -14,8 +23,9 @@ function AdressCheckout() {
             id="sellers"
             name="sellers"
             data-testid="customer_checkout__select-seller"
+            onChange={ handleChange }
+            value={ sellers }
           >
-            <option value="" selected disabled hidden>Selecione Vendedor</option>
             <option value="Fernando">Fernando</option>
             <option value="Marcos">Marcos</option>
           </select>
@@ -26,15 +36,21 @@ function AdressCheckout() {
             type="text"
             placeholder="Rua X, Bairro Y"
             id="address"
+            name="address"
+            onChange={ handleChange }
+            value={ address }
             data-testid="customer_checkout__input-address"
           />
         </label>
-        <label htmlFor="address-number">
+        <label htmlFor="addressNumber">
           Número:
           <input
             type="Number"
             placeholder="000"
-            id="address-number"
+            name="addressNumber"
+            id="addressNumber"
+            onChange={ handleChange }
+            value={ addressNumber }
             data-testid="customer_checkout__input-address-number"
           />
         </label>

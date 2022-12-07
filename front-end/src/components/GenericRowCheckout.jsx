@@ -6,7 +6,7 @@ function GenericRowCheckout({ products, index }) {
   const total = quantity * price;
 
   const handleClick = () => {
-
+    console.log('remover item');
   };
 
   return (
