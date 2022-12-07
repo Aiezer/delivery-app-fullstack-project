@@ -32,6 +32,7 @@ function Register() {
       })
       .catch((err) => {
         if (err) {
+          console.log(err);
           setError(true);
         }
       });
