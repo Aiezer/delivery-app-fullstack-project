@@ -12,6 +12,7 @@ app.use('/', UserRouter);
 app.use('/admin', AdminRouter);
 app.use('/validate', ValidateRouter);
 app.use('/products', ProductRouter);
+app.use('/seller', sellerRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;
