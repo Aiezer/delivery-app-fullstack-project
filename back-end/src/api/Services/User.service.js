@@ -29,7 +29,6 @@ const register = async (body) => {
 const validateToken = async (token) => {
   try {
       const decoded = jwt.verify(token, secret);
-      console.log('decoded', decoded);
       const passwordHash = md5(decoded.password);
       const findUser = await user.findAll({ where: { email: decoded.email } });
       if (passwordHash === findUser[0].password) return true;
