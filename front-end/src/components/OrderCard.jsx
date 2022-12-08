@@ -9,8 +9,9 @@ export default function OrderCard() {
   useEffect(() => {
     async function fetchData() {
       const object = JSON.parse(localStorage.getItem('user'));
-      const { token } = object;
-      const allOrders = await getOrders(token);
+      const { token, role } = object;
+      const allOrders = await getOrders(token, role);
+      console.log(allOrders);
       setOrders(allOrders);
     }
     fetchData();

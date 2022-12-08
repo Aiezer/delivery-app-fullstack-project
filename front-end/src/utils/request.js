@@ -54,13 +54,14 @@ export async function getOrderById(id) {
   return data;
 }
 
-export async function getOrders() {
+export async function getOrders(token, role) {
   const { data } = await axios({
-    method: 'GET',
+    method: 'POST',
     url: 'http://localhost:3001/orders',
     headers: {
       Authorization: token,
     },
+    data: { type: role },
   });
   return data;
 }
