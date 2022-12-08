@@ -37,7 +37,6 @@ function AdressCheckout() {
       return setError(true);
     }
     const vendedor = sellers.find((seller) => seller.name === form.seller);
-    console.log(vendedor);
     const data = {
       ...form,
       userId: JSON.parse(localStorage.getItem('user')).id,
