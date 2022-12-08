@@ -23,7 +23,6 @@ const register = async (req, res) => {
 
 const validateToken = async (req, res) => {
   const autho = req.headers.authorization;
-  console.log('dentro do controller', autho);
 
   const service = await userService.validateToken(autho);
   if (service === true) return res.status(201).send(true);

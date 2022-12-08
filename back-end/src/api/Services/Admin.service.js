@@ -15,10 +15,12 @@ const registerAdmin = async (body) => {
 
   const hashPassword = md5(body.password);
 
-  const NewAdmin = user.create({
+  const NewAdmin = await user.create({
     ...body,
     password: hashPassword,
   });
+
+  console.log(NewAdmin);
 
   return NewAdmin;
 };
