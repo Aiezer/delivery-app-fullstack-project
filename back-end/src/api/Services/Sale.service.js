@@ -1,9 +1,9 @@
-const secret = require('fs')
-  .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
+// const secret = require('fs')
+//   .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
 const { user, sales } = require('../../database/models');
 
 const getSellers = () => {
-  const sellers = user.findAll({ where: { role: 'seller' }});
+  const sellers = user.findAll({ where: { role: 'seller' } });
   console.log(sellers);
   return sellers;
 };
@@ -18,4 +18,4 @@ const createSale = (newSale) => {
 module.exports = {
   getSellers,
   createSale,
-}
+};

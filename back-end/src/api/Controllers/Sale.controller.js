@@ -17,9 +17,9 @@ const createSale = (req, res) => {
   } catch (error) {
     console.log('controller:', error);
   }
-}
+};
 
 module.exports = {
   getSellers,
-  createSale
-}
+  createSale,
+};
