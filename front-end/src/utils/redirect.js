@@ -1,7 +1,4 @@
 import axios from 'axios';
-// import handleUrl from './handleUrl';
-
-// const headers = { 'Content-Type': 'application/json' };
 
 export async function verify(token) {
   const data = await axios.post('http://localhost:3001/validate', {
