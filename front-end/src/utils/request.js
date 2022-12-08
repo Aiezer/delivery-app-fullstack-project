@@ -23,10 +23,19 @@ export async function getProducts() {
   return data;
 }
 
-export async function checkoutRequest(checkoutInfo) {
-  const { data } = await axios.post('http://localhost:3001/sale', { ...checkoutInfo })
-    .then()
-    .catch((e) => console.error(e));
+export async function checkoutRequest(request, products) {
+  const { data } = await axios({
+    method: 'POST',
+    url: 'http://localhost:3001/sale',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    data: {
+      products,
+      request,
+    },
+  });
   return data.id;
 }
 
