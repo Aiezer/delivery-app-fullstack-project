@@ -14,7 +14,6 @@ export default function Login() {
   const [errorRequest, setErrorRequest] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [navigateRoute, setNavigateRoute] = useState('');
-  // const [redirect, setRedirect] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +22,6 @@ export default function Login() {
       [name]: value,
     });
   };
-
-  const storage = localStorage.getItem('user');
-
-  useEffect(() => {
-    if (storage && isLogged === false) {
-      setRedirect(true);
-    }
-  }, [isLogged, storage]);
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
@@ -48,7 +39,7 @@ export default function Login() {
       setNavigateRoute(`/${role}/orders`);
     }
     if (role === 'administrator') {
-      setNavigateRoute(`/${role}/manage`);
+      setNavigateRoute('/admin/manage');
     }
   };
 
