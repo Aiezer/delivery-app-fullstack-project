@@ -33,6 +33,7 @@ function AdressCheckout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form.seller);
     if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
       return setError(true);
     }

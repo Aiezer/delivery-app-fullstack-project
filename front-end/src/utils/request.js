@@ -65,3 +65,11 @@ export async function getOrders(token, role) {
   });
   return data;
 }
+
+export async function getSellers() {
+  const { data } = await axios({
+    method: 'GET',
+    url: 'http://localhost:3001/sale/sellers',
+  });
+  return data;
+}
