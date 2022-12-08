@@ -23,20 +23,23 @@ export async function getProducts() {
   return data;
 }
 
-export async function checkoutRequest(request, products) {
+export async function checkoutRequest(checkoutInfo) {
+  const { data } = await axios.post('http://localhost:3001/sale', { ...checkoutInfo })
+    .then()
+    .catch((e) => console.error(e));
+  return data.id;
+}
+
+export async function getOrders(token, role) {
   const { data } = await axios({
     method: 'POST',
-    url: 'http://localhost:3001/sale',
+    url: 'http://localhost:3001/orders',
     headers: {
-      'Content-Type': 'application/json',
-      authorization: JSON.parse(localStorage.getItem('user')).token,
+      Authorization: token,
     },
-    data: {
-      products,
-      request,
-    },
+    data: { type: role },
   });
-  return data.id;
+  return data;
 }
 
 export async function getSaleById(id) {
@@ -55,30 +58,10 @@ export async function getOrderById(id) {
   return data;
 }
 
-export async function getOrders(token, role) {
-  const { data } = await axios({
-    method: 'POST',
-    url: 'http://localhost:3001/orders',
-    headers: {
-      Authorization: token,
-    },
-    data: { type: role },
-  });
-  return data;
-}
-
 export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
     url: 'http://localhost:3001/sale/sellers',
-  });
-  return data;
-}
-
-export async function getSaleById(id) {
-  const { data } = await axios({
-    method: 'GET',
-    url: `http://localhost:3001/sales/${id}`,
   });
   return data;
 }

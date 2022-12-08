@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkoutRequest, getSellers } from '../utils/request';
+import { checkoutRequest } from '../utils/request';
 
 function AdressCheckout() {
   const navigate = useNavigate();
-  const [sellers, setSellers] = useState([]);
   const [form, setForm] = useState({
-    userId: 0,
-    sellerId: 0,
+    userId: 1,
+    sellerId: 1,
     totalPrice: JSON.parse(localStorage.getItem('carrinho')).total,
     deliveryAddress: '',
     deliveryNumber: '',
@@ -15,14 +14,6 @@ function AdressCheckout() {
     seller: '',
   });
   const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const start = async () => {
-      const sellersReq = await getSellers();
-      setSellers(sellersReq);
-    };
-    start();
-  }, []);
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({
@@ -37,15 +28,8 @@ function AdressCheckout() {
     if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
       return setError(true);
     }
-    const cart = JSON.parse(localStorage.getItem('carrinho')).cartItems;
-    const products = cart.map((prod) => ({ prodId: prod.id, prodQnt: prod.quantity }));
-    const data = {
-      ...form,
-      userId: JSON.parse(localStorage.getItem('user')).id,
-      sellerId: form.seller,
-    };
-    const routeId = await checkoutRequest(data, products);
-    navigate(`/customer/orders/${routeId}`);
+    const id = await checkoutRequest(form);
+    navigate(`/customer/orders/${id}`);
   };
 
   return (
