@@ -22,3 +22,10 @@ export async function getProducts() {
   });
   return data;
 }
+
+export async function checkout() {
+  const { data } = await axios.post('http://localhost:3001/checkout', { checkoutInfo })
+    .then()
+    .catch((e) => console.error(e));
+  return data;
+}
