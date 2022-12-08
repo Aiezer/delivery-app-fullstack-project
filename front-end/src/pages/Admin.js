@@ -27,32 +27,30 @@ function Admin() {
     e.preventDefault();
   };
 
-  const verify = async (token) => {
-    const validation = await axios.post('http://localhost:3001/validate', {
-    }, {
-      headers: { Authorization: token },
-    }).then((result) => result.data).catch((err) => {
-      if (err) {
-        setError(true);
-      }
-    });
-    return validation;
-  };
+  // const verify = async (token) => {
+  //   const validation = await axios.post('http://localhost:3001/validate', {
+  //   }, {
+  //     headers: { Authorization: token },
+  //   }).then((result) => result.data).catch((err) => {
+  //     if (err) {
+  //       setError(true);
+  //     }
+  //   });
+  //   return validation;
+  // };
 
   const handleClick = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const validToken = await verify(user.token);
-
-    if (validToken) {
-      await axios.post('http://localhost:3001/admin/register', { ...form })
-        .then(() => {
-          setForm({
-            name: '', email: '', password: '', role: 'cliente' });
-          setError(false);
-        })
-        .catch(() => setError(true));
-    }
+    await axios.post('http://localhost:3001/admin/register', { ...form }, {
+      headers: { Authorization: user.token },
+    })
+      .then(() => {
+        setForm({
+          name: '', email: '', password: '', role: 'cliente' });
+        setError(false);
+      })
+      .catch(() => setError(true));
   };
 
   const handleChange = ({ target }) => {

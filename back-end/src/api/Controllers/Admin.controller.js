@@ -14,8 +14,10 @@ const loginAdmin = async (req, res) => {
 };
 
 const registerAdmin = async (req, res) => {
+  const token = req.headers.authorization;
+
   try {
-    const newAdmin = await adminService.registerAdmin(req.body);
+    const newAdmin = await adminService.registerAdmin(token, req.body);
     if (!newAdmin) return res.status(409).json({ message: 'Email already registered' });
     return res.status(201).json({ message: 'novo cadastro realizado' });
   } catch (error) {
