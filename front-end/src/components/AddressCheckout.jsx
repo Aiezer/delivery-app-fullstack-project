@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkoutRequest } from '../utils/request';
+import { checkoutRequest, getSellers } from '../utils/request';
 
 function AdressCheckout() {
   const navigate = useNavigate();
+  const [sellers, setSellers] = useState([]);
   const [form, setForm] = useState({
     userId: 1,
     sellerId: 1,
@@ -15,6 +16,14 @@ function AdressCheckout() {
   });
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    const start = async () => {
+      const sellersReq = await getSellers();
+      setSellers(sellersReq);
+    };
+    start();
+  }, []);
+
   const handleChange = ({ target: { name, value } }) => {
     setForm({
       ...form,
@@ -24,6 +33,7 @@ function AdressCheckout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form.seller);
     if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
       return setError(true);
     }
@@ -44,8 +54,10 @@ function AdressCheckout() {
             onChange={ handleChange }
             value={ form.seller }
           >
-            <option value="Fernando">Fernando</option>
-            <option value="Marcos">Marcos</option>
+            <option hidden>Selecione o vendedor</option>
+            { sellers.map((seller, i) => (
+              <option value={ seller.name } key={ i }>{ seller.name }</option>
+            ))}
           </select>
         </label>
         <label htmlFor="address">
