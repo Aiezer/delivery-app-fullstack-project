@@ -1,6 +1,6 @@
 // const secret = require('fs')
 //   .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
-const { user, sales } = require('../../database/models');
+const { user, sale } = require('../../database/models');
 
 const getSellers = async () => {
   const sellers = await user.findAll({
@@ -10,11 +10,11 @@ const getSellers = async () => {
   return sellers;
 };
 
-const createSale = async (newSale) => {
-  const sale = await sales.create({
-    ...newSale,
+const createSale = async (body) => {
+  const sales = await sale.create({
+    ...body,
   });
-  return sale;
+  return sales;
 };
 
 module.exports = {

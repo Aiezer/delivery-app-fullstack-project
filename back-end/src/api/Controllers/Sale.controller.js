@@ -13,7 +13,10 @@ const createSale = async (req, res) => {
   try {
     const { body } = req;
     const newSale = await saleService.createSale(body);
-    return res.status(200).json({ newSale });
+    if (newSale) {
+      return res.status(200).json(newSale);
+    } return res.status(404).json({ message: 'Error creating' });
+    
   } catch (error) {
     console.log('controller:', error);
   }
