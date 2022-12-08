@@ -30,7 +30,9 @@ export default function CardSeller() {
             type="button"
             onClick={ () => navigate(`/seller/orders/${order.id}`) }
           >
-            <h1>{ `pedido ${order.id}` }</h1>
+            <div>
+              <h1>{ `pedido ${order.id}` }</h1>
+            </div>
             <div>
               <h1
                 data-testid={ `seller_orders__element-delivery-status-${order.id}` }

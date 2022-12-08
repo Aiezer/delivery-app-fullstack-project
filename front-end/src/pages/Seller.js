@@ -6,6 +6,11 @@ import OrderDetails from '../components/OrderDetails';
 export default function Seller() {
   const navigate = useNavigate();
   const location = useLocation();
+  // const [path, setPath] = useState('');
+
+  // useEffect(() => {
+
+  // });
 
   const { storage } = useContext(MyContext);
 
@@ -14,10 +19,22 @@ export default function Seller() {
     navigate('/login');
   };
 
+  function handleClick() {
+    navigate('/seller/orders');
+  }
+
   return (
     <section>
       <div>
         <header>
+          <button
+            data-testid="customer_products__element-navbar-link-orders"
+            type="button"
+            name="orders"
+            onClick={ handleClick }
+          >
+            Pedidos
+          </button>
           <h1
             type="text"
             data-testid="customer_products__element-navbar-user-full-name"
@@ -37,7 +54,7 @@ export default function Seller() {
       <div>
         { location.pathname === '/seller/orders'
         && <CardSeller /> }
-        { location.pathname === '/seller/orders/:id'
+        { location.pathname === `/seller/orders/${id}`
         && <OrderDetails /> }
       </div>
     </section>

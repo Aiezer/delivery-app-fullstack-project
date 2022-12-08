@@ -6,6 +6,7 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import Seller from './pages/Seller';
 import MyContext from './Context';
 
 const user = localStorage.getItem('user');
@@ -36,6 +37,8 @@ function App() {
         <Route exact path="/register" element={ <Register /> } />
         <Route exact path="/customer/products" element={ <Products /> } />
         <Route exact path="/admin/manage" element={ <Admin /> } />
+        <Route exact path="/seller/orders" element={ <Seller /> } />
+        <Route exact path="/seller/orders/:id" element={ <Seller /> } />
       </Routes>
     </MyContext.Provider>
   );
