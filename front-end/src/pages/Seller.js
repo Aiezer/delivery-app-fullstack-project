@@ -1,16 +1,9 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import CardSeller from '../components/CardSeller';
-import OrderDetails from '../components/OrderDetails';
+import { useNavigate } from 'react-router-dom';
+import OrderCard from '../components/OrderCard';
 
 export default function Seller() {
   const navigate = useNavigate();
-  const location = useLocation();
-  // const [path, setPath] = useState('');
-
-  // useEffect(() => {
-
-  // });
 
   const { storage } = useContext(MyContext);
 
@@ -52,10 +45,7 @@ export default function Seller() {
         </header>
       </div>
       <div>
-        { location.pathname === '/seller/orders'
-        && <CardSeller /> }
-        { location.pathname === `/seller/orders/${id}`
-        && <OrderDetails /> }
+        <OrderCard />
       </div>
     </section>
   );

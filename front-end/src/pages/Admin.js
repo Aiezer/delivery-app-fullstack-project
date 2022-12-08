@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const emailRegex = /\S+@\S+\.\S+/;
@@ -14,35 +14,60 @@ function Admin() {
 
   const validateEmail = (email) => emailRegex.test(email);
 
-  const validateForm = () => {
+  useEffect(() => {
     const { password, email, name } = form;
-    if (password.length >= SIX && name.length <= TWELVE && validateEmail(email)) {
+    if (password.length >= SIX && name.length >= TWELVE && validateEmail(email)) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
-  };
+  }, [form]);
 
   const handleSubmit = async (e) => {
-    const { name, email, password, role } = form;
     e.preventDefault();
-    await axios({
-      method: 'POST',
-      url: 'http://localhost:3001/admin/register',
-      data: {
-        name,
-        email,
-        password,
-        role,
-      },
-    }).then((response) => console.log(response)).catch((err) => {
-      if (err) setError(true);
+  };
+
+  const verify = async (token) => {
+    // const header = { 'Autorization': `${token}` };
+    const validation = await axios.post('http://localhost:3001/validate', {
+    }, {
+      headers: { Authorization: token },
+    }).then((result) => {
+      console.log('debtro do then ', result);
+      return result.data;
+    }).catch((err) => {
+      if (err) {
+        setError(true);
+      }
     });
+    console.log('dentro do validate', validation);
+    return validation;
+  };
+
+  const handleClick = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('user do local', user);
+
+    const validToken = await verify(user.token);
+    console.log('valid token', validToken);
+
+    if (validToken) {
+      await axios.post('http://localhost:3001/admin/register', { ...form })
+        .then((response) => {
+          console.log('debtro do then 2 ', response);
+          setError(false);
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+            setError(true);
+          }
+        });
+    }
   };
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.id]: target.value });
-    validateForm();
   };
 
   return (
@@ -72,7 +97,7 @@ function Admin() {
         <label htmlFor="name">
           Nome
           <input
-            datatestid="admin_manage__input-name"
+            data-testid="admin_manage__input-name"
             id="name"
             type="text"
             name="name"
@@ -84,7 +109,7 @@ function Admin() {
         <label htmlFor="email">
           Email
           <input
-            datatestid="admin_manage__input-email"
+            data-testid="admin_manage__input-email"
             id="email"
             type="text"
             name="email"
@@ -96,7 +121,7 @@ function Admin() {
         <label htmlFor="password">
           Senha
           <input
-            datatestid="admin_manage__input-password"
+            data-testid="admin_manage__input-password"
             id="password"
             type="password"
             name="password"
@@ -120,11 +145,12 @@ function Admin() {
           </select>
         </label>
         <button
-          datatestid="admin_manage__button-register"
+          data-testid="admin_manage__button-register"
           id="register"
           name="register"
           type="button"
           disabled={ isDisabled }
+          onClick={ handleClick }
         >
           {' '}
           Cadastrar
@@ -132,7 +158,7 @@ function Admin() {
         </button>
       </form>
       { error
-        ? <p datatestid="admin_manage__element-invalid-register"> Error </p> : null }
+        ? <p data-testid="admin_manage__element-invalid-register"> Error </p> : null }
     </div>
   );
 }

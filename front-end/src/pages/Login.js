@@ -39,7 +39,7 @@ export default function Login() {
       setNavigateRoute(`/${role}/orders`);
     }
     if (role === 'administrator') {
-      setNavigateRoute(`/${role}/manage`);
+      setNavigateRoute('/admin/manage');
     }
   };
 

@@ -1,8 +1,8 @@
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
+const secret = require('fs')
+.readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' }); 
 const { user } = require('../../database/models');
-
-const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 const login = async (email, password) => {
   const findUser = await user.findAll({ where: { email } });
@@ -26,10 +26,10 @@ const register = async (body) => {
   return newUser;
 };
 
-const validateToken = async (body) => {
-  const { token } = body;
+const validateToken = async (token) => {
   try {
       const decoded = jwt.verify(token, secret);
+      console.log('decoded', decoded);
       const passwordHash = md5(decoded.password);
       const findUser = await user.findAll({ where: { email: decoded.email } });
       if (passwordHash === findUser[0].password) return true;

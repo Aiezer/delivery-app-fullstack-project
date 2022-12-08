@@ -1,13 +1,13 @@
-const axios = require('axios');
+import axios from 'axios';
 
 export async function verify(token) {
-  const { data } = await axios({
-    method: 'POST',
-    url: 'http://localhost:3001/validate',
-    headers,
-    data: {
-      token,
-    },
+  const data = await axios.post('http://localhost:3001/validate', {
+  }, {
+    headers: { Authorization: token },
+  }).then((result) => result.data).catch((err) => {
+    if (err) {
+      setError(true);
+    }
   });
   return data;
 }

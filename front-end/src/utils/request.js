@@ -23,18 +23,21 @@ export async function getProducts() {
   return data;
 }
 
-export async function getOrders() {
+export async function getOrders(token, role) {
   const { data } = await axios({
-    method: 'GET',
-    url: 'localhost:3000/seller/orders',
+    method: 'POST',
+    url: 'http://localhost:3001/orders',
+    headers: {
+      Authorization: token,
+    },
+    data: { type: role },
   });
   return data;
 }
 
-export async function getOrderById(id) {
-  const { data } = await axios({
-    method: 'GET',
-    url: `localhost:3000/seller/orders/${id}`,
-  });
+export async function checkout(checkoutInfo) {
+  const { data } = await axios.post('http://localhost:3001/checkout', { data: checkoutInfo })
+    .then()
+    .catch((e) => console.error(e));
   return data;
 }

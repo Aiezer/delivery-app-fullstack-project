@@ -8,6 +8,9 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Seller from './pages/Seller';
 import MyContext from './Context';
+import Orders from './pages/Orders';
+import Checkout from './pages/Checkout';
+import Details from './pages/Details';
 
 const user = localStorage.getItem('user');
 const parse = JSON.parse(user);
@@ -16,7 +19,8 @@ function App() {
   const [storage, setStorage] = useState(parse);
 
   const value = useMemo(() => ({
-    storage, setStorage,
+    storage,
+    setStorage,
   }), [storage]);
 
   return (
@@ -36,9 +40,11 @@ function App() {
         <Route exact path="/login" element={ <Login /> } />
         <Route exact path="/register" element={ <Register /> } />
         <Route exact path="/customer/products" element={ <Products /> } />
+        <Route exact path="/customer/orders" element={ <Orders /> } />
         <Route exact path="/admin/manage" element={ <Admin /> } />
         <Route exact path="/seller/orders" element={ <Seller /> } />
-        <Route exact path="/seller/orders/:id" element={ <Seller /> } />
+        <Route exact path="/customer/checkout" element={ <Checkout /> } />
+        <Route exact path="/customer/orders/:id" element={ <Details /> } />
       </Routes>
     </MyContext.Provider>
   );
