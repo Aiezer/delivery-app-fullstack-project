@@ -36,11 +36,10 @@ function AdressCheckout() {
     if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
       return setError(true);
     }
-    const vendedor = sellers.find((seller) => seller.name === form.seller);
     const data = {
       ...form,
       userId: JSON.parse(localStorage.getItem('user')).id,
-      sellerId: vendedor.id,
+      sellerId: form.seller,
     };
     const routeId = await checkoutRequest(data);
     navigate(`/customer/orders/${routeId}`);
@@ -61,7 +60,7 @@ function AdressCheckout() {
           >
             <option hidden>Selecione o vendedor</option>
             { sellers.map((seller, i) => (
-              <option value={ seller.name } key={ i }>{ seller.name }</option>
+              <option value={ seller.id } key={ i }>{ seller.name }</option>
             ))}
           </select>
         </label>
