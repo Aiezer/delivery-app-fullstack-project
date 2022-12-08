@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function GenericRowCheckout({ products, index }) {
-  console.log(index, products);
+function GenericRowCheckout({ products, index, handleState }) {
   const { name, quantity, price, subTotal } = products;
-
-  const handleClick = () => {
-    console.log('remover item');
-  };
 
   return (
     <tr data-testid={ `customer_checkout__element-order-table-item-number-${index}` }>
@@ -27,7 +22,7 @@ function GenericRowCheckout({ products, index }) {
         {subTotal.toFixed(2).replace('.', ',')}
       </td>
       <td data-testid={ `customer_checkout__element-order-table-remove-${index}` }>
-        <button type="button" onClick={ handleClick }>Remover</button>
+        <button type="button" id={ index } onClick={ handleState }>Remover</button>
       </td>
     </tr>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AdressCheckout() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ sellers: '', address: '', addressNumber: '' });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -11,8 +13,12 @@ function AdressCheckout() {
   };
 
   const handleSubmit = (e) => {
+    const id = 1;
     e.preventDefault();
+    console.log(form);
+    navigate(`/customer/orders/${id}`);
   };
+
   return (
     <section>
       <h1>Detalhes e Endereço para Entrega</h1>
