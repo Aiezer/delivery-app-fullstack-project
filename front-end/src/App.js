@@ -8,6 +8,8 @@ import Products from './pages/Products';
 import Register from './pages/Register';
 import MyContext from './Context';
 import Orders from './pages/Orders';
+import Checkout from './pages/Checkout';
+import Details from './pages/Details';
 
 const user = localStorage.getItem('user');
 const parse = JSON.parse(user);
@@ -39,6 +41,8 @@ function App() {
         <Route exact path="/customer/products" element={ <Products /> } />
         <Route exact path="/customer/orders" element={ <Orders /> } />
         <Route exact path="/admin/manage" element={ <Admin /> } />
+        <Route exact path="/customer/checkout" element={ <Checkout /> } />
+        <Route exact path="/customer/orders/:id" element={ <Details /> } />
       </Routes>
     </MyContext.Provider>
   );
