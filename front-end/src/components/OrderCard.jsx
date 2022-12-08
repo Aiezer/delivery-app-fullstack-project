@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getOrders } from '../utils/request';
-// import { Redirect } from '../utils/redirect';
 
 export default function OrderCard() {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -18,20 +18,26 @@ export default function OrderCard() {
   return (
     <>
       {orders.map((o, index) => (
-        <div key={ index }>
-          <p data-testid={ `customer_orders__element-order-id-${o.id}` }>
-            {o.id}
-          </p>
-          <p data-testid={ `customer_orders__element-delivery-status-${o.id}` }>
-            {o.status}
-          </p>
-          <p data-testid={ `customer_orders__element-order-date-${o.id}` }>
-            {o.saleDate}
-          </p>
-          <p data-testid={ `customer_orders__element-card-price-${o.id}` }>
-            {o.totalPrice}
-          </p>
-        </div>
+        <button
+          key={ index }
+          type="button"
+          onClick={ () => navigate(`/customer/orders/${o.id}`) }
+        >
+          <div>
+            <p data-testid={ `customer_orders__element-order-id-${o.id}` }>
+              {o.id}
+            </p>
+            <p data-testid={ `customer_orders__element-delivery-status-${o.id}` }>
+              {o.status}
+            </p>
+            <p data-testid={ `customer_orders__element-order-date-${o.id}` }>
+              {o.saleDate}
+            </p>
+            <p data-testid={ `customer_orders__element-card-price-${o.id}` }>
+              {o.totalPrice}
+            </p>
+          </div>
+        </button>
 
       ))}
     </>
