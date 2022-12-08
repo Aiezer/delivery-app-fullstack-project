@@ -34,6 +34,9 @@ export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
     url: 'http://localhost:3001/sale',
+    headers: {
+      authorization: `${JSON.parse(localStorage.getItem('user')).token}`,
+    },
   });
   return data;
 }
