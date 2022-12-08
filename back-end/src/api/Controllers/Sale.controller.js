@@ -16,7 +16,6 @@ const createSale = async (req, res) => {
     if (newSale) {
       return res.status(201).json(newSale);
     } return res.status(404).json({ message: 'Error creating' });
-    
   } catch (error) {
     console.log('controller:', error);
   }
