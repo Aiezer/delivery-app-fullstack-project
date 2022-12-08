@@ -31,7 +31,7 @@ export default function CardSeller() {
             onClick={ () => navigate(`/seller/orders/${order.id}`) }
           >
             <div>
-              <h1>{ `pedido ${order.id}` }</h1>
+              <h1>{ `pedido ${order.deliveryNumber}` }</h1>
             </div>
             <div>
               <h1
@@ -42,15 +42,15 @@ export default function CardSeller() {
             </div>
             <div>
               <h3 data-testid={ `seller_orders__element-order-date-${order.id}` }>
-                { order.date }
+                { order.saleDate }
               </h3>
               <h3 data-testid={ `seller_orders__element-card-price-${order.id}` }>
-                { order.price }
+                { order.totalPrice }
               </h3>
             </div>
             <div>
               <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
-                { order.adress }
+                { order.deliveryAdress }
               </p>
             </div>
           </button>
