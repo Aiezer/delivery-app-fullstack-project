@@ -24,9 +24,16 @@ export async function getProducts() {
 }
 
 export async function checkoutRequest(checkoutInfo) {
-  const { data } = await axios.post('http://localhost:3001/sale', { ...checkoutInfo })
-    .then()
-    .catch((e) => console.error(e));
+  const { data } = await axios({
+    method: 'POST',
+    url: 'http://localhost:3001/sale',
+    headers: {
+      Authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    data: {
+      ...checkoutInfo,
+    },
+  });
   return data.id;
 }
 
@@ -34,9 +41,6 @@ export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
     url: 'http://localhost:3001/sale',
-    headers: {
-      authorization: `${JSON.parse(localStorage.getItem('user')).token}`,
-    },
   });
   return data;
 }

@@ -14,7 +14,7 @@ const createSale = async (req, res) => {
     const { body } = req;
     const newSale = await saleService.createSale(body);
     if (newSale) {
-      return res.status(200).json(newSale);
+      return res.status(201).json(newSale);
     } return res.status(404).json({ message: 'Error creating' });
     
   } catch (error) {

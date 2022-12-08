@@ -6,8 +6,8 @@ function AdressCheckout() {
   const navigate = useNavigate();
   const [sellers, setSellers] = useState([]);
   const [form, setForm] = useState({
-    userId: 1,
-    sellerId: 1,
+    userId: 0,
+    sellerId: 0,
     totalPrice: JSON.parse(localStorage.getItem('carrinho')).total,
     deliveryAddress: '',
     deliveryNumber: '',
@@ -33,12 +33,18 @@ function AdressCheckout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form.seller);
     if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
       return setError(true);
     }
-    const id = await checkoutRequest(form);
-    navigate(`/customer/orders/${id}`);
+    const vendedor = sellers.find((seller) => seller.name === form.seller);
+    console.log(vendedor);
+    const data = {
+      ...form,
+      userId: JSON.parse(localStorage.getItem('user')).id,
+      sellerId: vendedor.id,
+    };
+    const routeId = await checkoutRequest(data);
+    navigate(`/customer/orders/${routeId}`);
   };
 
   return (
