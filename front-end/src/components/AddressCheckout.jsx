@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { checkoutRequest } from '../utils/request';
 
 function AdressCheckout() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ sellers: '', address: '', addressNumber: '' });
+  const [form, setForm] = useState({
+    userId: 1,
+    sellerId: 1,
+    totalPrice: JSON.parse(localStorage.getItem('carrinho')).total,
+    deliveryAddress: '',
+    deliveryNumber: '',
+    status: 'Pendente',
+    seller: '',
+  });
+  const [error, setError] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({
@@ -12,10 +22,12 @@ function AdressCheckout() {
     });
   };
 
-  const handleSubmit = (e) => {
-    const id = 1;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
+      return setError(true);
+    }
+    const id = await checkoutRequest(form);
     navigate(`/customer/orders/${id}`);
   };
 
@@ -27,10 +39,10 @@ function AdressCheckout() {
           P. Vendedor Responsável:
           <select
             id="sellers"
-            name="sellers"
+            name="seller"
             data-testid="customer_checkout__select-seller"
             onChange={ handleChange }
-            value={ form.sellers }
+            value={ form.seller }
           >
             <option value="Fernando">Fernando</option>
             <option value="Marcos">Marcos</option>
@@ -42,9 +54,9 @@ function AdressCheckout() {
             type="text"
             placeholder="Rua X, Bairro Y"
             id="address"
-            name="address"
+            name="deliveryAddress"
             onChange={ handleChange }
-            value={ form.address }
+            value={ form.deliveryAddress }
             data-testid="customer_checkout__input-address"
           />
         </label>
@@ -53,24 +65,23 @@ function AdressCheckout() {
           <input
             type="Number"
             placeholder="000"
-            name="addressNumber"
+            name="deliveryNumber"
             id="addressNumber"
             onChange={ handleChange }
-            value={ form.addressNumber }
+            value={ form.deliveryNumber }
             data-testid="customer_checkout__input-address-number"
           />
         </label>
         <div>
           <button
             type="submit"
-            placeholder="000"
-            id="address-number"
             data-testid="customer_checkout__button-submit-order"
           >
             Finalizar Pedido
           </button>
         </div>
       </form>
+      {error ? <h1>Favor informar todos os campos</h1> : null}
     </section>
   );
 }

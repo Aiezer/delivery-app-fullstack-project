@@ -23,11 +23,11 @@ export async function getProducts() {
   return data;
 }
 
-export async function checkout(checkoutInfo) {
-  const { data } = await axios.post('http://localhost:3001/checkout', { data: checkoutInfo })
+export async function checkoutRequest(checkoutInfo) {
+  const { data } = await axios.post('http://localhost:3001/sale', { ...checkoutInfo })
     .then()
     .catch((e) => console.error(e));
-  return data;
+  return data.id;
 }
 
 export async function getSaleById(id) {
