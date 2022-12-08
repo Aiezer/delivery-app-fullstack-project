@@ -28,7 +28,8 @@ export async function checkoutRequest(checkoutInfo) {
     method: 'POST',
     url: 'http://localhost:3001/sale',
     headers: {
-      Authorization: JSON.parse(localStorage.getItem('user')).token,
+      'Content-Type': 'application/json',
+      authorization: JSON.parse(localStorage.getItem('user')).token,
     },
     data: {
       ...checkoutInfo,
