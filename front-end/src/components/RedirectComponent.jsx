@@ -14,7 +14,6 @@ export default function RedirectComponent() {
           setAddress(data);
         } catch (e) {
           localStorage.removeItem('user');
-          localStorage.removeItem('userId');
           setAddress('/login');
         }
       };
@@ -22,7 +21,7 @@ export default function RedirectComponent() {
     } else {
       setAddress('/login');
     }
-  }, [address]);
+  }, []);
 
   return (address !== '' && <Navigate to={ address } />);
 }

@@ -30,7 +30,7 @@ function App() {
           exact
           path="/"
           element={
-            user
+            !user
               ? <Navigate to="/login" />
               : <RedirectComponent />
           }

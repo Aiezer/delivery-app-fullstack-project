@@ -1,4 +1,5 @@
 import axios from 'axios';
+import handleUrl from './handleUrl';
 
 export async function verify(token) {
   const data = await axios.post('http://localhost:3001/validate', {
@@ -9,7 +10,8 @@ export async function verify(token) {
       setError(true);
     }
   });
-  return data;
+  console.log(data);
+  return true;
 }
 
 export async function Redirect() {
@@ -21,7 +23,7 @@ export async function Redirect() {
       localStorage.removeItem('user');
       return '/login';
     }
-    return `/${role}/products`;
+    return handleUrl(role);
   }
   return '/login';
 }
