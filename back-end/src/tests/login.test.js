@@ -4,33 +4,30 @@ const sinon = require('sinon')
 const app = require('../api/app')
 const chaiHttp = require('chai-http')
 const { Model } = require('sequelize')
-const JsonWebToken = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const { tokenMock, loginMock, loginReturnMock } = require('./Mocks')
 
 
 chai.use(chaiHttp)
 
-describe('testa a rota /customer', function () {
+describe('testa a rota /login', function () {
   it('testa se é possível realizar um login como consumidor com sucesso', async function() {
-    before(() => {
-      sinon.stub(Model, 'findAll').resolves(loginMock);
-      sinon.stub(JsonWebToken, 'sign').resolves(tokenMock)
-    });
+    sinon.stub(Model, 'findAll').resolves(loginMock);
+    sinon.stub(jwt, 'sign').returns(tokenMock);
     
-    const response = await chai.request(app).post('/customer').send({
+    const response = await chai.request(app).post('/login').send({
      email: 'zebirita@email.com',
      password: '$#zebirita#$',
-    });
+    }).set('Authorization', tokenMock);
 
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(loginReturnMock);
   });
 
   it('testa que não é possível fazer login com dados inexistentes no banco', async function () {
-    before(async () => {
-      sinon.stub(Model, 'findAll').resolves([])
-    });
-    const response = await chai.request(app).post('/customer').send({
+    sinon.stub(Model, 'findAll').resolves([])
+
+    const response = await chai.request(app).post('/login').send({
       email: 'inexistente@email.com',
       password: 'inexistente',
     })
@@ -40,10 +37,9 @@ describe('testa a rota /customer', function () {
   });
 
   it('testa que não é possível fazer login com uma senha inválida', async function () {
-    before(async () => {
-      sinon.stub(Model, 'findAll').resolves(loginMock)
-    });
-    const response = await chai.request(app).post('/customer').send({
+    sinon.stub(Model, 'findAll').resolves(loginMock)
+
+    const response = await chai.request(app).post('/login').send({
       email: 'zebirita@email.com',
       password: 'inexistente',
     });

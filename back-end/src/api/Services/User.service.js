@@ -7,8 +7,11 @@ const { user } = require('../../database/models');
 const login = async (email, password) => {
   const findUser = await user.findAll({ where: { email } });
   if (!findUser[0]) return { bool: false, message: 'Não existe esse usuário!' };
+
   const passwordHash = md5(password);
+
   if (passwordHash === findUser[0].password) return { bool: true, message: findUser[0] };
+
   return { bool: false, message: 'A senha está incorreta!' };
 };
 
@@ -28,14 +31,17 @@ const register = async (body) => {
 
 const validateToken = async (token) => {
   try {
-      const decoded = jwt.verify(token, secret);
-      const passwordHash = md5(decoded.password);
-      const findUser = await user.findAll({ where: { email: decoded.email } });
-      if (passwordHash === findUser[0].password) return true;
-      return false;
-    } catch (e) {
-      return false;
-    }
+    const decoded = jwt.verify(token, secret);
+  
+    const passwordHash = md5(decoded.password);
+    const findUser = await user.findAll({ where: { email: decoded.email } });
+
+    if (passwordHash === findUser[0].password) return true;
+    return false;
+  } catch (e) {
+
+    return false;
+  }
 };
 
 module.exports = {
