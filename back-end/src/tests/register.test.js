@@ -7,8 +7,9 @@ const { Model } = require("sequelize");
 const {
   newUserMock,
   verifyMock,
-  tokenToValidate,
   userMock,
+  tokenMock,
+  loginMock,
 } = require("./Mocks");
 const JsonWebToken = require("jsonwebtoken");
 
@@ -70,8 +71,21 @@ describe("testa a rota /validate", function () {
     const result = await chai
       .request(app)
       .post("/validate")
-      .set("Authorization", tokenToValidate);
+      .set("Authorization", tokenMock);
 
     expect(result.status).to.be.equal(201);
   });
+
+  it("testa que não é possível validar um token falso", async function () {
+    sinon.stub(Model, "findAll").resolves(loginMock);
+    sinon.stub(JsonWebToken, "verify").returns(verifyMock);
+
+    const result = await chai
+      .request(app)
+      .post("/validate")
+      .set("Authorization", tokenMock);
+
+    expect(result.status).to.be.equal(401);
+  });
+  afterEach(() => sinon.restore());
 });

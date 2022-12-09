@@ -49,7 +49,6 @@ const userMock = [
   },
 ];
 
-const tokenToValidate = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUBkZWxpdmVyeWFwcC5jb20iLCJwYXNzd29yZCI6Ii0tYWRtMkAyMSEhLS0iLCJpYXQiOjE2NzA2MjAxMDIsImV4cCI6MTY3MTIyNDkwMn0.XguaXs_m-G4xSDUpm8msz8QVChEFldXR3H8VqXFlHYE";
 
 module.exports = {
   tokenMock,
