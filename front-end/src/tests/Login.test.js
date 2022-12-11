@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
+// import httpRequest from 'axios';
 // import renderWithRouter from './helpers/renderWithRouter';
 // import App from '../App';
-// import httpRequest from '../axios/config';
 // import tokenMock from './helpers/Mocks';
 
 // describe('testa a página de login', () => {
@@ -32,7 +32,7 @@
 //       expect(history.pathname).toBe('/products');
 //     });
 //   });
-//   after(() => {
+//   afterEach(() => {
 //     global.fetch.mockRestore();
 //   });
 // });

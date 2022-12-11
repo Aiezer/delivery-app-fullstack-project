@@ -1,3 +1,5 @@
-const tokenMock = 'adicionar token Mock';
+const tokenMock = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InplYmlyaXRhQGVtYWls
+    LmNvbSIsInBhc3N3b3JkIjoiJCN6ZWJpcml0YSMkIiwiaWF0IjoxNjY5ODM2ODEwLCJleHAiOjE2Njk5MjMy
+    MTB9.g3B-sFX8QeBNny7dLUsYbw8Pu4V4VKB0NZXtY3SUMMw`;
 
 export default tokenMock;
