@@ -30,14 +30,14 @@ describe("testa a rota /register", function () {
     expect(response.body).to.be.deep.equal(newUserMock);
   });
   it("testa que não é possível registrar um usuário já existente", async function () {
-    sinon.stub(Model, "findOne").resolves(newUserMock.newUser); // o mock não está funcionando - retorna null
+    sinon.stub(Model, "findOne").resolves(userMock);
     sinon.stub(Model, "create").resolves(null);
 
     const response = await chai.request(app).post("/register").send({
-      name: "Zé Birita",
-      email: "zebirita@email.com",
-      password: "$#zebirita#$",
-      role: "customer",
+      name: "Delivery App Admin",
+      email: "adm@deliveryapp.com",
+      password: "--adm2@21!!--",
+      role: "administrator",
     });
 
     expect(response.status).to.be.equal(409);

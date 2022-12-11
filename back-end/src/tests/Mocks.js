@@ -57,6 +57,5 @@ module.exports = {
   passwordHash,
   newUserMock,
   verifyMock,
-  tokenToValidate,
   userMock,
 };
