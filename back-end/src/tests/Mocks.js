@@ -33,22 +33,38 @@ const newUserMock = {
 };
 
 const verifyMock = {
-  email: 'adm@deliveryapp.com',
-  password: '--adm2@21!!--',
+  email: "adm@deliveryapp.com",
+  password: "--adm2@21!!--",
   iat: 1670620102,
-  exp: 1671224902
+  exp: 1671224902,
 };
 
 const userMock = [
   {
     id: 1,
-    name: 'Delivery App Admin',
-    email: 'adm@deliveryapp.com',
-    password: 'a4c86edecc5aee06eff8fdeda69e0d04',
-    role: 'administrator'
+    name: "Delivery App Admin",
+    email: "adm@deliveryapp.com",
+    password: "a4c86edecc5aee06eff8fdeda69e0d04",
+    role: "administrator",
   },
 ];
 
+const secondVerifyMock = {
+  email: "newUser@email.com",
+  password: "novaSenha",
+  iat: 1670620102,
+  exp: 1671224902,
+};
+
+const findUser = [
+  {
+    id: 9,
+    name: "Create newUser",
+    email: "newUser@email.com",
+    password: "6cf637e2566e88f7344d324c83a01724",
+    role: "customer",
+  },
+];
 
 module.exports = {
   tokenMock,
@@ -58,4 +74,6 @@ module.exports = {
   newUserMock,
   verifyMock,
   userMock,
+  secondVerifyMock,
+  findUser,
 };

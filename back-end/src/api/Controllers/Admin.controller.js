@@ -1,17 +1,17 @@
 const adminService = require('../Services/Admin.service');
-const { tokenGenerate } = require('../utils/loginFuncs');
+// const { tokenGenerate } = require('../utils/loginFuncs');
 
-const loginAdmin = async (req, res) => {
-  const { email, password } = req.body;
-  const findAdmin = adminService.loginAdmin(email, password);
+// const loginAdmin = async (req, res) => {
+//   const { email, password } = req.body;
+//   const findAdmin = adminService.loginAdmin(email, password);
 
-  if (!findAdmin) return res.status(404).json({ message: 'Email ou senha incorreta(o)(s)' });
+//   if (!findAdmin) return res.status(404).json({ message: 'Email ou senha incorreta(o)(s)' });
 
-  const token = tokenGenerate(req.body);
-  req.headers.authorization = token;
+//   const token = tokenGenerate(req.body);
+//   req.headers.authorization = token;
 
-  return res.status(200).json({ token });
-};
+//   return res.status(200).json({ token });
+// };
 
 const registerAdmin = async (req, res) => {
   const token = req.headers.authorization;
@@ -26,6 +26,6 @@ const registerAdmin = async (req, res) => {
 };
 
 module.exports = {
-  loginAdmin,
+  // loginAdmin,
   registerAdmin,
 };
