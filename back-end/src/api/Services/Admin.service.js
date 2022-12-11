@@ -4,14 +4,6 @@ const secret = require('fs')
 .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' }); 
 const { user } = require('../../database/models');
 
-// const loginAdmin = async (email, password) => {
-//   const findAdmin = await user.findAll({ where: { email } });
-//   if (!findAdmin[0]) return false;
-//   const passwordHash = md5(password);
-//   if (passwordHash === findAdmin[0].password) return findAdmin;
-//   return false;
-// };
-
 const validateToken = async (token) => {
   try {
     const decoded = jwt.verify(token, secret);
@@ -41,6 +33,5 @@ const registerAdmin = async (token, body) => {
 };
 
 module.exports = {
-  // loginAdmin,
   registerAdmin,
 };
