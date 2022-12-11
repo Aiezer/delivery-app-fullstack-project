@@ -39,7 +39,6 @@ const validateToken = async (token) => {
     if (passwordHash === findUser[0].password) return true;
     return false;
   } catch (e) {
-
     return false;
   }
 };
