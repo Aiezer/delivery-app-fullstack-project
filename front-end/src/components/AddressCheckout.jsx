@@ -36,12 +36,14 @@ function AdressCheckout() {
     if (form.seller === '' || form.deliveryAddress === '' || form.deliveryNumber === '') {
       return setError(true);
     }
+    const cart = JSON.parse(localStorage.getItem('carrinho')).cartItems;
+    const products = cart.map((prod) => ({ prodId: prod.id, prodQnt: prod.quantity }));
     const data = {
       ...form,
       userId: JSON.parse(localStorage.getItem('user')).id,
       sellerId: form.seller,
     };
-    const routeId = await checkoutRequest(data);
+    const routeId = await checkoutRequest(data, products);
     navigate(`/customer/orders/${routeId}`);
   };
 
