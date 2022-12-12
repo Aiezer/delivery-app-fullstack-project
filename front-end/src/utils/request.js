@@ -42,7 +42,7 @@ export async function checkoutRequest(request, products) {
 export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
-    url: 'http://localhost:3001/sale',
+    url: 'http://localhost:3001/sale/sellers',
   });
   return data;
 }
