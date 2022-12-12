@@ -74,3 +74,11 @@ export async function getSellers() {
   });
   return data;
 }
+
+export async function getSaleById(id) {
+  const { data } = await axios({
+    method: 'GET',
+    url: `http://localhost:3001/sales/${id}`,
+  });
+  return data;
+}
