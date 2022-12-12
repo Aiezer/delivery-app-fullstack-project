@@ -103,3 +103,16 @@ export const productsMock = {
 
   ],
 };
+
+export const newUserMock = {
+  data: {
+    message: 'O usuario foi criado',
+    newUser: {
+      role: 'customer',
+      id: 13,
+      name: 'New Cliente User',
+      email: 'newClient@email.com',
+      password: '3c0bc2f173e04e130e5f24f1e1966624',
+    },
+  },
+};
