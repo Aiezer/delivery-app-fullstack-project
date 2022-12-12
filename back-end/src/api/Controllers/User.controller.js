@@ -11,7 +11,7 @@ const login = async (req, res) => {
   const token = tokenGenerate(req.body);
 
   req.headers.authorization = token;
-  return res.status(200).json({ name, email, role, token });
+  return res.status(200).json({ name, email, id, role, token });
 };
 
 const register = async (req, res) => {

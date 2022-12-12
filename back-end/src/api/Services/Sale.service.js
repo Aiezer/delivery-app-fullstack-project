@@ -1,18 +1,25 @@
 // const secret = require('fs')
 //   .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
-const { user, sales } = require('../../database/models');
+const { user, sale, saleProduct } = require('../../database/models');
 
-const getSellers = () => {
-  const sellers = user.findAll({ where: { role: 'seller' } });
-  console.log(sellers);
+const getSellers = async () => {
+  const sellers = await user.findAll({
+    attributes: { exclude: ['password'] },
+    where: { role: 'seller' },
+  });
   return sellers;
 };
 
-const createSale = (newSale) => {
-  const sale = sales.create({
-    ...newSale,
+const createSale = async (body, products) => {
+  const sales = await sale.create({
+    ...body,
   });
-  return sale;
+  products.map((prod) => saleProduct.create({
+      saleId: sales.id,
+      productId: prod.prodId,
+      quantity: prod.prodQnt,
+    }));
+  return sales;
 };
 
 module.exports = {
