@@ -40,11 +40,12 @@ function AdressCheckout() {
     const products = cart.map((prod) => ({ prodId: prod.id, prodQnt: prod.quantity }));
     const data = {
       ...form,
-      products,
       userId: JSON.parse(localStorage.getItem('user')).id,
       sellerId: form.seller,
     };
-    const routeId = await checkoutRequest(data);
+    console.log('antes da chamada');
+    const routeId = await checkoutRequest(data, products);
+    console.log('depois da chamada');
     navigate(`/customer/orders/${routeId}`);
   };
 

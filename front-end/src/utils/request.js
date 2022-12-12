@@ -23,8 +23,7 @@ export async function getProducts() {
   return data;
 }
 
-export async function checkoutRequest(checkoutInfo) {
-  console.log(checkoutInfo);
+export async function checkoutRequest(request, products) {
   const { data } = await axios({
     method: 'POST',
     url: 'http://localhost:3001/sale',
@@ -33,7 +32,8 @@ export async function checkoutRequest(checkoutInfo) {
       authorization: JSON.parse(localStorage.getItem('user')).token,
     },
     data: {
-      ...checkoutInfo,
+      products,
+      request,
     },
   });
   return data.id;

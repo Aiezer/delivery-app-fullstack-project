@@ -10,28 +10,17 @@ const getSellers = async () => {
   return sellers;
 };
 
-const createSale = async (body) => {
-  const { products } = body;
-  const data = {
-    userId: body.userId,
-    sellerId: Number(body.sellerId),
-    totalPrice: Number(body.totalPrice),
-    deliveryAddress: body.deliveryAddress,
-    deliveryNumber: body.deliveryNumber,
-    status: body.status,
-  };
+const createSale = async (body, products) => {
   const sales = await sale.create({
-    ...data,
+    ...body,
   });
-
   products.map((prod) => {
     saleProduct.create({
       saleId: sales.id,
       productId: prod.prodId,
-      quantity: Number(prod.prodQnt),
+      quantity: prod.prodQnt,
     });
   });
-
   return sales;
 };
 
