@@ -1,6 +1,6 @@
 // const secret = require('fs')
 //   .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
-const { user, sale } = require('../../database/models');
+const { user, sale, saleProduct } = require('../../database/models');
 
 const getSellers = async () => {
   const sellers = await user.findAll({
@@ -11,9 +11,19 @@ const getSellers = async () => {
 };
 
 const createSale = async (body) => {
+  const { products } = body;
   const sales = await sale.create({
     ...body,
   });
+
+  products.map((prod) => {
+    saleProduct.create({
+      saleId: sales.id,
+      productId: prod.prodId,
+      quantity: prod.quantity,
+    });
+  });
+
   return sales;
 };
 

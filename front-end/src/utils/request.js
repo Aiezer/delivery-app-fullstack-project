@@ -24,6 +24,7 @@ export async function getProducts() {
 }
 
 export async function checkoutRequest(checkoutInfo) {
+  console.log(checkoutInfo);
   const { data } = await axios({
     method: 'POST',
     url: 'http://localhost:3001/sale',
