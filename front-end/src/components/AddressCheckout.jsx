@@ -44,9 +44,7 @@ function AdressCheckout() {
       userId: JSON.parse(localStorage.getItem('user')).id,
       sellerId: form.seller,
     };
-    console.log('antes da chamada');
     const routeId = await checkoutRequest(data, products);
-    console.log('depois da chamada');
     navigate(`/customer/orders/${routeId}`);
   };
 
