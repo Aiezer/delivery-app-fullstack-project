@@ -14,13 +14,11 @@ const createSale = async (body, products) => {
   const sales = await sale.create({
     ...body,
   });
-  products.map((prod) => {
-    saleProduct.create({
+  products.map((prod) => saleProduct.create({
       saleId: sales.id,
       productId: prod.prodId,
       quantity: prod.prodQnt,
-    });
-  });
+    }));
   return sales;
 };
 
