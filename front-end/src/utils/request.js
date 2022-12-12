@@ -29,3 +29,11 @@ export async function checkout(checkoutInfo) {
     .catch((e) => console.error(e));
   return data;
 }
+
+export async function getSaleById(id) {
+  const { data } = await axios({
+    method: 'GET',
+    url: `http://localhost:3001/sales/${id}`,
+  });
+  return data;
+}

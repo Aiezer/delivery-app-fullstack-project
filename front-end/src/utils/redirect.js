@@ -10,8 +10,7 @@ export async function verify(token) {
       setError(true);
     }
   });
-  console.log(data);
-  return true;
+  return data;
 }
 
 export async function Redirect() {
