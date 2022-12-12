@@ -4,11 +4,11 @@ const { tokenGenerate } = require('../utils/loginFuncs');
 const login = async (req, res) => {
   const { password } = req.body;
   const service = await userService.login(req.body.email, password);
-  const { name, email, role } = service.message;
+  const { name, email, role, id } = service.message;
   if (service.bool === false) return res.status(404).json({ message: service.message });
   const token = tokenGenerate(req.body);
   req.headers.authorization = token;
-  return res.status(200).json({ name, email, role, token });
+  return res.status(200).json({ name, email, id, role, token });
 };
 
 const register = async (req, res) => {

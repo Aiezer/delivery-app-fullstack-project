@@ -23,9 +23,25 @@ export async function getProducts() {
   return data;
 }
 
-export async function checkout(checkoutInfo) {
-  const { data } = await axios.post('http://localhost:3001/checkout', { data: checkoutInfo })
-    .then()
-    .catch((e) => console.error(e));
+export async function checkoutRequest(checkoutInfo) {
+  const { data } = await axios({
+    method: 'POST',
+    url: 'http://localhost:3001/sale',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    data: {
+      ...checkoutInfo,
+    },
+  });
+  return data.id;
+}
+
+export async function getSellers() {
+  const { data } = await axios({
+    method: 'GET',
+    url: 'http://localhost:3001/sale',
+  });
   return data;
 }
