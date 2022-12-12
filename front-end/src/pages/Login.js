@@ -46,12 +46,12 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const request = await loginRequest(user.email, user.password);
+      console.log('request', request);
       localStorage.setItem('user', JSON.stringify(request));
       setStorage(request);
       verifyNavigateRoute(request.role);
       setIsLogged(true);
     } catch (e) {
-      console.log('erro');
       setErrorRequest(true);
     }
   };
