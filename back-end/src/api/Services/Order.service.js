@@ -1,24 +1,31 @@
-const jwt = require('jsonwebtoken');
-const secret = require('fs');
-const { sale, user } = require('../../database/models');
+const { sale, product } = require('../../database/models');
 
-  secret.readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
+  const getAll = async (userId) => {
+    const customerOrders = await sale.findAll({
+      where: { userId },
+    });
 
-const getOrders = async (token, type) => {
-    const decoded = jwt.verify(token, secret);
-    console.log(type, token);
-    if (type === 'customer') {
-      const userFind = await user.findAll({ where: { email: decoded.email } });
-      const findOrders = await sale.findAll({ where: 
-        type === 'customer'
-        ? { userId: userFind[0].id }
-        : { sellerId: userFind[0].id },
-         });
-      if (!findOrders[0]) return false;
-      return findOrders;
-    }
-};
+    return customerOrders;
+  };
+
+  const getBySaleId = async (userId, saleId, role) => {
+    const key = role === 'customer' ? { userId, id: saleId } : { sellerId: userId, id: saleId };
+console.log('entrou');
+    const sales = await sale.findOne({ 
+      where: key, 
+      include: [
+        { model: product,
+          as: 'products',
+          attributes: { exclude: ['urlImage'] },
+          through: { as: 'qtd', attributes: ['quantity'] },
+        },
+    ],
+    });
+    console.log(sales);
+    return sales; 
+  };
 
 module.exports = {
-    getOrders,
+  getAll,
+  getBySaleId,
 };

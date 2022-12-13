@@ -6,10 +6,9 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
-import Seller from './pages/Seller';
 import MyContext from './Context';
 import Checkout from './pages/Checkout';
-import Details from './pages/Details';
+// import Details from './pages/Details';
 import Orders from './pages/Orders';
 
 const user = localStorage.getItem('user');
@@ -43,9 +42,8 @@ function App() {
         <Route exact path="/customer/orders" element={ <Orders /> } />
         <Route exact path="/admin/manage" element={ <Admin /> } />
         <Route exact path="/customer/checkout" element={ <Checkout /> } />
-        <Route exact path="/customer/orders/:id" element={ <Details /> } />
-        <Route exact path="/seller/orders" element={ <Seller /> } />
-        <Route exact path="/seller/orders/:id" element={ <Details /> } />
+        {/* <Route exact path="/customer/orders/:id" element={ <Details /> } />
+        <Route exact path="/seller/orders/:id" element={ <Details /> } /> */}
       </Routes>
     </MyContext.Provider>
   );

@@ -3,7 +3,7 @@ const ValidateRouter = require('./Validate.routes');
 const AdminRouter = require('./Admin.routes');
 const ProductRouter = require('./Product.routes');
 const SaleRouter = require('./Sale.routes');
-const OrderRouter = require('./Order.routes');
+const CustomerOrder = require('./CustomerOrders.routes');
 
 module.exports = {
   UserRouter,
@@ -11,5 +11,5 @@ module.exports = {
   ValidateRouter,
   ProductRouter,
   SaleRouter,
-  OrderRouter,
+  CustomerOrder,
 };
