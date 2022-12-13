@@ -19,7 +19,6 @@ const validateToken = async (token) => {
 const registerAdmin = async (token, body) => {
   const alredyExist = await user.findOne({ where: { email: body.email } });
   if (alredyExist) return false;
-
   const verify = await validateToken(token);
   if (!verify) return false;
 

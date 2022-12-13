@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       name: DataTypes.STRING(100),
       price: DataTypes.DECIMAL(4, 2),
-      urlImage: DataTypes.STRING(200),
+      urlImage: {type: DataTypes.STRING(200), field: 'url_image'}
     },
     {
       timestamps: false,

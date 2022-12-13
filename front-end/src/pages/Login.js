@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import MyContext from '../Context';
 import loginRequest from '../utils/request';
+import handleUrl from '../utils/handleUrl';
 
 const VALIDATE_EMAIL = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 const six = 6;
@@ -32,15 +33,7 @@ export default function Login() {
   }, [user]);
 
   const verifyNavigateRoute = (role) => {
-    if (role === 'customer') {
-      setNavigateRoute(`/${role}/products`);
-    }
-    if (role === 'seller') {
-      setNavigateRoute(`/${role}/orders`);
-    }
-    if (role === 'administrator') {
-      setNavigateRoute('/admin/manage');
-    }
+    setNavigateRoute(handleUrl(role));
   };
 
   const handleLogin = async () => {
