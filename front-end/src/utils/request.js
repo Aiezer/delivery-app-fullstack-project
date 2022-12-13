@@ -65,7 +65,7 @@ export async function getOrderById(seleId) {
     data: { userId: id, role },
   });
   return data;
- }
+}
 
 export async function getSellers() {
   const { data } = await axios({
