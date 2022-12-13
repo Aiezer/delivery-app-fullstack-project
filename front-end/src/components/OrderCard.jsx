@@ -11,11 +11,11 @@ export default function OrderCard() {
       const object = JSON.parse(localStorage.getItem('user'));
       const { token, role } = object;
       const allOrders = await getOrders(token, role);
-      console.log(allOrders);
       setOrders(allOrders);
     }
     fetchData();
   }, []);
+
   return (
     <>
       {orders.map((o, index) => (
@@ -39,7 +39,6 @@ export default function OrderCard() {
             </p>
           </div>
         </button>
-
       ))}
     </>
   );
