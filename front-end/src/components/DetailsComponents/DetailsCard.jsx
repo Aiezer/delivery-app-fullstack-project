@@ -1,4 +1,6 @@
 import React from 'react';
+import Products from '../../pages/Products';
+import ProductsTable from './ProductsTable';
 
 export default function DetailsCard(order) {
   const { id, date, status, sellerName, role } = order;
@@ -46,11 +48,17 @@ export default function DetailsCard(order) {
           type="button"
           data-testid={ dataTestIds.deliveryId }
         >
-          {role === customer
+          {role === 'customer'
             ? 'MARCAR COMO ENTREGUE'
             : 'PREPARAR PEDIDO'}
         </button>
       </div>
+      {Products.length > 0 && (
+        <div>
+          <ProductsTable { ...order } />
+        </div>
+      )}
+
     </section>
   );
 }

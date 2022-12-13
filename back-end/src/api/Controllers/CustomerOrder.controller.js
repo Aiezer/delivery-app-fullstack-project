@@ -9,6 +9,7 @@ const getAll = async (req, res) => {
 };
 
 const getBySaleId = async (req, res) => {
+  console.log('chegou no controller');
   const { id } = req.params;
   const { userId, role } = req.body;
   const sales = await orderService.getBySaleId(userId, id, role);
