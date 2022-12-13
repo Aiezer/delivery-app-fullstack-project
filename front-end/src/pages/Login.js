@@ -44,7 +44,6 @@ export default function Login() {
       verifyNavigateRoute(request.role);
       setIsLogged(true);
     } catch (e) {
-      console.log('erro');
       setErrorRequest(true);
     }
   };

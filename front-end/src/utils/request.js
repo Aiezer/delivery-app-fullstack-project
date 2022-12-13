@@ -54,6 +54,7 @@ export async function getCustomerOrders(token, userId) {
   return data;
 }
 
+
 export async function getOrderById(seleId) {
   const { id, role, token } = JSON.parse(localStorage.getItem('user'));
   const { data } = await axios({
@@ -65,6 +66,22 @@ export async function getOrderById(seleId) {
     data: { userId: id, role },
   });
   return data;
+ }
+
+export async function checkoutRequest(request, products) {
+  const { data } = await axios({
+    method: 'POST',
+    url: 'http://localhost:3001/sale',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: JSON.parse(localStorage.getItem('user')).token,
+    },
+    data: {
+      products,
+      request,
+    },
+  });
+  return data.id;
 }
 
 export async function getSellers() {
