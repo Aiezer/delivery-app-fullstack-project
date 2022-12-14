@@ -1,9 +1,15 @@
 import React from 'react';
-import Products from '../../pages/Products';
 import ProductsTable from './ProductsTable';
 
-export default function DetailsCard(order) {
-  const { id, date, status, sellerName, role } = order;
+export default function DetailsCard(sale) {
+  const { id, date, status, products, sellerName } = sale;
+  const url = window.location.href.split('/');
+  const role = url[3];
+
+  const totalPrice = products.reduce(
+    (acc, { price, qtd }) => acc + Number(price) * Number(qtd.quantity),
+    0,
+  ).toFixed(2).replace('.', ',');
 
   const sellerTestIds = {
     orderId: 'seller_order_details__element-order-details-label-order-id',
@@ -53,11 +59,16 @@ export default function DetailsCard(order) {
             : 'PREPARAR PEDIDO'}
         </button>
       </div>
-      {Products.length > 0 && (
+      {products.length > 0 && (
         <div>
-          <ProductsTable { ...order } />
+          <ProductsTable { ...sale } />
         </div>
       )}
+      <div>
+        <h2>
+          { `Total: R$ ${totalPrice}` }
+        </h2>
+      </div>
 
     </section>
   );

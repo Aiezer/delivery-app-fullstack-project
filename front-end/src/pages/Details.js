@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import DetailsCard from '../components/DetailsComponents/DetailsCard';
-import { getOrderById } from '../utils/request';
+import { getOrderById, getSellerById } from '../utils/request';
 
 function Details() {
-  const [sale, setSale] = useState('');
+  const [sale, setSale] = useState({
+    products: [],
+  });
 
   const url = window.location.href.split('/');
   const saleId = url[url.length - 1];
-  const role = url[3];
 
   useEffect(() => {
     const requestSale = async () => {
       try {
         if (saleId) {
           const request = await getOrderById(saleId);
-          console.log('test', request);
           setSale(request);
         }
       } catch (e) {
@@ -24,15 +24,24 @@ function Details() {
     requestSale();
   }, [saleId]);
 
-  console.log('request', sale);
-  const order = { ...sale, role };
+  useEffect(() => {
+    const getSellerName = async () => {
+      if (sale && !sale.sellerName) {
+        const sellerName = await getSellerById(sale.sellerId);
+        setSale({ ...sale, sellerName });
+      }
+    };
+    getSellerName();
+  }, [sale]);
+
+  const { products } = sale;
 
   return (
     <section>
-      {sale.length > 0 && (
+      {products.length > 0 && (
         <div>
           <h2>Detales do Pedido</h2>
-          <DetailsCard key={ saleId } { ...order } />
+          <DetailsCard key={ saleId } { ...sale } />
         </div>
       )}
     </section>

@@ -16,11 +16,14 @@ const parse = JSON.parse(user);
 
 function App() {
   const [storage, setStorage] = useState(parse);
+  const [orderDetails, setOrderDetails] = useState([]);
 
   const value = useMemo(() => ({
     storage,
     setStorage,
-  }), [storage]);
+    orderDetails,
+    setOrderDetails,
+  }), [orderDetails, storage]);
 
   return (
     <MyContext.Provider

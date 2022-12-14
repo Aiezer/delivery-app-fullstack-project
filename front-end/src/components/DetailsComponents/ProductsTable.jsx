@@ -1,52 +1,33 @@
 import React from 'react';
-import ReactTable from 'react-table';
-// import PropTypes from 'prop-types';
+import GenerateTableRows from './GenerateTableRows';
+// import ReactTable from 'react-table';
+// import MyContext from '../../Context';
 
-function ProductsTable(products) {
-  console.log(products);
-  // eslint-disable-next-line react/destructuring-assignment
-  const data = products.map(({ id, name, price, qtd: { quantity } }) => ({
-    item: id,
-    description: name,
-    unitaryValue: price,
-    quantity,
-    subtotal: (price * quantity).toFixed(2),
-  }));
-
-  const columns = [
-    {
-      Header: 'Item',
-      accessor: 'item',
-    },
-    {
-      Header: 'Descrição',
-      accessor: 'description',
-    },
-    {
-      Header: 'Quantidade',
-      accessor: 'quantity',
-    },
-    {
-      Header: 'Valor Unitário',
-      accessor: 'quantity',
-    },
-    {
-      Header: 'Quantidade',
-      accessor: 'unitaryValue',
-    },
-    {
-      Header: 'Sub-total',
-      accessor: 'subtotal',
-    },
-  ];
+function ProductsTable(sale) {
+  const { products } = sale;
 
   return (
-    <ReactTable data={ data } columns={ columns } />
+    <div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products
+            ? products.map((product, i) => (
+              <GenerateTableRows products={ product } index={ i } key={ i } />
+            ))
+            : null}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
 export default ProductsTable;
-
-// ProductsTable.propTypes = {
-//   products: PropTypes.arrayOf(Object).isRequired,
-// };
