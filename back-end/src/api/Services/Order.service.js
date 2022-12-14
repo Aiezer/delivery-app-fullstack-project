@@ -22,7 +22,7 @@ const getObjectSale = (sales) => {
     const customerOrders = await sale.findAll({
       where: { userId },
     });
-    const mapOrders = customerOrders.map((order) => getObjectSale(order))
+    const mapOrders = customerOrders.map((order) => getObjectSale(order));
     return mapOrders;
   };
 
