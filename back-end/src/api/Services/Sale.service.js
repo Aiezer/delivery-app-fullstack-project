@@ -10,6 +10,14 @@ const getSellers = async () => {
   return sellers;
 };
 
+const getSellerById = async (sellerId) => {
+  const { name } = await user.findOne({
+    attributes: { exclude: ['password'] },
+    where: { role: 'seller', id: sellerId },
+  });
+  return name;
+};
+
 const createSale = async (body, products) => {
   const sales = await sale.create({
     ...body,
@@ -25,4 +33,5 @@ const createSale = async (body, products) => {
 module.exports = {
   getSellers,
   createSale,
+  getSellerById,
 };

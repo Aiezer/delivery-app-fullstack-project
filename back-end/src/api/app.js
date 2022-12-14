@@ -6,7 +6,7 @@ const {
   AdminRouter,
   ProductRouter,
   SaleRouter,
-  CustomerOrder,
+  OrderRouter,
 } = require('./Routes');
 
 const { validateJWT } = require('./Middlewares/validateJWT.middleware');
@@ -23,7 +23,7 @@ app.use('/admin', AdminRouter);
 app.use('/validate', ValidateRouter);
 app.use('/products', ProductRouter);
 app.use('/sale', SaleRouter);
-app.use('/customer', CustomerOrder);
+app.use('/customer', OrderRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;

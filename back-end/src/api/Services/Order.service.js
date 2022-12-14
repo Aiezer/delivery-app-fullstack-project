@@ -9,9 +9,7 @@ const { sale, product } = require('../../database/models');
   };
 
   const getBySaleId = async (userId, saleId, role) => {
-    console.log('chegou no service');
     const key = role === 'customer' ? { userId, id: saleId } : { sellerId: userId, id: saleId };
-console.log('entrou');
     const sales = await sale.findOne({ 
       where: key, 
       include: [
