@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-dom'; // 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
 const renderWithRouter = (component, route = '/') => {

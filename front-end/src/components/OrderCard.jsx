@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getOrders } from '../utils/request';
+import { getCustomerOrders } from '../utils/request';
 
 export default function OrderCard() {
   const [orders, setOrders] = useState([]);
@@ -9,13 +9,13 @@ export default function OrderCard() {
   useEffect(() => {
     async function fetchData() {
       const object = JSON.parse(localStorage.getItem('user'));
-      const { token, role } = object;
-      const allOrders = await getOrders(token, role);
+      const { token, id } = object;
+      const allOrders = await getCustomerOrders(token, id);
+      console.log(allOrders);
       setOrders(allOrders);
     }
     fetchData();
   }, []);
-
   return (
     <>
       {orders.map((o, index) => (

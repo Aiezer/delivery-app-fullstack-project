@@ -6,6 +6,6 @@ export default function handleUrl(role) {
     return '/seller/orders';
   }
   if (role === 'administrator') {
-    return '/admin/menage';
+    return '/admin/manage';
   }
 }

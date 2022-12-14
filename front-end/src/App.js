@@ -6,22 +6,25 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
-import Seller from './pages/Seller';
 import MyContext from './Context';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';
+import Orders from './pages/Orders';
 
 const user = localStorage.getItem('user');
 const parse = JSON.parse(user);
 
 function App() {
   const [storage, setStorage] = useState(parse);
+  const [orderDetails, setOrderDetails] = useState([]);
 
   const value = useMemo(() => ({
     storage,
     setStorage,
-  }), [storage]);
+    orderDetails,
+    setOrderDetails,
+  }), [orderDetails, storage]);
 
   return (
     <MyContext.Provider
@@ -32,7 +35,7 @@ function App() {
           exact
           path="/"
           element={
-            user
+            !user
               ? <Navigate to="/login" />
               : <RedirectComponent />
           }
@@ -45,6 +48,7 @@ function App() {
         <Route exact path="/seller/orders" element={ <Seller /> } />
         <Route exact path="/customer/checkout" element={ <Checkout /> } />
         <Route exact path="/customer/orders/:id" element={ <Details /> } />
+        {/* <Route exact path="/seller/orders/:id" element={ <Details /> } /> */}
       </Routes>
     </MyContext.Provider>
   );
