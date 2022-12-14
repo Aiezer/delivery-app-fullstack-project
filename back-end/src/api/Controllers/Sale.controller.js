@@ -2,25 +2,6 @@ const saleService = require('../Services/Sale.service');
 
 const strController = 'controller:';
 
-const getSellers = async (req, res) => {
-  try {
-    const sellers = await saleService.getSellers();
-    return res.status(200).json(sellers);
-  } catch (e) {
-    console.log(strController, e);
-  }
-};
-
-const getSellerById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const seller = await saleService.getSellerById(id);
-    return res.status(200).json(seller.name);
-  } catch (error) {
-    console.log(strController, error);
-  }
-};
-
 const createSale = async (req, res) => {
   try {
     const { body: { request, products } } = req;
@@ -44,8 +25,6 @@ const updateSaleStatus = async (req, res) => {
 };
 
 module.exports = {
-  getSellers,
   createSale,
-  getSellerById,
   updateSaleStatus,
 };

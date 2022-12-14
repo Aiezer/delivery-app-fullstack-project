@@ -1,4 +1,4 @@
-const orderService = require('../Services/Order.service');
+const orderService = require('../Services/Customer.service');
 
 const getAll = async (req, res) => {
   const { userId } = req.body;

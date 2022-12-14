@@ -7,6 +7,7 @@ const {
   ProductRouter,
   SaleRouter,
   OrderRouter,
+  SellerRouter,
 } = require('./Routes');
 
 const { validateJWT } = require('./Middlewares/validateJWT.middleware');
@@ -22,7 +23,7 @@ app.use(validateJWT);
 app.use('/admin', AdminRouter);
 app.use('/validate', ValidateRouter);
 app.use('/products', ProductRouter);
-app.use('/orders', OrderRouter);
+app.use('/seller', SellerRouter);
 app.use('/sale', SaleRouter);
 app.use('/customer', OrderRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
