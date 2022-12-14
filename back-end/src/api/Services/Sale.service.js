@@ -11,11 +11,11 @@ const getSellers = async () => {
 };
 
 const getSellerById = async (sellerId) => {
-  const { name } = await user.findOne({
+  const userFind = await user.findAll({
     attributes: { exclude: ['password'] },
-    where: { role: 'seller', id: sellerId },
+    where: { id: sellerId },
   });
-  return name;
+  return userFind[0].name;
 };
 
 const createSale = async (body, products) => {
@@ -30,8 +30,15 @@ const createSale = async (body, products) => {
   return sales;
 };
 
+const updateSaleStatus = async (id) => {
+  const saleForUpdate = await sale.update({ status: 'Entregue' }, 
+    { where: { id } });
+  return saleForUpdate;
+};
+
 module.exports = {
   getSellers,
   createSale,
   getSellerById,
+  updateSaleStatus,
 };

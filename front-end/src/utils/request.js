@@ -73,7 +73,7 @@ export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
     url: 'http://localhost:3001/sale/sellers',
-    headers: { authorization: JSON.parse(localStorage.getItem('user')).token },
+    headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
   });
   return data;
 }
@@ -82,7 +82,16 @@ export async function getSellerById(sellerId) {
   const { data } = await axios({
     method: 'GET',
     url: `http://localhost:3001/sale/sellers/${sellerId}`,
-    headers: { authorization: JSON.parse(localStorage.getItem('user')).token },
+    headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
+  });
+  return data;
+}
+
+export async function updateSaleStatus(saleId) {
+  const { data } = await axios({
+    method: 'PUT',
+    url: `http://localhost:3001/customer/orders/${saleId}`,
+    headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
   });
   return data;
 }

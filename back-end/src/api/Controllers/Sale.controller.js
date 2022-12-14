@@ -31,8 +31,19 @@ const createSale = async (req, res) => {
   }
 };
 
+const updateSaleStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedSale = await saleService.updateSaleStatus(id);
+    return res.status(200).json(updatedSale);
+  } catch (error) {
+    console.log('controller:', error);
+  }
+};
+
 module.exports = {
   getSellers,
   createSale,
   getSellerById,
+  updateSaleStatus,
 };
