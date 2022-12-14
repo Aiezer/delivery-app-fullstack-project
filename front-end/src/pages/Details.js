@@ -40,7 +40,7 @@ function Details() {
 
   return (
     <section>
-      {products.length > 0 && (
+      {sale && products.length > 0 && (
         <div>
           <NavbarProducts />
           <h2>Detales do Pedido</h2>

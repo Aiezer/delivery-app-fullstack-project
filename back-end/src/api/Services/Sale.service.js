@@ -15,7 +15,7 @@ const getSellerById = async (sellerId) => {
     attributes: { exclude: ['password'] },
     where: { id: sellerId },
   });
-  return userFind[0].name;
+  return userFind[0];
 };
 
 const createSale = async (body, products) => {

@@ -8,6 +8,24 @@ const { sale, product } = require('../../database/models');
     return customerOrders;
   };
 
+  const getObjectSale = (sales) => {
+    const { id, userId, sellerId, totalPrice, deliveryAddress, 
+      deliveryNumber, saleDate, status, products } = sales;
+      const format = saleDate.toLocaleString();
+      const finalDate = format.split(' ')[0];
+      return {
+        id,
+        userId,
+        sellerId,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        saleDate: finalDate,
+        status,
+        products,
+      }; 
+  }
+
   const getBySaleId = async (userId, saleId, role) => {
     const key = role === 'customer' ? { userId, id: saleId } : { sellerId: userId, id: saleId };
     const sales = await sale.findOne({ 
@@ -20,13 +38,11 @@ const { sale, product } = require('../../database/models');
         },
     ],
     });
-    const format = sales.saleDate.toLocaleString();
-    const finalDate = format.split(' ')[0];
-    sales.date = finalDate
-    return sales; 
+    return getObjectSale(sales)
   };
 
 module.exports = {
   getAll,
   getBySaleId,
+  getObjectSale
 };

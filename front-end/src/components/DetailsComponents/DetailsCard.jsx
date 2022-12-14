@@ -2,7 +2,7 @@ import React from 'react';
 import ProductsTable from './ProductsTable';
 
 export default function DetailsCard(sale) {
-  const { id, date, status, products, sellerName } = sale;
+  const { id, saleDate, status, products, sellerName } = sale;
   const url = window.location.href.split('/');
   const role = url[3];
 
@@ -40,7 +40,7 @@ export default function DetailsCard(sale) {
           <h3 data-testid={ dataTestIds.sellerId }>{`P. Vend: ${sellerName}`}</h3>
         )}
 
-        <h3 data-testid={ dataTestIds.dateId }>{date}</h3>
+        <h3 data-testid={ dataTestIds.dateId }>{saleDate}</h3>
         <h3 data-testid={ dataTestIds.statusId }>{status}</h3>
         {role === 'seller' && (
           <button
@@ -79,7 +79,7 @@ export default function DetailsCard(sale) {
         <h2
           data-testid="customer_order_details__element-order-total-price"
         >
-          { `Total: R$ ${totalPrice}` }
+          { totalPrice }
         </h2>
       </div>
 
