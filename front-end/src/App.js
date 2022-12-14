@@ -10,7 +10,7 @@ import MyContext from './Context';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';
-import Orders from './pages/Orders';
+import Seller from './pages/Seller';
 
 const user = localStorage.getItem('user');
 const parse = JSON.parse(user);
@@ -48,7 +48,6 @@ function App() {
         <Route exact path="/seller/orders" element={ <Seller /> } />
         <Route exact path="/customer/checkout" element={ <Checkout /> } />
         <Route exact path="/customer/orders/:id" element={ <Details /> } />
-        {/* <Route exact path="/seller/orders/:id" element={ <Details /> } /> */}
       </Routes>
     </MyContext.Provider>
   );
