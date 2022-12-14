@@ -1,16 +1,16 @@
-const { user, sale, product } = require("../../database/models");
+const { user, sale, product } = require('../../database/models');
 
 const getSellers = async () => {
   const sellers = await user.findAll({
-    attributes: { exclude: ["password"] },
-    where: { role: "seller" },
+    attributes: { exclude: ['password'] },
+    where: { role: 'seller' },
   });
   return sellers;
 };
 
 const getSellerById = async (sellerId) => {
   const userFind = await user.findAll({
-    attributes: { exclude: ["password"] },
+    attributes: { exclude: ['password'] },
     where: { id: sellerId },
   });
   return userFind[0];
@@ -41,13 +41,13 @@ const getSellersOrders = async (sellerId) => {
       include: [
         {
           model: product,
-          as: "products",
-          attributes: { exclude: ["urlImage"] },
-          through: { as: "qtd", attributes: ["quantity"] },
+          as: 'products',
+          attributes: { exclude: ['urlImage'] },
+          through: { as: 'qtd', attributes: ['quantity'] },
         },
       ],
     });
-    return sales.map((item) => getObjectSale(item))
+    return sales.map((item) => getObjectSale(item));
   } catch (error) {
     console.log(error);
   }

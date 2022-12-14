@@ -2,7 +2,6 @@
 //   .readFileSync('../back-end/jwt.evaluation.key', { encoding: 'utf-8' });
 const { sale, saleProduct } = require('../../database/models');
 
-
 const createSale = async (body, products) => {
   const sales = await sale.create({
     ...body,
