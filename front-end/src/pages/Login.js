@@ -34,7 +34,7 @@ export default function Login() {
       verifyNavigateRoute(userStorage.role);
       return navigate('/');
     }
-  }, []);
+  }, [userStorage]);
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);

@@ -4,6 +4,7 @@ import { getCustomerOrders, getSellerOrders } from '../utils/request';
 
 export default function OrderCard() {
   const [orders, setOrders] = useState([]);
+  const [recivedRole, setRecivedRole] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,11 +14,13 @@ export default function OrderCard() {
       if (role === 'customer') {
         const allOrders = await getCustomerOrders(token, id);
         setOrders(allOrders);
+        setRecivedRole(role);
       }
       if (role === 'seller') {
         const allOrders = await getSellerOrders(token, id);
         console.log(allOrders);
         setOrders(allOrders);
+        setRecivedRole(role);
       }
     }
     fetchData();
@@ -28,7 +31,7 @@ export default function OrderCard() {
         <button
           key={ index }
           type="button"
-          onClick={ () => navigate(`/customer/orders/${o.id}`) }
+          onClick={ () => navigate(`/${recivedRole}/orders/${o.id}`) }
         >
           <div>
             <p data-testid={ `customer_orders__element-order-id-${o.id}` }>
