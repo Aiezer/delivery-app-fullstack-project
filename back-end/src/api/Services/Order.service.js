@@ -24,7 +24,7 @@ const { sale, product } = require('../../database/models');
         status,
         products,
       }; 
-  }
+  };
 
   const getBySaleId = async (userId, saleId, role) => {
     const key = role === 'customer' ? { userId, id: saleId } : { sellerId: userId, id: saleId };
@@ -38,11 +38,11 @@ const { sale, product } = require('../../database/models');
         },
     ],
     });
-    return getObjectSale(sales)
+    return getObjectSale(sales);
   };
 
 module.exports = {
   getAll,
   getBySaleId,
-  getObjectSale
+  getObjectSale,
 };
