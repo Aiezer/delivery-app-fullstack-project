@@ -20,7 +20,9 @@ const { sale, product } = require('../../database/models');
         },
     ],
     });
-    console.log(sales);
+    const format = sales.saleDate.toLocaleString();
+    const finalDate = format.split(' ')[0];
+    sales.date = finalDate
     return sales; 
   };
 

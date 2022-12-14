@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DetailsCard from '../components/DetailsComponents/DetailsCard';
 import { getOrderById, getSellerById } from '../utils/request';
+import NavbarProducts from '../components/NavbarProducts';
 
 function Details() {
   const [sale, setSale] = useState({
@@ -35,11 +36,13 @@ function Details() {
   }, [sale]);
 
   const { products } = sale;
+  console.log(sale);
 
   return (
     <section>
       {products.length > 0 && (
         <div>
+          <NavbarProducts />
           <h2>Detales do Pedido</h2>
           <DetailsCard key={ saleId } { ...sale } />
         </div>

@@ -24,8 +24,8 @@ export default function DetailsCard(sale) {
     orderId: 'customer_order_details__element-order-details-label-order-id',
     sellerId: 'customer_order_details__element-order-details-label-seller-name',
     dateId:
-      'Group customer_order_details__element-order-details-label-order-date',
-    statusId: `customer_order_details__element-order-details-label-delivery-status${id}`,
+      'customer_order_details__element-order-details-label-order-date',
+    statusId: 'customer_order_details__element-order-details-label-delivery-status',
     deliveryId: 'customer_order_details__button-delivery-check',
   };
 
@@ -50,14 +50,25 @@ export default function DetailsCard(sale) {
             PREPARAR PEDIDO
           </button>
         )}
-        <button
-          type="button"
-          data-testid={ dataTestIds.deliveryId }
-        >
-          {role === 'customer'
-            ? 'MARCAR COMO ENTREGUE'
-            : 'PREPARAR PEDIDO'}
-        </button>
+        {role === 'customer'
+          ? (
+            <button
+              type="button"
+              data-testid={ dataTestIds.deliveryId }
+              disabled
+              // onClick={ updateStatus }
+            >
+              Marcar como entregue
+            </button>
+          )
+          : (
+            <button
+              type="button"
+              data-testid={ dataTestIds.deliveryId }
+            >
+              Preparar pedido
+            </button>
+          )}
       </div>
       {products.length > 0 && (
         <div>
@@ -65,7 +76,9 @@ export default function DetailsCard(sale) {
         </div>
       )}
       <div>
-        <h2>
+        <h2
+          data-testid="customer_order_details__element-order-total-price"
+        >
           { `Total: R$ ${totalPrice}` }
         </h2>
       </div>
