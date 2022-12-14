@@ -31,7 +31,7 @@ export async function checkoutRequest(request, products) {
     method: 'POST',
     url: 'http://localhost:3001/sale',
     headers: {
-      'Content-Type': 'application/json',
+      ...headers,
       authorization: JSON.parse(localStorage.getItem('user')).token,
     },
     data: {
@@ -47,6 +47,7 @@ export async function getCustomerOrders(token, userId) {
     method: 'POST',
     url: 'http://localhost:3001/customer/orders',
     headers: {
+      ...headers,
       Authorization: token,
     },
     data: { userId },
@@ -54,12 +55,13 @@ export async function getCustomerOrders(token, userId) {
   return data;
 }
 
-export async function getOrderById(seleId) {
+export async function getOrderById(saleId) {
   const { id, role, token } = JSON.parse(localStorage.getItem('user'));
   const { data } = await axios({
     method: 'POST',
-    url: `localhost:3001/customer/orders/${seleId}`,
+    url: `http://localhost:3001/customer/orders/${saleId}`,
     headers: {
+      ...headers,
       Authorization: token,
     },
     data: { userId: id, role },
@@ -71,7 +73,25 @@ export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
     url: 'http://localhost:3001/sale/sellers',
-    headers: { authorization: JSON.parse(localStorage.getItem('user')).token },
+    headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
+  });
+  return data;
+}
+
+export async function getSellerById(sellerId) {
+  const { data } = await axios({
+    method: 'GET',
+    url: `http://localhost:3001/sale/sellers/${sellerId}`,
+    headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
+  });
+  return data;
+}
+
+export async function updateSaleStatus(saleId) {
+  const { data } = await axios({
+    method: 'PUT',
+    url: `http://localhost:3001/customer/orders/${saleId}`,
+    headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
   });
   return data;
 }
