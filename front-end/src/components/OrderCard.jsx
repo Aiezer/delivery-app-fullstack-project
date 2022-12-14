@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCustomerOrders } from '../utils/request';
+import { getCustomerOrders, getSellerOrders } from '../utils/request';
 
 export default function OrderCard() {
   const [orders, setOrders] = useState([]);
@@ -12,12 +12,13 @@ export default function OrderCard() {
       const { token, id, role } = object;
       if (role === 'customer') {
         const allOrders = await getCustomerOrders(token, id);
+        setOrders(allOrders);
       }
-      if(role = 'seller') {
+      if (role === 'seller') {
         const allOrders = await getSellerOrders(token, id);
+        console.log(allOrders);
+        setOrders(allOrders);
       }
-      console.log(allOrders);
-      setOrders(allOrders);
     }
     fetchData();
   }, []);

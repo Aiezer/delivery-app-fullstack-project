@@ -21,7 +21,14 @@ const getSellerById = async (req, res) => {
   }
 };
 
+const getSellersOrders = async (req, res) => {
+  const { sellerId } = req.body;
+  const sales = await sellerService.getSellersOrders(sellerId);
+  return res.status(200).json(sales);
+}
+
 module.exports = {
   getSellers,
   getSellerById,
+  getSellersOrders,
 };
