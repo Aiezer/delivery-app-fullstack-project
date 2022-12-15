@@ -43,7 +43,7 @@ function Details() {
       {sale && products.length > 0 && (
         <div>
           <NavbarProducts />
-          <h2>Detales do Pedido</h2>
+          <h2>Detalhes do Pedido</h2>
           <DetailsCard key={ saleId } { ...sale } />
         </div>
       )}

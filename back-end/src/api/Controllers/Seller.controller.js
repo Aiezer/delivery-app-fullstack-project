@@ -15,7 +15,7 @@ const getSellerById = async (req, res) => {
   try {
     const { id } = req.params;
     const seller = await sellerService.getSellerById(id);
-    return res.status(200).json(seller.name);
+    if (seller) return res.status(200).json(seller.name);
   } catch (error) {
     console.log(strController, error);
   }

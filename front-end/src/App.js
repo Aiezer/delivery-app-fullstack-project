@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
-import RedirectComponent from './components/RedirectComponent';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -10,6 +9,7 @@ import MyContext from './Context';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';
+import RedirectComponent from './components/RedirectComponent';
 
 const user = localStorage.getItem('user');
 const parse = JSON.parse(user);
@@ -33,19 +33,9 @@ function App() {
         <Route
           exact
           path="/"
-          element={
-            !user
-              ? <Navigate to="/login" />
-              : <RedirectComponent />
-          }
+          element={ !user ? <Navigate to="/login" /> : <RedirectComponent /> }
         />
-        <Route
-          exact
-          path="/login"
-          element={ !user
-            ? <Login />
-            : <RedirectComponent /> }
-        />
+        <Route exact path="/login" element={ <Login /> } />
         <Route exact path="/register" element={ <Register /> } />
         <Route exact path="/customer/products" element={ <Products /> } />
         <Route exact path="/customer/orders" element={ <Orders /> } />

@@ -22,7 +22,12 @@ export default function DetailsCard(sale) {
         </h3>
 
         {role === 'customer' && (
-          <h3 data-testid={ dataTestIds.sellerId }>{`P. Vend: ${sellerName}`}</h3>
+          <h3
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            {`P. Vend: ${sellerName}`}
+
+          </h3>
         )}
 
         <h3

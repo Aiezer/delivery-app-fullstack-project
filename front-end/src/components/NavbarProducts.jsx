@@ -9,18 +9,21 @@ export default function NavbarProducts() {
 
   const logout = () => {
     localStorage.removeItem('user');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
     <div>
       <div>
-        <button
-          data-testid="customer_products__element-navbar-link-products"
-          type="button"
-        >
-          Produtos
-        </button>
+        {role === 'customer'
+        && (
+          <button
+            data-testid="customer_products__element-navbar-link-products"
+            type="button"
+            onClick={ () => navigate('/customer/products') }
+          >
+            Produtos
+          </button>)}
         <button
           data-testid="customer_products__element-navbar-link-orders"
           type="button"

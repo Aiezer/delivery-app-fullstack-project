@@ -4,23 +4,20 @@ import { getCustomerOrders, getSellerOrders } from '../utils/request';
 
 export default function OrderCard() {
   const [orders, setOrders] = useState([]);
-  const [recivedRole, setRecivedRole] = useState('');
   const navigate = useNavigate();
+
+  const object = JSON.parse(localStorage.getItem('user'));
+  const { token, id, role } = object;
 
   useEffect(() => {
     async function fetchData() {
-      const object = JSON.parse(localStorage.getItem('user'));
-      const { token, id, role } = object;
       if (role === 'customer') {
         const allOrders = await getCustomerOrders(token, id);
         setOrders(allOrders);
-        setRecivedRole(role);
       }
       if (role === 'seller') {
         const allOrders = await getSellerOrders(token, id);
-        console.log(allOrders);
         setOrders(allOrders);
-        setRecivedRole(role);
       }
     }
     fetchData();
@@ -31,20 +28,20 @@ export default function OrderCard() {
         <button
           key={ index }
           type="button"
-          data-testid={ `${recivedRole}_orders__element-order-id-${o.id}` }
-          onClick={ () => navigate(`/${recivedRole}/orders/${o.id}`) }
+          data-testid={ `${role}_orders__element-order-id-${o.id}` }
+          onClick={ () => navigate(`/${role}/orders/${o.id}`) }
         >
           <div>
             <p>
               {`Pedido ${o.id}`}
             </p>
-            <p data-testid={ `${recivedRole}_orders__element-delivery-status-${o.id}` }>
+            <p data-testid={ `${role}_orders__element-delivery-status-${o.id}` }>
               {o.status}
             </p>
-            <p data-testid={ `${recivedRole}_orders__element-order-date-${o.id}` }>
+            <p data-testid={ `${role}_orders__element-order-date-${o.id}` }>
               {o.saleDate}
             </p>
-            <p data-testid={ `${recivedRole}_orders__element-card-price-${o.id}` }>
+            <p data-testid={ `${role}_orders__element-card-price-${o.id}` }>
               {o.totalPrice}
             </p>
           </div>
