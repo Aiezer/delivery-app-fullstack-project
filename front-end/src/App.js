@@ -51,6 +51,7 @@ function App() {
         <Route exact path="/customer/orders" element={ <Orders /> } />
         <Route exact path="/admin/manage" element={ <Admin /> } />
         <Route exact path="/seller/orders" element={ <Orders /> } />
+        <Route exact path="/seller/orders/:id" element={ <Details /> } />
         <Route exact path="/customer/checkout" element={ <Checkout /> } />
         <Route exact path="/customer/orders/:id" element={ <Details /> } />
       </Routes>

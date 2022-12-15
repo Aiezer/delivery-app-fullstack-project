@@ -72,7 +72,7 @@ export async function getOrderById(saleId) {
   const { id, role, token } = JSON.parse(localStorage.getItem('user'));
   const { data } = await axios({
     method: 'POST',
-    url: `http://localhost:3001/${role}/orders/${saleId}`,
+    url: `http://localhost:3001/customer/orders/${saleId}`,
     headers: {
       ...headers,
       Authorization: token,

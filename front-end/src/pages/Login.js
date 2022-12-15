@@ -24,10 +24,6 @@ export default function Login() {
     });
   };
 
-  const verifyNavigateRoute = async (role) => {
-    setNavigateRoute(handleUrl(role));
-  };
-
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);
     if (user.password.length >= six && regex) {
@@ -35,6 +31,10 @@ export default function Login() {
     }
     return setIsDisabled(true);
   }, [user]);
+
+  const verifyNavigateRoute = (role) => {
+    setNavigateRoute(handleUrl(role));
+  };
 
   const handleLogin = async () => {
     try {

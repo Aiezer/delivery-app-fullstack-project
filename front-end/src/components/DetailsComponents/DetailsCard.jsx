@@ -42,14 +42,6 @@ export default function DetailsCard(sale) {
 
         <h3 data-testid={ dataTestIds.dateId }>{saleDate}</h3>
         <h3 data-testid={ dataTestIds.statusId }>{status}</h3>
-        {role === 'seller' && (
-          <button
-            type="button"
-            data-testid={ dataTestIds.preparing }
-          >
-            PREPARAR PEDIDO
-          </button>
-        )}
         {role === 'customer'
           ? (
             <button
@@ -62,12 +54,20 @@ export default function DetailsCard(sale) {
             </button>
           )
           : (
-            <button
-              type="button"
-              data-testid={ dataTestIds.deliveryId }
-            >
-              Preparar pedido
-            </button>
+            <>
+              <button
+                type="button"
+                data-testid={ dataTestIds.preparing }
+              >
+                Preparar pedido
+              </button>
+              <button
+                type="button"
+                data-testid={ dataTestIds.deliveryId }
+              >
+                Chamar motoboy
+              </button>
+            </>
           )}
       </div>
       {products.length > 0 && (

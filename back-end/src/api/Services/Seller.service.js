@@ -34,7 +34,7 @@ const getObjectSale = (sales) => {
     }; 
 };
 
-const getSellersOrders = async (sellerId) => {
+const getSellerOrders = async (sellerId) => {
   try {
     const sales = await sale.findAll({
       where: { sellerId },
@@ -56,5 +56,5 @@ const getSellersOrders = async (sellerId) => {
 module.exports = {
   getSellers,
   getSellerById,
-  getSellersOrders,
+  getSellerOrders,
 };

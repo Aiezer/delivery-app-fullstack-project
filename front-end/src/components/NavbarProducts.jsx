@@ -8,7 +8,7 @@ export default function NavbarProducts() {
 
   const logout = () => {
     localStorage.removeItem('user');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
