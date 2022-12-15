@@ -37,11 +37,13 @@ function Details() {
 
   return (
     <section>
-      <div>
-        <NavbarProducts />
-        <h2>Detalhes do Pedido</h2>
-        <DetailsCard key={ saleId } { ...sale } />
-      </div>
+      {sale && (
+        <div>
+          <NavbarProducts />
+          <h2>Detalhes do Pedido</h2>
+          <DetailsCard key={ saleId } { ...sale } />
+        </div>
+      )}
     </section>
   );
 }

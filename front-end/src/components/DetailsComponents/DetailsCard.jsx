@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MyContext from '../../Context';
 import { updateSaleStatus } from '../../utils/request';
 import ProductsTable from './ProductsTable';
@@ -9,25 +9,33 @@ export default function DetailsCard(sale) {
   const { storage } = useContext(MyContext);
   const { id, saleDate, status, products, sellerName } = sale;
   const { role } = storage;
+  const [checkStatus, setCheckStatus] = useState(status);
 
   const totalPrice = products.reduce(
     (acc, { price, qtd }) => acc + Number(price) * Number(qtd.quantity),
     0,
   ).toFixed(2).replace('.', ',');
 
+  useEffect(() => {
+    setCheckStatus(status);
+  }, [status]);
+
   const updateStatus = () => {
     if (role === 'customer' && status === inTransit) {
       console.log('customer', role, status);
+      setCheckStatus('Entregue');
       updateSaleStatus(id, 'Entregue');
     }
     if (role === 'seller') {
       console.log('seller', role);
       if (status === 'Pendente') {
         console.log('seller', role, status);
+        setCheckStatus('Preparando');
         updateSaleStatus(id, 'Preparando');
       }
       if (status === 'Preparando') {
         console.log('seller', role, status);
+        setCheckStatus(inTransit);
         updateSaleStatus(id, inTransit);
       }
     }
@@ -63,7 +71,7 @@ export default function DetailsCard(sale) {
             `${role}_order_details__element-order-details-label-delivery-status`
           }
         >
-          {status}
+          {checkStatus}
 
         </h3>
         {role === 'customer'
@@ -72,7 +80,7 @@ export default function DetailsCard(sale) {
               type="button"
               data-testid="customer_order_details__button-delivery-check"
               onClick={ () => updateStatus() }
-              disabled={ status !== inTransit }
+              disabled={ checkStatus !== inTransit }
             >
               Marcar como entregue
             </button>
@@ -83,7 +91,7 @@ export default function DetailsCard(sale) {
                 type="button"
                 data-testid="seller_order_details__button-preparing-check"
                 onClick={ () => updateStatus() }
-                disabled={ status !== 'Pendente' }
+                disabled={ checkStatus !== 'Pendente' }
               >
                 Preparar pedido
               </button>
@@ -91,7 +99,7 @@ export default function DetailsCard(sale) {
                 type="button"
                 data-testid="seller_order_details__button-dispatch-check"
                 onClick={ () => updateStatus() }
-                disabled={ status !== 'Preparando' }
+                disabled={ checkStatus !== 'Preparando' }
               >
                 Chamar motoboy
               </button>
