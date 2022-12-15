@@ -21,20 +21,16 @@ export default function DetailsCard(sale) {
   }, [status]);
 
   const updateStatus = () => {
-    if (role === 'customer' && status === inTransit) {
-      console.log('customer', role, status);
+    if (role === 'customer' && checkStatus === inTransit) {
       setCheckStatus('Entregue');
       updateSaleStatus(id, 'Entregue');
     }
     if (role === 'seller') {
-      console.log('seller', role);
-      if (status === 'Pendente') {
-        console.log('seller', role, status);
+      if (checkStatus === 'Pendente') {
         setCheckStatus('Preparando');
         updateSaleStatus(id, 'Preparando');
       }
-      if (status === 'Preparando') {
-        console.log('seller', role, status);
+      if (checkStatus === 'Preparando') {
         setCheckStatus(inTransit);
         updateSaleStatus(id, inTransit);
       }
