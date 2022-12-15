@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../../Context';
+import { updateSaleStatus } from '../../utils/request';
 import ProductsTable from './ProductsTable';
 
+const inTransit = 'Em Trânsito';
+
 export default function DetailsCard(sale) {
+  const { storage } = useContext(MyContext);
   const { id, saleDate, status, products, sellerName } = sale;
-  const url = window.location.href.split('/');
-  const role = url[3];
+  const { role } = storage;
 
   const totalPrice = products.reduce(
     (acc, { price, qtd }) => acc + Number(price) * Number(qtd.quantity),
     0,
   ).toFixed(2).replace('.', ',');
+
+  const updateStatus = () => {
+    if (role === 'customer' && status === inTransit) {
+      console.log('customer', role, status);
+      updateSaleStatus(id, 'Entregue');
+    }
+    if (role === 'seller') {
+      console.log('seller', role);
+      if (status === 'Pendente') {
+        console.log('seller', role, status);
+        updateSaleStatus(id, 'Preparando');
+      }
+      if (status === 'Preparando') {
+        console.log('seller', role, status);
+        updateSaleStatus(id, inTransit);
+      }
+    }
+  };
 
   return (
     <section>
@@ -49,8 +71,8 @@ export default function DetailsCard(sale) {
             <button
               type="button"
               data-testid="customer_order_details__button-delivery-check"
-              disabled
-              // onClick={ updateStatus }
+              onClick={ () => updateStatus() }
+              disabled={ status !== inTransit }
             >
               Marcar como entregue
             </button>
@@ -60,12 +82,16 @@ export default function DetailsCard(sale) {
               <button
                 type="button"
                 data-testid="seller_order_details__button-preparing-check"
+                onClick={ () => updateStatus() }
+                disabled={ status !== 'Pendente' }
               >
                 Preparar pedido
               </button>
               <button
                 type="button"
                 data-testid="seller_order_details__button-dispatch-check"
+                onClick={ () => updateStatus() }
+                disabled={ status !== 'Preparando' }
               >
                 Chamar motoboy
               </button>
@@ -79,7 +105,7 @@ export default function DetailsCard(sale) {
       ) : <div>Voce nao tem pedidos!</div>}
       <div>
         <h2
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid={ `${role}_order_details__element-order-total-price` }
         >
           { totalPrice }
         </h2>

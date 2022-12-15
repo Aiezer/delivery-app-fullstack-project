@@ -100,11 +100,12 @@ export async function getSellerById(sellerId) {
   return data;
 }
 
-export async function updateSaleStatus(saleId) {
+export async function updateSaleStatus(saleId, status) {
   const { data } = await axios({
     method: 'PUT',
-    url: `http://localhost:3001/customer/orders/${saleId}`,
+    url: `http://localhost:3001/sale/update/${saleId}`,
     headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
+    data: { status },
   });
   return data;
 }

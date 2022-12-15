@@ -14,8 +14,8 @@ const createSale = async (body, products) => {
   return sales;
 };
 
-const updateSaleStatus = async (id) => {
-  const saleForUpdate = await sale.update({ status: 'Entregue' }, 
+const updateSaleStatus = async (id, status) => {
+  const saleForUpdate = await sale.update({ status }, 
     { where: { id } });
   return saleForUpdate;
 };

@@ -17,7 +17,8 @@ const createSale = async (req, res) => {
 const updateSaleStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedSale = await saleService.updateSaleStatus(id);
+    const { status } = req.body;
+    const updatedSale = await saleService.updateSaleStatus(id, status);
     return res.status(200).json(updatedSale);
   } catch (error) {
     console.log(strController, error);
