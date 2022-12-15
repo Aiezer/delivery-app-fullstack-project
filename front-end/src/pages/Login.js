@@ -6,7 +6,7 @@ import handleUrl from '../utils/handleUrl';
 
 const VALIDATE_EMAIL = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 const six = 6;
-const userStorage = JSON.parse(localStorage.getItem('user'));
+// const userStorage = JSON.parse(localStorage.getItem('user'));
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,12 +29,12 @@ export default function Login() {
     setNavigateRoute(handleUrl(role));
   };
 
-  useEffect(() => {
-    if (userStorage) {
-      verifyNavigateRoute(userStorage.role);
-      return navigate('/');
-    }
-  }, [userStorage]);
+  // useEffect(() => {
+  //   if (userStorage) {
+  //     verifyNavigateRoute(userStorage.role);
+  //     return navigate('/');
+  //   }
+  // }, [userStorage]);
 
   useEffect(() => {
     const regex = VALIDATE_EMAIL.test(user.email);

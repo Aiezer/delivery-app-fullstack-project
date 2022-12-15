@@ -85,7 +85,7 @@ export async function getOrderById(saleId) {
 export async function getSellers() {
   const { data } = await axios({
     method: 'GET',
-    url: 'http://localhost:3001/sale/sellers',
+    url: 'http://localhost:3001/seller/',
     headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
   });
   return data;
