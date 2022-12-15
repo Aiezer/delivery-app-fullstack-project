@@ -19,7 +19,7 @@ const getSellerById = async (sellerId) => {
 const getObjectSale = (sales) => {
   const { id, userId, sellerId, totalPrice, deliveryAddress, 
     deliveryNumber, saleDate, status, products } = sales;
-    const format = saleDate.toLocaleString();
+    const format = saleDate.toLocaleString('pt-br');
     const finalDate = format.split(' ')[0];
     return {
       id,
