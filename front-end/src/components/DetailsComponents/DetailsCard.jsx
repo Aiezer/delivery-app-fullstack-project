@@ -11,42 +11,39 @@ export default function DetailsCard(sale) {
     0,
   ).toFixed(2).replace('.', ',');
 
-  const sellerTestIds = {
-    orderId: 'seller_order_details__element-order-details-label-order-id',
-    dateId: 'seller_order_details__element-order-details-label-order-date',
-    statusId:
-      'seller_order_details__element-order-details-label-delivery-status',
-    preparing: 'seller_order_details__button-preparing-check',
-    deliveryId: 'seller_order_details__button-dispatch-check',
-  };
-
-  const customerTestIds = {
-    orderId: 'customer_order_details__element-order-details-label-order-id',
-    sellerId: 'customer_order_details__element-order-details-label-seller-name',
-    dateId:
-      'customer_order_details__element-order-details-label-order-date',
-    statusId: 'customer_order_details__element-order-details-label-delivery-status',
-    deliveryId: 'customer_order_details__button-delivery-check',
-  };
-
-  const dataTestIds = role === 'customer' ? customerTestIds : sellerTestIds;
-
   return (
     <section>
       <div>
-        <h3 data-testid={ dataTestIds.orderId }>{`Pedido ${id}`}</h3>
+        <h3
+          data-testid={ `${role}_order_details__element-order-details-label-order-id` }
+        >
+          {`Pedido ${id}`}
+
+        </h3>
 
         {role === 'customer' && (
           <h3 data-testid={ dataTestIds.sellerId }>{`P. Vend: ${sellerName}`}</h3>
         )}
 
-        <h3 data-testid={ dataTestIds.dateId }>{saleDate}</h3>
-        <h3 data-testid={ dataTestIds.statusId }>{status}</h3>
+        <h3
+          data-testid={ `${role}_order_details__element-order-details-label-order-date` }
+        >
+          {saleDate}
+
+        </h3>
+        <h3
+          data-testid={
+            `${role}_order_details__element-order-details-label-delivery-status`
+          }
+        >
+          {status}
+
+        </h3>
         {role === 'customer'
           ? (
             <button
               type="button"
-              data-testid={ dataTestIds.deliveryId }
+              data-testid="customer_order_details__button-delivery-check"
               disabled
               // onClick={ updateStatus }
             >
@@ -57,24 +54,24 @@ export default function DetailsCard(sale) {
             <>
               <button
                 type="button"
-                data-testid={ dataTestIds.preparing }
+                data-testid="seller_order_details__button-preparing-check"
               >
                 Preparar pedido
               </button>
               <button
                 type="button"
-                data-testid={ dataTestIds.deliveryId }
+                data-testid="seller_order_details__button-dispatch-check"
               >
                 Chamar motoboy
               </button>
             </>
           )}
       </div>
-      {products.length > 0 && (
+      {products.length > 0 ? (
         <div>
           <ProductsTable { ...sale } />
         </div>
-      )}
+      ) : <div>Voce nao tem pedidos!</div>}
       <div>
         <h2
           data-testid="customer_order_details__element-order-total-price"

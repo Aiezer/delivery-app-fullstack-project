@@ -5,10 +5,11 @@ import MyContext from '../Context';
 export default function NavbarProducts() {
   const navigate = useNavigate();
   const { storage } = useContext(MyContext);
+  const { role } = JSON.parse(localStorage.getItem('user'));
 
   const logout = () => {
     localStorage.removeItem('user');
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -23,7 +24,7 @@ export default function NavbarProducts() {
         <button
           data-testid="customer_products__element-navbar-link-orders"
           type="button"
-          onClick={ () => navigate('/customer/orders') }
+          onClick={ () => navigate(`/${role}/orders`) }
         >
           Meus pedidos
         </button>

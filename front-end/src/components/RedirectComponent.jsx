@@ -1,9 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Redirect } from '../utils/redirect';
+import verify from '../utils/redirect';
 
 export default function RedirectComponent() {
   const [address, setAddress] = useState('');
+
+  async function Redirect() {
+    const user = localStorage.getItem('user');
+    if (user !== undefined) {
+      const { token, role } = JSON.parse(user);
+      const result = await verify(token);
+      if (!result) {
+        localStorage.removeItem('user');
+        return '/login';
+      }
+      return handleUrl(role);
+    }
+    return '/login';
+  }
 
   useEffect(() => {
     const storage = localStorage.getItem('user');

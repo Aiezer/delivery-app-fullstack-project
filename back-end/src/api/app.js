@@ -6,7 +6,7 @@ const {
   AdminRouter,
   ProductRouter,
   SaleRouter,
-  OrderRouter,
+  CustomerRouter,
   SellerRouter,
 } = require('./Routes');
 
@@ -25,7 +25,7 @@ app.use('/validate', ValidateRouter);
 app.use('/products', ProductRouter);
 app.use('/seller', SellerRouter);
 app.use('/sale', SaleRouter);
-app.use('/customer', OrderRouter);
+app.use('/customer', CustomerRouter);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;

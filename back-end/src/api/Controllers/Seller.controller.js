@@ -23,7 +23,7 @@ const getSellerById = async (req, res) => {
 
 const getSellerOrders = async (req, res) => {
   const { sellerId } = req.body;
-  const sales = await sellerService.getSellersOrders(sellerId);
+  const sales = await sellerService.getSellerOrders(sellerId);
   return res.status(200).json(sales);
 };
 
