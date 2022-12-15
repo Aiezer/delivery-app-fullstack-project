@@ -35,18 +35,13 @@ function Details() {
     getSellerName();
   }, [sale]);
 
-  const { products } = sale;
-  console.log(sale);
-
   return (
     <section>
-      {sale && products.length > 0 && (
-        <div>
-          <NavbarProducts />
-          <h2>Detalhes do Pedido</h2>
-          <DetailsCard key={ saleId } { ...sale } />
-        </div>
-      )}
+      <div>
+        <NavbarProducts />
+        <h2>Detalhes do Pedido</h2>
+        <DetailsCard key={ saleId } { ...sale } />
+      </div>
     </section>
   );
 }
