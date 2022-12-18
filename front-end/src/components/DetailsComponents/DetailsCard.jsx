@@ -109,7 +109,7 @@ export default function DetailsCard(sale) {
       ) : <div>Voce nao tem pedidos!</div>}
       <div>
         <h2
-          data-testid={ `${role}_order_details__element-order-total-price` }
+          data-testid="customer_order_details__element-order-total-price"
         >
           { totalPrice }
         </h2>
