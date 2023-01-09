@@ -120,7 +120,7 @@ export default function ProductCard() {
                   type="number"
                   onChange={ () => setChange(change + 1) }
                   defaultValue={ 0 }
-                  className="w-6"
+                  className="w-6 bg-[#DCE91C] text-center"
                 />
                 <button
                   data-testid={ `customer_products__button-card-add-item-${p.id}` }

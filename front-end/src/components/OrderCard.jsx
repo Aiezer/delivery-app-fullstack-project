@@ -23,13 +23,14 @@ export default function OrderCard() {
     fetchData();
   }, []);
   return (
-    <>
+    <div className="flex flex-wrap m-10 justify-center">
       {orders.map((o, index) => (
         <button
           key={ index }
           type="button"
           data-testid={ `${role}_orders__element-order-id-${o.id}` }
           onClick={ () => navigate(`/${role}/orders/${o.id}`) }
+          className="m-6 p-6 bg-[#DCE91C] rounded shadow shadow-[#919191]"
         >
           <div>
             <p>
@@ -42,11 +43,11 @@ export default function OrderCard() {
               {o.saleDate}
             </p>
             <p data-testid={ `${role}_orders__element-card-price-${o.id}` }>
-              {o.totalPrice}
+              {`R$${o.totalPrice}`}
             </p>
           </div>
         </button>
       ))}
-    </>
+    </div>
   );
 }
