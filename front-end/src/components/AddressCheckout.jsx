@@ -1,3 +1,4 @@
+import { Alert, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkoutRequest, getSellers } from '../utils/request';
@@ -48,39 +49,60 @@ function AdressCheckout() {
   };
 
   return (
-    <section>
-      <h1>Detalhes e Endereço para Entrega</h1>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="sellers">
-          P. Vendedor Responsável:
-          <select
-            id="sellers"
-            name="seller"
-            data-testid="customer_checkout__select-seller"
-            onChange={ handleChange }
-            value={ form.seller }
-          >
-            <option hidden>Selecione o vendedor</option>
-            { sellers.map((seller, i) => (
-              <option value={ seller.id } key={ i }>{ seller.name }</option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="address">
-          Endereço:
-          <input
-            type="text"
-            placeholder="Rua X, Bairro Y"
-            id="address"
-            name="deliveryAddress"
-            onChange={ handleChange }
-            value={ form.deliveryAddress }
+    <section className="flex flex-col items-center">
+      {error ? (
+        <Alert
+          data-testid="common_login__element-invalid-email"
+          severity="error"
+          className="mb-4 mt-2"
+        >
+          Favor informar todos os campos!
+        </Alert>
+      ) : null}
+      <h1
+        className="mb-4 p-3 pl-6 pr-6 text-xl rounded-lg"
+      >
+        Detalhes para entrega
+      </h1>
+      <FormControl>
+        <InputLabel id="demo-simple-select-helper-label" className="mr-4">
+          Selecione o vendedor
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-autowidth"
+          data-testid="customer_checkout__select-seller"
+          value={ form.seller }
+          onChange={ handleChange }
+          autoWidth
+          name="seller"
+          label="Selecione o vendedor"
+        >
+          { sellers.map((seller, i) => (
+            <MenuItem value={ seller.id } key={ i }>{ seller.name }</MenuItem>
+          ))}
+        </Select>
+        <div className="flex">
+          <TextField
+            fullWidth
+            sx={ { marginRight: 5 } }
+            margin="normal"
+            label="Endereço"
+            autoComplete="address"
+            autoFocus
             data-testid="customer_checkout__input-address"
+            id="address"
+            type="text"
+            name="deliveryAddress"
+            value={ form.deliveryAddress }
+            placeholder="Rua X, Bairro Y"
+            onChange={ handleChange }
           />
-        </label>
-        <label htmlFor="addressNumber">
-          Número:
-          <input
+          <TextField
+            margin="normal"
+            label="Número"
+            autoComplete="address"
+            autoFocus
             type="Number"
             placeholder="000"
             name="deliveryNumber"
@@ -89,17 +111,18 @@ function AdressCheckout() {
             value={ form.deliveryNumber }
             data-testid="customer_checkout__input-address-number"
           />
-        </label>
-        <div>
-          <button
-            type="submit"
-            data-testid="customer_checkout__button-submit-order"
-          >
-            Finalizar Pedido
-          </button>
         </div>
-      </form>
-      {error ? <h1>Favor informar todos os campos</h1> : null}
+        <Button
+          variant="contained"
+          color="error"
+          data-testid="customer_checkout__button-submit-order"
+          type="submit"
+          sx={ { mt: 2, mb: 10 } }
+          onClick={ handleSubmit }
+        >
+          Finalizar Pedido
+        </Button>
+      </FormControl>
     </section>
   );
 }
