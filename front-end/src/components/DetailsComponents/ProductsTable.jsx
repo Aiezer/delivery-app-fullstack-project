@@ -39,7 +39,7 @@ function ProductsTable(sale) {
           <tbody>
             {products
               ? products.map((product, i) => (
-                <GenerateTableRows products={ product } index={ i } key={ i } />
+                <GenerateTableRows align="center" products={ product } index={ i } key={ i } />
               ))
               : null}
           </tbody>

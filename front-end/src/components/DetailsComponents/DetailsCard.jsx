@@ -88,22 +88,28 @@ export default function DetailsCard(sale) {
           )
           : (
             <div className="flex">
-              <button
+              <Button
+                sx={ { marginTop: 2, marginBottom: 2, marginRight: 2 } }
+                variant="contained"
+                color="error"
                 type="button"
                 data-testid="seller_order_details__button-preparing-check"
                 onClick={ () => updateStatus() }
                 disabled={ checkStatus !== 'Pendente' }
               >
                 Preparar pedido
-              </button>
-              <button
+              </Button>
+              <Button
+                sx={ { marginTop: 2, marginBottom: 2 } }
+                variant="contained"
+                color="error"
                 type="button"
                 data-testid="seller_order_details__button-dispatch-check"
                 onClick={ () => updateStatus() }
                 disabled={ checkStatus !== 'Preparando' }
               >
                 Chamar motoboy
-              </button>
+              </Button>
             </div>
           )}
       </div>
