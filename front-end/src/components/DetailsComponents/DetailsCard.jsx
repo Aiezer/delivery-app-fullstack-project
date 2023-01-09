@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import MyContext from '../../Context';
 import { updateSaleStatus } from '../../utils/request';
@@ -38,8 +39,9 @@ export default function DetailsCard(sale) {
   };
 
   return (
-    <section>
+    <section className="flex flex-col items-center max-w-max">
       <div>
+        <h2 className="text-2xl font-bold mb-6">Detalhes do Pedido</h2>
         <h3
           data-testid={ `${role}_order_details__element-order-details-label-order-id` }
         >
@@ -51,7 +53,7 @@ export default function DetailsCard(sale) {
           <h3
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
-            {`P. Vend: ${sellerName}`}
+            {`Vendedor: ${sellerName}`}
 
           </h3>
         )}
@@ -72,17 +74,20 @@ export default function DetailsCard(sale) {
         </h3>
         {role === 'customer'
           ? (
-            <button
+            <Button
+              sx={ { marginTop: 2, marginBottom: 2 } }
+              variant="contained"
+              color="error"
               type="button"
               data-testid="customer_order_details__button-delivery-check"
               onClick={ () => updateStatus() }
               disabled={ checkStatus !== inTransit }
             >
               Marcar como entregue
-            </button>
+            </Button>
           )
           : (
-            <>
+            <div className="flex">
               <button
                 type="button"
                 data-testid="seller_order_details__button-preparing-check"
@@ -99,7 +104,7 @@ export default function DetailsCard(sale) {
               >
                 Chamar motoboy
               </button>
-            </>
+            </div>
           )}
       </div>
       {products.length > 0 ? (
@@ -107,14 +112,14 @@ export default function DetailsCard(sale) {
           <ProductsTable { ...sale } />
         </div>
       ) : <div>Voce nao tem pedidos!</div>}
-      <div>
+      <div className="flex justify-end">
         <h2
+          className="font-bold text-lg"
           data-testid="customer_order_details__element-order-total-price"
         >
-          { totalPrice }
+          { `Total: R$${totalPrice}` }
         </h2>
       </div>
-
     </section>
   );
 }

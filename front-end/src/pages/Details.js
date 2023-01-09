@@ -40,8 +40,11 @@ function Details() {
       {sale && (
         <div>
           <NavbarProducts />
-          <h2>Detalhes do Pedido</h2>
-          <DetailsCard key={ saleId } { ...sale } />
+          <section
+            className="flex flex-wrap justify-center mt-8"
+          >
+            <DetailsCard key={ saleId } { ...sale } />
+          </section>
         </div>
       )}
     </section>
