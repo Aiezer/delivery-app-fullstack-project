@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import ExitToApp from '@mui/icons-material/ExitToApp';
 import { useNavigate } from 'react-router-dom';
 import MyContext from '../Context';
 
@@ -13,7 +14,9 @@ export default function NavbarProducts() {
   };
 
   return (
-    <div>
+    <div
+      className="flex flex-wrap justify-around p-4 bg-[#dcea1c]"
+    >
       <div>
         {role === 'customer'
         && (
@@ -21,6 +24,7 @@ export default function NavbarProducts() {
             data-testid="customer_products__element-navbar-link-products"
             type="button"
             onClick={ () => navigate('/customer/products') }
+            className="font-light"
           >
             Produtos
           </button>)}
@@ -28,20 +32,25 @@ export default function NavbarProducts() {
           data-testid="customer_products__element-navbar-link-orders"
           type="button"
           onClick={ () => navigate(`/${role}/orders`) }
+          className="ml-4 font-light"
         >
           Meus pedidos
         </button>
       </div>
-      <div>
-        <p data-testid="customer_products__element-navbar-user-full-name">
+      <div className="flex items-center">
+        <p
+          data-testid="customer_products__element-navbar-user-full-name"
+          className="font-bold"
+        >
           {storage.name}
         </p>
         <button
+          className="ml-4"
           data-testid="customer_products__element-navbar-link-logout"
           type="button"
           onClick={ logout }
         >
-          Sair
+          <ExitToApp />
         </button>
       </div>
     </div>

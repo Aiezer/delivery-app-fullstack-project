@@ -1,3 +1,4 @@
+import { Alert, Button, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -43,56 +44,78 @@ function Register() {
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
-        <h2>Cadastro</h2>
-        <label htmlFor="name">
-          <h3>Nome</h3>
-          <input
-            type="text"
-            placeholder="Seu nome"
-            id="name"
-            value={ form.name }
-            onChange={ handleChange }
-            data-testid="common_register__input-name"
-          />
-        </label>
-        <label htmlFor="email">
-          <h3>Email</h3>
-          <input
-            type="email"
-            placeholder="seu-email@site.com.br"
-            id="email"
-            value={ form.email }
-            onChange={ handleChange }
-            data-testid="common_register__input-email"
-          />
-        </label>
-        <label htmlFor="password">
-          <h3>Senha</h3>
-          <input
-            type="password"
-            placeholder="*******"
-            id="password"
-            value={ form.password }
-            onChange={ handleChange }
-            data-testid="common_register__input-password"
-          />
-        </label>
+    <section
+      className="flex flex-wrap w-full min-h-screen justify-center items-center
+    p-4 bg-[#dcea1c]"
+    >
+      <div
+        className="flex flex-col bg-[#efefef] justify-center items-center p-16
+        rounded-xl"
+      >
+        {error ? (
+          <Alert
+            data-testid="common_register__element-invalid_register"
+            severity="error"
+            className="mb-2"
+          >
+            Email ja registrado
+          </Alert>
+        ) : null }
+        <h1 className="font-bold text-xl">Cadastre</h1>
+        <h1 className="font-extralight text-lg mb-4">sua conta</h1>
+        <TextField
+          margin="normal"
+          fullWidth
+          label="Seu nome"
+          type="text"
+          placeholder="Seu nome"
+          id="name"
+          value={ form.name }
+          onChange={ handleChange }
+          data-testid="common_register__input-name"
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          label="Seu e-mail"
+          autoFocus
+          data-testid="common_register__input-email"
+          id="email"
+          type="email"
+          name="email"
+          value={ form.email }
+          placeholder="Seu e-mail"
+          onChange={ handleChange }
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          label="Sua senha"
+          autoFocus
+          type="password"
+          placeholder="Sua senha"
+          id="password"
+          value={ form.password }
+          onChange={ handleChange }
+          data-testid="common_register__input-password"
+        />
         <div>
-          <button
-            type="submit"
+          <Button
+            variant="contained"
+            color="error"
             data-testid="common_register__button-register"
+            id="login"
+            type="submit"
+            name="enter"
+            sx={ { mt: 4 } }
             disabled={ isDisabled }
+            onClick={ handleSubmit }
           >
             CADASTRAR
-          </button>
+          </Button>
         </div>
-      </form>
-      {error ? (
-        <span data-testid="common_register__element-invalid_register">Error</span>
-      ) : null }
-    </div>
+      </div>
+    </section>
   );
 }
 
