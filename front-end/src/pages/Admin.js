@@ -1,6 +1,8 @@
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField,
+} from '@mui/material';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import NavbarProducts from '../components/NavbarProducts';
 
 const emailRegex = /\S+@\S+\.\S+/;
 const TWELVE = 12;
@@ -10,7 +12,7 @@ function Admin() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [error, setError] = useState(false);
   const [form, setForm] = useState({
-    name: '', email: '', password: '', role: 'cliente' });
+    name: '', email: '', password: '', role: 'customer' });
 
   const validateEmail = (email) => emailRegex.test(email);
 
@@ -35,7 +37,7 @@ function Admin() {
     })
       .then(() => {
         setForm({
-          name: '', email: '', password: '', role: 'cliente' });
+          name: '', email: '', password: '', role: '' });
         setError(false);
       })
       .catch(() => setError(true));
@@ -46,56 +48,34 @@ function Admin() {
   };
 
   return (
-    <div>
-      <header>
-        <Link
-          to="/orders"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Gerenciar Usuários
-        </Link>
-        <Link
-          to="/orders"
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          Tryber Admin
-        </Link>
-        <Link
-          to="/login"
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          Sair
-        </Link>
-      </header>
-      <form onSubmit={ handleSubmit }>
-        <h2>Cadastrar novo Usuário</h2>
-        <label htmlFor="name">
-          Nome
-          <input
+    <>
+      <NavbarProducts />
+      <div className="flex flex-col items-center mt-10 w-full">
+        <h2 className="font-bold text-xl mb-4">Cadastrar novo Usuário</h2>
+        <form onSubmit={ handleSubmit } className="flex items-center">
+          <TextField
+            margin="normal"
+            label="Nome completo"
             data-testid="admin_manage__input-name"
-            id="name"
             type="text"
-            name="name"
+            id="name"
             value={ form.name }
-            placeholder="nome e sobrenome"
             onChange={ handleChange }
           />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
+          <TextField
+            margin="normal"
+            label="E-mail"
+            autoComplete="email"
             data-testid="admin_manage__input-email"
             id="email"
             type="text"
-            name="email"
             value={ form.email }
             placeholder="seu-email@site.com.br"
             onChange={ handleChange }
           />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
+          <TextField
+            margin="normal"
+            label="Senha"
             data-testid="admin_manage__input-password"
             id="password"
             type="password"
@@ -104,37 +84,41 @@ function Admin() {
             placeholder="**********"
             onChange={ handleChange }
           />
-        </label>
-        <label htmlFor="role">
-          Tipo
-          <select
-            id="role"
-            data-testid="admin_manage__select-role"
-            name="role"
-            value={ form.role }
-            onChange={ handleChange }
+          <FormControl sx={ { m: 1, minWidth: 100 } }>
+            <InputLabel id="demo-simple-select-filled-label">Tipo</InputLabel>
+            <Select
+              autoWidth
+              labelId="demo-simple-select-filled-label"
+              id="demo-simple-select-filled"
+              data-testid="admin_manage__select-role"
+              value={ form.role }
+              onChange={ handleChange }
+              label="Tipo"
+            >
+              <MenuItem value="customer">Cliente</MenuItem>
+              <MenuItem value="seller">Vendedor</MenuItem>
+              <MenuItem value="administrator">Administrador</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            color="error"
+            data-testid="admin_manage__button-register"
+            id="register"
+            name="register"
+            type="button"
+            disabled={ isDisabled }
+            onClick={ handleClick }
           >
-            <option value="customer">Cliente</option>
-            <option value="seller">Vendedor</option>
-            <option value="Admin">Administrador</option>
-          </select>
-        </label>
-        <button
-          data-testid="admin_manage__button-register"
-          id="register"
-          name="register"
-          type="button"
-          disabled={ isDisabled }
-          onClick={ handleClick }
-        >
-          {' '}
-          Cadastrar
-          {' '}
-        </button>
-      </form>
-      { error
-        ? <p data-testid="admin_manage__element-invalid-register"> Error </p> : null }
-    </div>
+            {' '}
+            Cadastrar
+            {' '}
+          </Button>
+        </form>
+        { error
+          ? <p data-testid="admin_manage__element-invalid-register"> Error </p> : null }
+      </div>
+    </>
   );
 }
 

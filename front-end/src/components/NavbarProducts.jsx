@@ -28,14 +28,24 @@ export default function NavbarProducts() {
           >
             Produtos
           </button>)}
-        <button
-          data-testid="customer_products__element-navbar-link-orders"
-          type="button"
-          onClick={ () => navigate(`/${role}/orders`) }
-          className="ml-4 font-light"
-        >
-          Meus pedidos
-        </button>
+        {role !== 'administrator'
+          && (
+            <button
+              data-testid="customer_products__element-navbar-link-orders"
+              type="button"
+              onClick={ () => navigate(`/${role}/orders`) }
+              className="ml-4 font-light"
+            >
+              Meus pedidos
+            </button>)}
+        {role === 'administrator' && (
+          <p
+            data-testid="customer_products__element-navbar-link-orders"
+            className="ml-4 font-light"
+          >
+            Gerenciar contas
+          </p>
+        )}
       </div>
       <div className="flex items-center">
         <p
